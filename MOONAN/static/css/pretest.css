@@ -1,0 +1,26 @@
+.numberImg {
+    width: 34px;
+    height: 42px;
+    flex-shrink: 0;
+    background-image: url(/static/image/Shape.svg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.numberImg #progressNumber {
+    display: flex;
+    width: 18px;
+    height: 19px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}

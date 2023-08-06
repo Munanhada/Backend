@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    /* margin: 114px 50vw 187px 50vw; */
+    /* margin: 0 5vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainFrame {
+    margin-top: 5vw;
+    background: #FFF;
+    width: 50%;
+    position: relative;
+}

@@ -43,7 +43,7 @@ class Medication(models.Model):
         ('hormone_therapy', '성호르몬제'),
         ('add', '직접 입력'),
     ]
-    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약', unique=True)
+    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
 
     def __str__(self):
         return self.medication_name
@@ -67,7 +67,7 @@ class Nutrition(models.Model):
         ('calcium', '칼슘'),
         ('add', '직접 입력'),
     ]
-    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제', unique=True)
+    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
 
     def __str__(self):
         return self.nutrition_name
@@ -102,22 +102,30 @@ class User(AbstractUser):
     ]
     relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계')
     is_taking_meds = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부')
-    # medication = models.Man(Medication, blank=True, related_name='medication')
-    # nutrition = models.ForeignKey(Nutrition, blank=True, related_name='nutrition')
 
     def __str__(self):
         return self.name
 
-# # 사용자의 공통 필드
-# class UserInfo(models.Model):
-#     user_info = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_info', verbose_name='사용자')
-
 class UserMedication(models.Model):
-    # 사용자와 약을 연결하는 모델
+    # 사용자 - 약 연결하는 모델
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='medications')
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
 
+    # 사용자가 복용하는 약이 중복되지 않도록 함
+    class Meta:
+        unique_together = ('user', 'medication')
+
+    def __str__(self):
+        return self.medication.medication_name
+
 class UserNutrition(models.Model):
-    # 사용자와 영양제를 연결하는 모델
+    # 사용자 - 영양제 연결하는 모델
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='nutritions')
     nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)
+
+    # 사용자가 복용하는 영양제가 중복되지 않도록 함
+    class Meta:
+        unique_together = ('user', 'nutrition')
+
+    def __str__(self):
+        return self.nutrition.nutrition_name

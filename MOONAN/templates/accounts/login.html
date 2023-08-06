@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>문안하다 로그인하기</title>
     <link rel="stylesheet" href="/static/css/login.css" />
+    <link rel="stylesheet" href="/static/css/join.css">
   </head>
 
   <body>
     <div class="mainFrame">
       <h1>로그인</h1>
-      <form action="" class="join">
+      <form action="" class="join" method="POST">
+        {% csrf_token %}
         <div class="nameBox">
           <p class="mainText">아이디</p>
           <input type="text" name="name" placeholder="아이디를 입력해주세요." />
@@ -18,9 +21,9 @@
         <div class="passwordBox">
           <p class="mainText">비밀번호</p>
           <input name="password" type="password" placeholder="비밀번호를 입력해주세요." id="passwordFeild" oninput="checkPassword()" />
-          <img src="/static/image/Visibility off.svg" alt="눈 가리기" class="hiddenImg1" onclick="togglePasswordVisiblity()" />
+          <img src="/static/image/Visibility off.svg" alt="눈 가리기" class="hiddenImg1" id="loginHiddenImg" onclick="togglePasswordVisiblity()" />
           <div class="saveBox">
-            <button type="button" class="checkButton" onclick="toggleSave()"> 
+            <button type="button" class="checkButton" name="saveLogin" onclick="toggleSave()"> 
               <img src="/static/image/Group 1992.svg" alt="체크 이미지" class="checkImg" />
             </button>
             <p class="checkTextPassword" id="saveMessage">로그인 정보 저장하기</p>

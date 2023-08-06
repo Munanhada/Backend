@@ -18,10 +18,10 @@ class ChildAdmin(admin.ModelAdmin):
         return obj.user.is_taking_meds
     
     def get_medications(self, obj):
-        return ", ".join([medication.medication_name for medication in obj.medications.all()])
+        return ", ".join(str(medication) for medication in obj.medications.all())
 
     def get_nutritions(self, obj):
-        return ", ".join([nutrition.nutrition_name for nutrition in obj.nutritions.all()])
+        return ", ".join(str(nutrition) for nutrition in obj.nutritions.all())
 
 
 admin.site.register(Child, ChildAdmin)
@@ -42,9 +42,9 @@ class ParentAdmin(admin.ModelAdmin):
         return obj.user.is_taking_meds
 
     def get_medications(self, obj):
-        return ", ".join([medication.medication_name for medication in obj.medications.all()])
+        return ", ".join(str(medication) for medication in obj.medications.all())
 
     def get_nutritions(self, obj):
-        return ", ".join([nutrition.nutrition_name for nutrition in obj.nutritions.all()])
+        return ", ".join(str(nutrition) for nutrition in obj.nutritions.all())
     
 admin.site.register(Parent, ParentAdmin)

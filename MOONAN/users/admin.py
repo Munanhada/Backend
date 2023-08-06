@@ -4,7 +4,6 @@ from .models import User, Medication, Nutrition, UserMedication, UserNutrition
 class UserMedicationInline(admin.TabularInline):
     model = UserMedication
 
-
 class UserNutritionInline(admin.TabularInline):
     model = UserNutrition
 
@@ -17,10 +16,12 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [UserMedicationInline, UserNutritionInline]
 
     def get_medications(self, obj):
-        return ", ".join([medication.medication_name for medication in obj.medications.all()])
+        user_medications = obj.medications.all()
+        return ", ".join(str(medication.medication) for medication in user_medications)
 
     def get_nutritions(self, obj):
-        return ", ".join([nutrition.nutrition_name for nutrition in obj.nutritions.all()])
+        user_nutritions = obj.nutritions.all()
+        return ", ".join(str(nutrition.nutrition) for nutrition in user_nutritions)
 
 
 admin.site.register(User, UserAdmin)
