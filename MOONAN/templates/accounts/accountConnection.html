@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,8 @@
             <h1>가입을 축하드려요!</h1>
             <p class="toConnectText">소중한 분과의 계정을 연결해주세요.</p>
         </header>
-        <form action="" class="join">
+        <form action="" class="join" method="POST">
+            {% csrf_token %}
             <div class="idBox">
                 <p class="mainText">내 아이디</p>
                 <input type="text" name="id" placeholder="당신의 아이디를 입력해주세요." id="idFeild">

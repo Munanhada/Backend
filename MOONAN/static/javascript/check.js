@@ -1,16 +1,39 @@
 // 사용 가능합니다 
 function checkId() {
-    var checkIdFeild = document.getElementById("idFeild");
+    var checkIdField = document.getElementById("idField");
     var checkText = document.querySelector(".checkTextId");
     var checkImg = document.querySelector(".checkImg");
-    if(checkIdFeild.value.length > 0) {
-        checkImg.src = "/static/image/redcheck.svg";
-        checkText.style.color = "#FF003A";
-    }
-    else {
-        checkImg.src = "/static/image/Group 1991.svg";
-        checkText.style.color = "";
-    }
+
+    $("input[name='user_id']").on("change", function() {
+        var user_id = checkIdField.value;
+
+        // AJAX 호출
+        $.ajax({
+            type: 'POST', 
+            url: '/accounts/id_check/',
+            data: {user_id: user_id},
+            dataType:'json',
+            success: function(response) {
+                if (response.result != 'success') {
+                    return;
+                }  
+
+                if (response.data === 'exist') {
+                    // user_id가 이미 존재할 경우
+                    checkImg.src = "/static/image/Group 1991.svg";
+                    checkText.style.color = "";
+                } else {
+                    // user_id가 중복되지 않는 경우
+                    checkImg.src = "/static/image/redcheck.svg";
+                    checkText.style.color = "#FF003A";
+                }
+            },
+            error : function(error) { // AJAX 요청이 실패한 경우 처리
+                    alert("AJAX 요청이 실패했습니다.");
+                    console.error("error : " + error);
+            }
+        });
+    });
 }
 
 function checkPassword() {
