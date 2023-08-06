@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: 114px 50vw 187px 50vw;
+}
+
+.mainFrame {
+    background: #FFF;
+}
+
+.mainFrame h1 {
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.join {
+    display: flex;
+    width: 620px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.join div {
+    position: relative;
+}
+
+.join .mainText {
+    color: var(--unnamed, #17181A);
+    /* 메인 제목 볼드 16 */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.join .checkTextId,
+.checkTextPassword,
+.checkTextPasswordRepeat {
+    display: inline-block;
+    margin: 0;
+    margin-left: 8px;
+    position: absolute;
+    bottom: 5px;
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.join input {
+    width: 620px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: var(--unnamed, #F2F6FF);
+    border: none;
+    margin: 0;
+    margin-top: 4px;
+    margin-bottom: 7px;
+}
+
+.join .checkImg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    /* margin-top: 7px; */
+}
+
+.passwordBox {
+    position: relative;
+}
+
+.passwordBox .hiddenImg1,
+.hiddenImg2 {
+    position: absolute;
+    left: 575px;
+    bottom: 60%;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.buttonBox {
+    margin-top: 177px;
+    margin-left: 80px;
+}
+
+.joinButton {
+    width: 420px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    border: none;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.saveBox {
+    margin-top: 40px;
+}
+
+.checkButton {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkTextPassword.saved {
+    color: #FF003A;
+}
