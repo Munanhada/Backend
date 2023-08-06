@@ -1,0 +1,46 @@
+header>h1 {
+    margin: 0;
+}
+
+header>p {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding-top: 1vh;
+}
+
+.addBox {
+    margin-top: 5vh;
+    display: flex;
+}
+
+.addBox .addImg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.addBox .addText {
+    margin: 0;
+    margin-left: 8px;
+    color: var(--unnamed, #08044E);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.beAdded {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* .connectionNumber {
+    visibility: hidden;
+} */

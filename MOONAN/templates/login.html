@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문안하다 로그인하기</title>
+    <link rel="stylesheet" href="/static/css/login.css" />
+  </head>
+
+  <body>
+    <div class="mainFrame">
+      <h1>로그인</h1>
+      <form action="" class="join">
+        <div class="nameBox">
+          <p class="mainText">아이디</p>
+          <input type="text" name="name" placeholder="아이디를 입력해주세요." />
+        </div>
+        <div class="passwordBox">
+          <p class="mainText">비밀번호</p>
+          <input name="password" type="password" placeholder="비밀번호를 입력해주세요." id="passwordFeild" oninput="checkPassword()" />
+          <img src="/static/image/Visibility off.svg" alt="눈 가리기" class="hiddenImg1" onclick="togglePasswordVisiblity()" />
+          <div class="saveBox">
+            <button type="button" class="checkButton" onclick="toggleSave()"> 
+              <img src="/static/image/Group 1992.svg" alt="체크 이미지" class="checkImg" />
+            </button>
+            <p class="checkTextPassword" id="saveMessage">로그인 정보 저장하기</p>
+          </div>
+        </div>
+        <div class="buttonBox">
+          <button type="submit" class="joinButton">로그인 하기</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/static/javascript/loginSave.js"></script>
+    <script src="/static/javascript/account.js"></script>
+
+  </body>
+</html>
