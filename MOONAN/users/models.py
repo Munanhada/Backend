@@ -43,7 +43,7 @@ class Medication(models.Model):
         ('hormone_therapy', '성호르몬제'),
         ('add', '직접 입력'),
     ]
-    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약', unique=True)
+    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
 
     def __str__(self):
         return self.medication_name
@@ -67,7 +67,7 @@ class Nutrition(models.Model):
         ('calcium', '칼슘'),
         ('add', '직접 입력'),
     ]
-    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제', unique=True)
+    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
 
     def __str__(self):
         return self.nutrition_name
@@ -102,16 +102,8 @@ class User(AbstractUser):
     ]
     relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계')
     is_taking_meds = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부')
+    medications = models.ManyToManyField(Medication, blank=True, related_name='users_medications')
+    nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='users_nutritions')
 
     def __str__(self):
         return self.name
-
-class UserMedication(models.Model):
-    # 사용자 - 약 연결하는 모델
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='medications')
-    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
-
-class UserNutrition(models.Model):
-    # 사용자 - 영양제 연결하는 모델
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='nutritions')
-    nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)

@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import User, Medication, Nutrition, UserMedication, UserNutrition
+from .models import User, Medication, Nutrition
 
 class UserMedicationInline(admin.TabularInline):
-    model = UserMedication
+    model = User.medications.through
 
 class UserNutritionInline(admin.TabularInline):
-    model = UserNutrition
+    model = User.nutritions.through
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'user_id', 'password', 
@@ -16,10 +16,12 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [UserMedicationInline, UserNutritionInline]
 
     def get_medications(self, obj):
-        return ", ".join([medication.medication_name for medication in obj.medications.all()])
+        medications = obj.medications.all()
+        return ", ".join(str(medication) for medication in medications)
 
     def get_nutritions(self, obj):
-        return ", ".join([nutrition.nutrition_name for nutrition in obj.nutritions.all()])
+        nutritions = obj.nutritions.all()
+        return ", ".join(str(nutrition) for nutrition in nutritions)
 
 
 admin.site.register(User, UserAdmin)
