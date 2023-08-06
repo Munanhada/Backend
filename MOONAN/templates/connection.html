@@ -12,10 +12,12 @@
     <h2>연결할 아이디</h2>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %} 
-        <input type="text" id="connectID" name="connect" placeholder="계정을 연결할 소중한 분의 아이디를 입력해주세요.">
-
-        <input type="submit" value="연결하기" id="submitButton1">
-
+        <div>
+            <input type="text" id="connectID" name="connect" placeholder="계정을 연결할 소중한 분의 아이디를 입력해주세요.">
+        </div>
+        <div>
+            <input type="submit" value="연결하기" id="submitButton1">
+        </div>
     </form>
 </body>
 </html>
