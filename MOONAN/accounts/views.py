@@ -54,9 +54,7 @@ def login_view(request):
     if request.method == 'POST':
         user_id = request.POST.get('name')
         password = request.POST.get('password')
-        saveLogin = request.POST.get('saveLogin', False)
-
-        # 이메일, 비밀번호 유효성 검사
+        # saveLogin = request.POST.get('saveLogin', False)
 
         # 사용자 인증
         user = authenticate(request, user_id=user_id, password=password)
@@ -75,7 +73,8 @@ def login_view(request):
             return redirect('accounts:connection')
         else:
             # 사용자 인증 실패 시 에러 처리
-            error_message = '이메일 또는 비밀번호가 올바르지 않습니다.'
+            # 이메일, 비밀번호 유효성 검사
+            error_message = '아이디 또는 비밀번호가 올바르지 않습니다.'
             return render(request, 'accounts/login.html', {'error_message': error_message})
     
     # GET 요청할 경우, 로그인 HTML 응답

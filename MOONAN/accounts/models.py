@@ -80,6 +80,12 @@ class Child(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='children', null=True)
     user_info = models.OneToOneField(UserInfo, on_delete=models.CASCADE, related_name='child')
 
+    def __str__(self):
+        return self.user_info.full_name
+
 class Parent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parents', null=True)
     user_info = models.OneToOneField(UserInfo, on_delete=models.CASCADE, related_name='parent')
+
+    def __str__(self):
+        return self.user_info.full_name
