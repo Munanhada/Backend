@@ -41,6 +41,8 @@
             <input type="submit" value="연결하기" id="submitButton1">
         </div>
     </form>
+    <a href="{% url 'main' %}">건너뛰기</a>
+
 
     {% if request.user.is_authenticated %}
         <div>

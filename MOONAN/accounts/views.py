@@ -5,7 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from users.models import User, Connection
+from users.models import User, Connection, ConnectionRequest
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -82,7 +83,8 @@ def login_view(request):
     # GET 요청할 경우, 로그인 HTML 응답
     return render(request, 'accounts/login.html')
 
-def connection_view(request):
+@login_required
+def send_connection_request(request):
     if request.method=='POST':
         from_user = request.user
         to_user = request.POST.get('to_user')
@@ -96,13 +98,13 @@ def connection_view(request):
             error_message = '사용자를 찾을 수 없습니다.'
             return render(request, 'connection.html', {'error_message': error_message})
         else:
-                 # 중복 신청 검사
-                existing_connection = Connection.objects.filter(from_user=from_user, to_user=to_user)
+                # 중복 신청 검사
+                existing_connection = ConnectionRequest.objects.filter(from_user=from_user, to_user=to_user)
                 if existing_connection.exists():
                     error_message = '이미 연결 신청을 하셨습니다.'
                     return render(request, 'connection.html', {'error_message': error_message})
                 
-                connection = Connection.objects.create(
+                connection_request = ConnectionRequest.objects.create(
                     from_user=from_user,
                     to_user=to_user,
                     relationship1=relationship1,
