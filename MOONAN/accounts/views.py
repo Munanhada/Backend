@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from users.models import User, Connection
 
 User = get_user_model()
 
@@ -70,9 +71,8 @@ def login_view(request):
             # # "로그인 정보 저장하기" 체크박스가 선택된 경우, settings에서 설정한 만료 시간으로 설정
             #     request.session.set_expiry(settings.SESSION_COOKIE_AGE)
             # 리다이렉트
-            # return redirect('accounts:connection')
-            return redirect('connection') 
-        
+            return redirect('accounts:connection')
+            
         else:
             # 사용자 인증 실패 시 에러 처리
             # 이메일, 비밀번호 유효성 검사
@@ -83,8 +83,37 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 def connection_view(request):
-    return render(request, 'accounts/accountConnection.html')
-
+    if request.method=='POST':
+        from_user = request.user
+        to_user = request.POST.get('to_user')
+        relationship1 = request.POST.get('relationship1')
+        relationship2 = request.POST.get('relationship2')
+        
+        try:
+            to_user = get_user_model().objects.get(name=to_user)
+        except get_user_model().DoesNotExist:
+            # 사용자를 찾을 수 없는 경우에 대한 처리
+            error_message = '사용자를 찾을 수 없습니다.'
+            return render(request, 'connection.html', {'error_message': error_message})
+        else:
+                 # 중복 신청 검사
+                existing_connection = Connection.objects.filter(from_user=from_user, to_user=to_user)
+                if existing_connection.exists():
+                    error_message = '이미 연결 신청을 하셨습니다.'
+                    return render(request, 'connection.html', {'error_message': error_message})
+                
+                connection = Connection.objects.create(
+                    from_user=from_user,
+                    to_user=to_user,
+                    relationship1=relationship1,
+                    relationship2=relationship2,
+                )
+                # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
+                return redirect('main')  # 또는 적절한 리다이렉트 경로 설정
+    else:
+        # return render(request, 'accounts/accountConnection.html')
+        return render (request, 'connection.html')
+    
 def logout_view(request):
     # 로그인일 때 데이터 유효성 검사
     if request.user.is_authenticated:

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+<body>
+    <h1>{{user.name}}님과 연결된 계정</h1>
+    <ul>
+        {% for connected_user in connected_users %}
+            <li>
+                {{ connected_user.other_user_name }} (관계: {{ connected_user.relationship }})
+            </li>
+        {% empty %}
+            <li>연결된 계정이 없습니다.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
