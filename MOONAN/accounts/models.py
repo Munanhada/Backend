@@ -1,8 +1,7 @@
 from django.db import models
+from users.models import Medication, Nutrition
 from django.contrib.auth import get_user_model
 User = get_user_model()
-Medication = get_user_model()
-Nutrition = get_user_model()
 
 class Child(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_user', null=True)
