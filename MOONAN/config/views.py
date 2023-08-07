@@ -74,6 +74,7 @@ def accept_connection_request(request):
         connection_requests_received_list = []
         for request in connection_requests_received:
             connection_requests_received_list.append({
+                'request_id': request.pk,
                 'from_user_name': request.from_user.name,
                 'relationship2': request.relationship2,
             })

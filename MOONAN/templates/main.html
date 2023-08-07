@@ -25,16 +25,10 @@
         {% for request in connection_requests_received %}
             <li>
                 {{ request.from_user.name }} (관계: {{ request.relationship1 }})
-                <form class="accept-form" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="request_id" value="{{ request.id }}">
-                    <button type="button" class="accept-button">수락</button>
-                </form>
-                <form method="post" action="{% url 'reject_connection_request'%}">
-                    {% csrf_token %}
-                    <input type="hidden" name="request_id" value="{{ request.id }}">
-                    <button type="submit">거절</button>
-                </form>
+                <div class="button-container">
+                    <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                    <input type="submit" class="reject-btn" name="{{request.id}}" value="삭제">                
+                </div>
             </li>
         {% empty %}
             <li>받은 연결 요청이 없습니다.</li>
@@ -58,28 +52,28 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.accept-button').click(function() {
-            var form = $('.accept-form');
+    $(".accept-btn").click(function(){
+        var request_id = $(this).attr('name')
 
-            $.ajax({
-                type: 'POST',
-                url: '{% url 'accept_connection_request' %}',
-                data: form.serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
-                    if (response.success) {
-                        // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
-                        // 예시 코드:
-                        updateConnectedAccounts(response.connected_users, response.connection_requests_received);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'accept_connection_request' %}',
+            data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) {
+                    // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                    // 예시 코드:
+                    updateConnectedAccounts(response.connected_users, response.connection_requests_received);
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
         });
+    
+    }) 
 
         function updateConnectedAccounts(connectedUsers, receivedUsers) {
             // 연결 요청 받은거 업데이트
@@ -88,47 +82,57 @@
             if (receivedUsers.length > 0) {
                 $.each(receivedUsers, function(index, account) {
                     var listItem = $('<li>').text(account.from_user_name + ' (관계: ' + account.relationship2 + ')');
+                        
+                        var buttonContainer = $('<div>', {
+                            'class': 'button-container',
+                        }).appendTo(listItem);
             
-                        var acceptForm = $('<form>', {
-                            'method': 'post',
-                            'class': 'accept-form',
-                        }).appendTo(listItem);
-                        
                         $('<input>', {
-                            'type': 'hidden',
-                            'name': 'request_id',
-                            'value': account.request_id,
-                        }).appendTo(acceptForm);
-                        
-                        $('<button>', {
-                            'type': 'button',
-                            'class': 'accept-button',
-                            'text': '수락',
-                        }).appendTo(acceptForm);
-                        
-                        var rejectForm = $('<form>', {
-                            'method': 'post',
-                            'action': '{% url "reject_connection_request" %}',
-                        }).appendTo(listItem);
-                        
-                        $('<input>', {
-                            'type': 'hidden',
-                            'name': 'request_id',
-                            'value': account.request_id,
-                        }).appendTo(rejectForm);
-                        
-                        $('<button>', {
                             'type': 'submit',
-                            'text': '거절',
-                        }).appendTo(rejectForm);
+                            'class': "accept-btn",
+                            'name': account.request_id,
+                            'value': '수락',
+                        }).appendTo(buttonContainer);
+                        
+                        $('<input>', {
+                            'type': 'submit',
+                            'class': "reject-btn",
+                            'name': account.request_id,
+                            'value': '거절',
+                        }).appendTo(buttonContainer);
                         
                         connectedAccountsElement.append(listItem);
                 });
+                $(".accept-btn").click(function(){
+                    var request_id = $(this).attr('name')
+            
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url 'accept_connection_request' %}',
+                        data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                        dataType: 'json',
+                        success: function(response) {
+                            // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                            if (response.success) {
+                                // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                                // 예시 코드:
+                                updateConnectedAccounts(response.connected_users, response.connection_requests_received);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                
+                }) 
+
+                
             } else {
                 var listItem = $('<li>').text('받은 연결 요청이 없습니다.');
                 connectedAccountsElement.append(listItem);
             }
 
+            
             //연결 중인 계정 업데이트
             var connectedAccountsElement = $('#connected-accounts ul');
             connectedAccountsElement.empty(); // 기존 내용 제거
@@ -143,6 +147,6 @@
                 connectedAccountsElement.append(listItem);
             }
         }
-    });
+    
 </script>
 </html>
