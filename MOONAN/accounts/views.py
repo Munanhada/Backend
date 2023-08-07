@@ -70,7 +70,9 @@ def login_view(request):
             # # "로그인 정보 저장하기" 체크박스가 선택된 경우, settings에서 설정한 만료 시간으로 설정
             #     request.session.set_expiry(settings.SESSION_COOKIE_AGE)
             # 리다이렉트
-            return redirect('accounts:connection')
+            # return redirect('accounts:connection')
+            return redirect('connection') 
+        
         else:
             # 사용자 인증 실패 시 에러 처리
             # 이메일, 비밀번호 유효성 검사
