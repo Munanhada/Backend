@@ -16,7 +16,7 @@
         {% csrf_token %}
         <div class="nameBox">
           <p class="mainText">아이디</p>
-          <input type="text" name="name" placeholder="아이디를 입력해주세요." />
+          <input type="text" name="name" placeholder="아이디를 입력해주세요." required value="{{ user_id }}" />
           {% if error_message and '아이디' in error_message %}
           <div class="error-message">{{ error_message }}</div>
           {% endif %}

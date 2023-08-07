@@ -76,10 +76,11 @@ def login_view(request):
             user_exists = User.objects.filter(user_id=user_id).exists()
             if not user_exists:
                 error_message = '잘못된 아이디입니다.'
+                return render(request, 'accounts/login.html', {'error_message': error_message})
             else:
                 error_message = '잘못된 비밀번호입니다.'
-            
-            return render(request, 'accounts/login.html', {'error_message': error_message})
+        
+            return render(request, 'accounts/login.html', {'error_message': error_message, 'user_id': user_id})
     
     # GET 요청할 경우, 로그인 HTML 응답
     return render(request, 'accounts/login.html')
