@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Medication, Nutrition
+from .models import User, Medication, Nutrition, Connection
 
 class UserMedicationInline(admin.TabularInline):
     model = User.medications.through
@@ -40,6 +40,12 @@ class NutritionAdmin(admin.ModelAdmin):
 
     get_users_taking_nutrition.short_description = '영양제를 복용하는 사용자'
 
+@admin.register(Connection)
+class ConnectionAdmin(admin.ModelAdmin):
+    list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    list_filter = ('is_accepted',)
+    search_fields = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    
 admin.site.register(User, UserAdmin)
 admin.site.register(Medication, MedicationAdmin)
 admin.site.register(Nutrition, NutritionAdmin)

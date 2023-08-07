@@ -71,7 +71,7 @@ class Nutrition(models.Model):
 
     def __str__(self):
         return self.nutrition_name
-    
+
 class User(AbstractUser):
     # 사용자 기본 정보
     username = None
@@ -108,6 +108,19 @@ class User(AbstractUser):
     def __str__(self):
         return self.name
     
+class Connection(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_users')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_users')
+    relationship1 = models.CharField(max_length=50)  # 예: 'mother'
+    relationship2 = models.CharField(max_length=50) # 'daughter'
+    is_accepted = models.BooleanField(default=False)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection')
+        ]
+
+
 class UserMedication(models.Model):
     # 사용자 - 약 연결하는 모델
     user = models.ForeignKey(User, on_delete=models.CASCADE)
