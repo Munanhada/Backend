@@ -84,7 +84,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['name']
 
     # 사용자 추가 정보
-    birthdate = models.DateField(null=True, verbose_name='생일')
+    birthdate = models.DateField(null=True, verbose_name='생년월일')
     GENDER_CHOICES = [
         ('male', '남성'),
         ('female', '여성'),
@@ -102,8 +102,24 @@ class User(AbstractUser):
     ]
     relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계')
     is_taking_meds = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부')
-    medications = models.ManyToManyField(Medication, blank=True, related_name='users_medications')
-    nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='users_nutritions')
+    medications = models.ManyToManyField(Medication, blank=True, related_name='users_medications', through='UserMedication')
+    nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='users_nutritions', through='UserNutrition')
 
     def __str__(self):
         return self.name
+    
+class UserMedication(models.Model):
+    # 사용자 - 약 연결하는 모델
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
+
+    class Meta: # 중복된 사용자 - 약 데이터 생성하지 않게 함
+        unique_together = ('user', 'medication')
+    
+class UserNutrition(models.Model):
+    # 사용자 - 영양제 연결하는 모델
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)
+
+    class Meta: # 중복된 사용자 - 영양제 데이터 생성하지 않게 함
+        unique_together = ('user', 'nutrition')

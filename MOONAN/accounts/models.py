@@ -6,7 +6,7 @@ Nutrition = get_user_model()
 
 class Child(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='child_user', null=True)
-    parents = models.ManyToManyField('Parent', related_name='child_parents')
+    parents = models.ManyToManyField('Parent', related_name='child_parents', blank=True)
     medications = models.ManyToManyField(Medication, blank=True, related_name='children_medications', through='ChildMedication')
     nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='children_nutritions', through='ChildNutrition')
 
@@ -23,7 +23,7 @@ class ChildNutrition(models.Model):
 
 class Parent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parent_user', null=True)
-    children = models.ManyToManyField('Child', related_name='parent_children')
+    children = models.ManyToManyField('Child', related_name='parent_children', blank=True)
     medications = models.ManyToManyField(Medication, blank=True, related_name='parents_medications', through='ParentMedication')
     nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='parents_nutritions', through='ParentNutrition')
 

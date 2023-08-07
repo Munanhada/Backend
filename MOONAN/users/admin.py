@@ -12,18 +12,34 @@ class UserAdmin(admin.ModelAdmin):
                     'birthdate', 'gender', 'relationship', 'is_taking_meds', 'get_medications', 'get_nutritions')
     fields = ('name', 'user_id', 'password',
             'birthdate', 'gender', 'relationship', 'is_taking_meds')
+    filter_horizontal = ('medications', 'nutritions')
 
     inlines = [UserMedicationInline, UserNutritionInline]
 
     def get_medications(self, obj):
-        medications = obj.medications.all()
-        return ", ".join(str(medication) for medication in medications)
+        return ", ".join(str(medication) for medication in obj.medications.all())
 
     def get_nutritions(self, obj):
-        nutritions = obj.nutritions.all()
-        return ", ".join(str(nutrition) for nutrition in nutritions)
+        return ", ".join(str(nutrition) for nutrition in obj.nutritions.all())
 
+class MedicationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'medication_name', 'get_users_taking_medication')
+
+    def get_users_taking_medication(self, obj):
+        user_medications = obj.usermedication_set.all()
+        return ", ".join(str(user_medication.user) for user_medication in user_medications)
+
+    get_users_taking_medication.short_description = '약을 복용하는 사용자'
+
+class NutritionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nutrition_name', 'get_users_taking_nutrition')
+
+    def get_users_taking_nutrition(self, obj):
+        user_nutritions = obj.usernutrition_set.all()
+        return ", ".join(str(user_nutrition.user) for user_nutrition in user_nutritions)
+
+    get_users_taking_nutrition.short_description = '영양제를 복용하는 사용자'
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Medication)
-admin.site.register(Nutrition)
+admin.site.register(Medication, MedicationAdmin)
+admin.site.register(Nutrition, NutritionAdmin)
