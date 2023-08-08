@@ -99,7 +99,7 @@ def accept_connection_request(request):
         
         response_data = {
             'success': True,
-            'message': '연결 요청이 수락되었습니다.',
+            'message': '수락 요청이 수락되었습니다.',
             'connected_users': connected_users_with_relationship,
             'connection_requests_received': connection_requests_received_list,
         }
@@ -107,8 +107,32 @@ def accept_connection_request(request):
         return JsonResponse(response_data)
 
 # 연결 요청 거절
-def reject_connection_request(request, request_id):
-    connection_request = get_object_or_404(ConnectionRequest, pk=request_id)
-    if request.user == connection_request.to_user:
-        connection_request.delete()
-    return redirect('main')
+def reject_connection_request(request):
+    user = request.user
+
+    request_id = request.POST.get('request_id')
+    connection_request = ConnectionRequest.objects.get(id=request_id)
+    
+    # 해당 연결요청 삭제
+    connection_request.delete()
+
+    # 연결 요청받은 정보
+    connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
+    # QuerySet을 리스트로 변환하고, 각 요소를 딕셔너리로 변환
+    connection_requests_received_list = []
+    for request in connection_requests_received:
+        connection_requests_received_list.append({
+            'request_id': request.pk,
+            'from_user_name': request.from_user.name,
+            'relationship2': request.relationship2,
+        })
+    response_data = {
+        'success': True,
+        'message': '거절 요청이 수락되었습니다.',
+        'connection_requests_received': connection_requests_received_list,
+    }
+    print(response_data)
+    return JsonResponse(response_data)
+        
+        
+    
