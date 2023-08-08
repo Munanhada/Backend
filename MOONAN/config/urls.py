@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from config.views import main_view
+from config.views import main_view, accept_connection_request, reject_connection_request
 from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_view, name='main'),
+    path('accept_connection_request/', accept_connection_request, name='accept_connection_request'),
+    path('reject_connection_request/', reject_connection_request, name='reject_connection_request'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
 ]

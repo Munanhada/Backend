@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Medication, Nutrition, Connection
+from .models import User, Medication, Nutrition, Connection, ConnectionRequest
 
 class UserMedicationInline(admin.TabularInline):
     model = User.medications.through
@@ -45,6 +45,11 @@ class ConnectionAdmin(admin.ModelAdmin):
     list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
     list_filter = ('is_accepted',)
     search_fields = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    
+@admin.register(ConnectionRequest)
+class ConnectionRequestAdmin(admin.ModelAdmin):
+    list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    list_filter = ('is_accepted',)
     
 admin.site.register(User, UserAdmin)
 admin.site.register(Medication, MedicationAdmin)

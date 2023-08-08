@@ -107,7 +107,16 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name
-    
+
+# 연결 요청
+class ConnectionRequest(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='connection_requests_sent')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='connection_requests_received')
+    relationship1 = models.CharField(max_length=50)
+    relationship2 = models.CharField(max_length=50)
+    is_accepted = models.BooleanField(default=False)
+
+# 연결 완료된
 class Connection(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_users')
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_users')
@@ -119,7 +128,6 @@ class Connection(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection')
         ]
-
 
 class UserMedication(models.Model):
     # 사용자 - 약 연결하는 모델
