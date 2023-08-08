@@ -7,6 +7,9 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from users.models import User, Connection, ConnectionRequest
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
+from .models import Medication, Nutrition
+from django.shortcuts import get_object_or_404
 
 User = get_user_model()
 
@@ -88,7 +91,7 @@ def login_view(request):
 
 @login_required
 def send_connection_request(request):
-    if request.method=='POST':
+    if request.method =='POST':
         from_user = request.user
         to_user = request.POST.get('to_user')
         relationship1 = request.POST.get('relationship1')
@@ -118,6 +121,43 @@ def send_connection_request(request):
     else:
         # return render(request, 'accounts/accountConnection.html')
         return render (request, 'connection.html')
+    
+@login_required
+def info_view(request):
+    user = request.user
+    if request.method =='POST':
+        user_id = request.user.id  # 현재 로그인한 사용자의 아이디
+        birthdate_str = request.POST.get("birthdate")
+        birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
+
+        gender = request.POST.get("gender")
+        relationship = request.POST.get("relationship")
+        med_or_nutr_status = request.POST.get("med_or_nutr_status") 
+        medications = request.POST.getlist("medication")
+        nutritions = request.POST.getlist("nutrition")
+        selected_medications = Medication.objects.filter(medication_name__in=medications)
+        selected_nutritions = Nutrition.objects.filter(nutrition_name__in=nutritions)
+
+        # 사용자 추가 정보 업데이트
+        user = get_object_or_404(User, id=user_id)  # 아이디로 유저를 찾아옴
+        user.birthdate = birthdate
+        user.gender = gender
+        user.relationship = relationship
+        user.med_or_nutr_status = med_or_nutr_status
+
+        # 기존에 연결된 데이터를 제거하고 사용자가 선택한 약과 영양제 정보를 저장
+        user.medications.clear()
+        user.nutritions.clear()
+        user.medications.add(*selected_medications)
+        user.nutritions.add(*selected_nutritions)
+        
+        return redirect('main')
+
+    context = {
+        'medication_choices': Medication.MEDICATION_CHOICES,
+        'nutrition_choices': Nutrition.NUTRITION_CHOICES,
+    }
+    return render(request, 'accounts/info.html', context)
     
 def logout_view(request):
     # 로그인일 때 데이터 유효성 검사
