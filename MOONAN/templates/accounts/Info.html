@@ -47,19 +47,7 @@
             <label><input type="radio" name="gender" value="male">남성</label>
             <label><input type="radio" name="gender" value="female">여성</label>
         </div>
-        
-        <label>Relationship:</label>
-        <select name="relationship" id="relationship">
-            <option value="father">아빠</option>
-            <option value="mother">엄마</option>
-            <option value="daughter">딸</option>
-            <option value="son">아들</option>
-            <option value="grandmother">할머니</option>
-            <option value="grandfather">할아버지</option>
-            <option value="grandson">손자</option>
-            <option value="granddaughter">손녀</option>
-        </select>
-        
+
         <label>Currently Taking Medications or Nutritions:</label>
         <div class="radio-buttons">
             <label><input type="radio" name="med_or_nutr_status" value="True"> Yes</label>
@@ -67,21 +55,25 @@
         </div>
         
         <label>Medications:</label>
-        <div class="checkbox-buttons">
+        <div class="checkbox-buttons" id="medication-select">
             {% for medication_choice in medication_choices %}
                 <label><input type="checkbox" name="medication" value="{{ medication_choice.0 }}">{{ medication_choice.1 }}</label>
             {% endfor %}
+            <input type="text" name="new_medication" id="medicationInput" placeholder="직접 입력">
         </div>
         
         <label>Nutritions:</label>
-        <div class="checkbox-buttons">
+        <div class="checkbox-buttons" id="nutrition-select">
             {% for nutrition_choice in nutrition_choices %}
                 <label><input type="checkbox" name="nutrition" value="{{ nutrition_choice.0 }}">{{ nutrition_choice.1 }}</label>
             {% endfor %}
+            <input type="text" name="new_nutrition" id="nutritionInput" placeholder="직접 입력">
         </div>
         
         <button type="submit">Submit</button>
     </form>
 </div>
+
+<script src="/static/javascript/info.js"></script>
 </body>
 </html>

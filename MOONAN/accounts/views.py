@@ -11,6 +11,7 @@ from datetime import datetime
 from .models import Medication, Nutrition
 from users.models import UserMedication, UserNutrition
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
 User = get_user_model()
 
@@ -132,32 +133,35 @@ def info_view(request):
         birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
 
         gender = request.POST.get("gender")
-        relationship = request.POST.get("relationship")
         med_or_nutr_status = request.POST.get("med_or_nutr_status") 
         medications = request.POST.getlist("medication")
         nutritions = request.POST.getlist("nutrition")
-        selected_medications = Medication.objects.filter(medication_name__in=medications)
-        selected_nutritions = Nutrition.objects.filter(nutrition_name__in=nutritions)
 
         # 사용자 추가 정보 업데이트
         user = get_object_or_404(User, user_id=user_id)  # 아이디로 유저를 찾아옴
         user.birthdate = birthdate
         user.gender = gender
-        user.relationship = relationship
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
 
         # 기존에 연결된 데이터를 제거하고 사용자가 선택한 약과 영양제 정보를 저장
         user.medications.clear()
         user.nutritions.clear()
+        
 
+        # 사용자가 선택한 약 정보를 추가
         for medication_name in medications:
-            medication = Medication.objects.get(medication_name=medication_name)
-            user.medications.add(medication)
+            medication, _ = Medication.objects.get_or_create(medication_name=medication_name) # medication_name을 Medication 모델에서 약을 찾거나 없으면 생성
+            # 앞에서 찾거나 생성된 medication을 UserMedication 모델에서 또 다시 찾거나 없으면 생성
+            user_medication, created = UserMedication.objects.get_or_create(user=user, medication=medication) 
+            if created:
+                user.medications.add(medication)  # Medication 인스턴스를 추가, UserMedication 인스턴스를 추가하지 않도록 주의
 
         for nutrition_name in nutritions:
-            nutrition = Nutrition.objects.get(nutrition_name=nutrition_name)
-            user.nutritions.add(nutrition)
+            nutrition, _ = Nutrition.objects.get_or_create(nutrition_name=nutrition_name) 
+            user_nutrition, created = UserNutrition.objects.get_or_create(user=user, nutrition=nutrition)
+            if created:
+                user.nutritions.add(nutrition)
 
         return redirect('main')
 
@@ -166,6 +170,38 @@ def info_view(request):
         'nutrition_choices': Nutrition.NUTRITION_CHOICES,
     }
     return render(request, 'accounts/info.html', context)
+
+# 사용자가 직접 복용하는 약 추가
+def add_medication(request): 
+    new_medication = request.POST.get("new_medication")
+    
+    # 데이터베이스에 저장
+    if new_medication:
+        medication, created = Medication.objects.get_or_create(medication_name=new_medication)
+        
+    # 선택지 목록 업데이트
+    medication_choices = list(Medication.MEDICATION_CHOICES)  # 기존 선택지
+    medication_choices.append((medication.medication_name, medication.medication_name))  # 새로운 선택지
+    response_data = {
+        "medication_list": [{"label": label, "value": value} for value, label in medication_choices]
+    }
+    return JsonResponse(response_data)
+
+# 사용자가 직접 복용하는 영양제 추가
+def add_nutrition(request): 
+    new_nutrition = request.POST.get("new_nutrition")
+    
+    # 데이터베이스에 저장
+    if new_nutrition:
+        nutrition, created = Nutrition.objects.get_or_create(nutrition_name=new_nutrition)
+        
+    # 선택지 목록 업데이트
+    nutrition_choices = list(Nutrition.NUTRITION_CHOICES)  # 기존 선택지
+    nutrition_choices.append((nutrition.nutrition_name, nutrition.nutrition_name))  # 새로운 선택지
+    response_data = {
+        "nutrition_list": [{"label": label, "value": value} for value, label in nutrition_choices]
+    }
+    return JsonResponse(response_data)
     
 def logout_view(request):
     # 로그인일 때 데이터 유효성 검사
