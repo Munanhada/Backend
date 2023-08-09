@@ -136,8 +136,6 @@ def info_view(request):
         med_or_nutr_status = request.POST.get("med_or_nutr_status") 
         medications = request.POST.getlist("medication")
         nutritions = request.POST.getlist("nutrition")
-        selected_medications = Medication.objects.filter(medication_name__in=medications)
-        selected_nutritions = Nutrition.objects.filter(nutrition_name__in=nutritions)
 
         # 사용자 추가 정보 업데이트
         user = get_object_or_404(User, user_id=user_id)  # 아이디로 유저를 찾아옴
@@ -151,14 +149,19 @@ def info_view(request):
         user.medications.clear()
         user.nutritions.clear()
 
+        # 사용자가 선택한 약 정보를 추가
         for medication_name in medications:
-            medication = Medication.objects.get(medication_name=medication_name)
-            user.medications.add(medication)
+            medication, _ = Medication.objects.get_or_create(medication_name=medication_name) # medication_name을 Medication 모델에서 약을 찾거나 없으면 생성
+            # 앞에서 찾거나 생성된 medication을 UserMedication 모델에서 또 다시 찾거나 없으면 생성
+            user_medication, created = UserMedication.objects.get_or_create(user=user, medication=medication) 
+            if created:
+                user.medications.add(medication)  # Medication 인스턴스를 추가, UserMedication 인스턴스를 추가하지 않도록 주의
 
         for nutrition_name in nutritions:
-            nutrition = Nutrition.objects.get(nutrition_name=nutrition_name)
-            user.nutritions.add(nutrition)
-
+            nutrition, _ = Nutrition.objects.get_or_create(nutrition_name=nutrition_name) 
+            user_nutrition, created = UserNutrition.objects.get_or_create(user=user, nutrition=nutrition)
+            if created:
+                user.nutritions.add(nutrition)
         return redirect('main')
 
     context = {

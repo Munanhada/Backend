@@ -46,7 +46,7 @@ class Medication(models.Model):
     medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
 
     def __str__(self):
-        return self.medication_name
+        return dict(self.MEDICATION_CHOICES)[self.medication_name]
 
 class Nutrition(models.Model):
     NUTRITION_CHOICES = [
@@ -70,7 +70,7 @@ class Nutrition(models.Model):
     nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
 
     def __str__(self):
-        return self.nutrition_name
+        return dict(self.NUTRITION_CHOICES)[self.nutrition_name]
 
 class User(AbstractUser):
     # 사용자 기본 정보
