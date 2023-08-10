@@ -25,12 +25,12 @@ def main_view(request):
 
     # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
     for connected_user in connected_users:
-        if connected_user.from_user == user:
+        if connected_user.user1 == user:
             relationship = connected_user.relationship2
-            other_user_name = connected_user.to_user.name
+            other_user_name = connected_user.user2.name
         else:
             relationship = connected_user.relationship1
-            other_user_name = connected_user.from_user.name
+            other_user_name = connected_user.user1.name
         
         connected_users_with_relationship.append({
             'other_user_name': other_user_name,
@@ -85,12 +85,12 @@ def accept_connection_request(request):
 
         # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
         for connected_user in connected_users:
-            if connected_user.from_user == user:
+            if connected_user.user1 == user:
                 relationship = connected_user.relationship2
-                other_user_name = connected_user.to_user.name
+                other_user_name = connected_user.user2.name
             else:
                 relationship = connected_user.relationship1
-                other_user_name = connected_user.from_user.name
+                other_user_name = connected_user.user1.name
             
             connected_users_with_relationship.append({
                 'other_user_name': other_user_name,
