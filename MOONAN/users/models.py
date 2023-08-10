@@ -116,17 +116,23 @@ class ConnectionRequest(models.Model):
     relationship2 = models.CharField(max_length=50)
     is_accepted = models.BooleanField(default=False)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection_request')
+        ]
+
+
 # 연결 완료된
 class Connection(models.Model):
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_users')
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_users')
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_users')
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_users')
     relationship1 = models.CharField(max_length=50)  # 예: 'mother'
     relationship2 = models.CharField(max_length=50) # 'daughter'
     is_accepted = models.BooleanField(default=False)
     
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection')
+            models.UniqueConstraint(fields=['user1', 'user2'], name='unique_connection')
         ]
 
 class UserMedication(models.Model):

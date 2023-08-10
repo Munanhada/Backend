@@ -42,9 +42,9 @@ class NutritionAdmin(admin.ModelAdmin):
 
 @admin.register(Connection)
 class ConnectionAdmin(admin.ModelAdmin):
-    list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    list_display = ('user1', 'user2', 'relationship1', 'relationship2', 'is_accepted')
     list_filter = ('is_accepted',)
-    search_fields = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    search_fields = ('user1', 'user2', 'relationship1', 'relationship2', 'is_accepted')
     
 @admin.register(ConnectionRequest)
 class ConnectionRequestAdmin(admin.ModelAdmin):

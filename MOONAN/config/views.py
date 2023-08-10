@@ -19,7 +19,7 @@ def main_view(request):
     connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
 
     # 연결 중인 계정과 관계 정보
-    connected_users = Connection.objects.filter(Q(from_user=user) | Q(to_user=user))
+    connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
     
     connected_users_with_relationship = []
 
@@ -58,8 +58,8 @@ def accept_connection_request(request):
 
         # Connection 테이블에 정보 복사
         Connection.objects.create(
-            from_user=connection_request.from_user,
-            to_user=connection_request.to_user,
+            user1=connection_request.from_user,
+            user2=connection_request.to_user,
             relationship1=connection_request.relationship1,
             relationship2=connection_request.relationship2,
             is_accepted=True,
@@ -80,7 +80,7 @@ def accept_connection_request(request):
             })
         
         # 연결된 계정 정보 새로 가져오기
-        connected_users = Connection.objects.filter(Q(from_user=user) | Q(to_user=user)) 
+        connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user)) 
         connected_users_with_relationship = []
 
         # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
