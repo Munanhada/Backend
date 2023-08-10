@@ -13,6 +13,7 @@ from users.models import UserMedication, UserNutrition
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 
+
 User = get_user_model()
 
 def join_view(request):
@@ -107,7 +108,9 @@ def send_connection_request(request):
             return render(request, 'connection.html', {'error_message': error_message})
         else:
                 # 중복 신청 검사
-                existing_connection = ConnectionRequest.objects.filter(from_user=from_user, to_user=to_user)
+                existing_connection = ConnectionRequest.objects.filter(
+                Q(from_user=from_user, to_user=to_user) | Q(from_user=to_user, to_user=from_user)
+                )
                 if existing_connection.exists():
                     error_message = '이미 연결 신청을 하셨습니다.'
                     return render(request, 'connection.html', {'error_message': error_message})
