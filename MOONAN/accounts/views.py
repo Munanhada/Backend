@@ -12,6 +12,7 @@ from .models import Medication, Nutrition
 from users.models import UserMedication, UserNutrition
 from django.shortcuts import get_object_or_404
 from django.db import transaction
+from django.db.models import Q
 
 
 User = get_user_model()
