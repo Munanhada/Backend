@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from users.models import User, Connection, ConnectionRequest
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -129,29 +128,37 @@ def send_connection_request(request):
         return render (request, 'connection.html')
     
 @login_required
-def info_view(request):
+def birth_info_view(request):
     user = request.user
     if request.method =='POST':
         user_id = request.user.user_id  # 현재 로그인한 사용자의 아이디
         birthdate_str = request.POST.get("birthdate")
         birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
-
         gender = request.POST.get("gender")
-        med_or_nutr_status = request.POST.get("med_or_nutr_status") 
-        medications = request.POST.getlist("medication")
-        nutritions = request.POST.getlist("nutrition")
-
+        
         # 사용자 추가 정보 업데이트
         user = get_object_or_404(User, user_id=user_id)  # 아이디로 유저를 찾아옴
         user.birthdate = birthdate
         user.gender = gender
+        user.save()
+
+    return render(request, 'accounts/accountConnectDetailBirth.html')
+
+@login_required
+def drug_info_view(request):
+    user = request.user
+    if request.method =='POST': 
+        med_or_nutr_status_str = request.POST.get("med_or_nutr_status") 
+        med_or_nutr_status = (med_or_nutr_status_str == 'True')
+        medications = request.POST.getlist("medication")
+        nutritions = request.POST.getlist("nutrition")
+
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
 
         # 기존에 연결된 데이터를 제거하고 사용자가 선택한 약과 영양제 정보를 저장
         user.medications.clear()
         user.nutritions.clear()
-        
 
         # 사용자가 선택한 약 정보를 추가
         for medication_name in medications:
@@ -173,7 +180,8 @@ def info_view(request):
         'medication_choices': Medication.MEDICATION_CHOICES,
         'nutrition_choices': Nutrition.NUTRITION_CHOICES,
     }
-    return render(request, 'accounts/info.html', context)
+
+    return render(request, 'accounts/accountConnectDetailDrug.html')
 
 # 사용자가 직접 복용하는 약 추가
 def add_medication(request): 

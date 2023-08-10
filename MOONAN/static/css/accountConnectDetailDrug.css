@@ -1,0 +1,93 @@
+/*서로의 margin 값*/
+.user-drug-box {
+    margin-top: 60px;
+}
+
+.step-button-drug {
+    margin-top: 229px;
+}
+
+/*only color css값*/
+.user-drug button.active {
+    background: #FF003A;
+    color: white;
+}
+
+/*button css 값*/
+.user-drug {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.user-drug button {
+    width: 50vw;
+    height: 160px;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.accountConntect-drug-no {
+    margin-top: 40px;
+    position: relative;
+}
+
+.step-button-drug {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-button-drug button {
+    width: 25vw;
+    height: 60px;
+    border-radius: 30px;
+    border: none;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/*progress bar css*/
+.step-bar img.progress-circle-2 {
+    position: absolute;
+    top: 15;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.icon-wrapper-2 {
+    position: absolute;
+    bottom: 200%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.icon-wrapper-2 p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+/*done-icon 관련*/
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-left: 30%;
+}
+
+.icon-done-1,
+.icon-done-2 {
+    transform: translateX(-110%);
+    z-index: 1;
+}
