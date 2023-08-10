@@ -9,9 +9,9 @@ class UserNutritionInline(admin.TabularInline):
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'user_id', 'password', 
-                    'birthdate', 'gender', 'relationship', 'is_taking_meds', 'get_medications', 'get_nutritions')
+                    'birthdate', 'gender', 'relationship', 'med_or_nutr_status', 'get_medications', 'get_nutritions')
     fields = ('name', 'user_id', 'password',
-            'birthdate', 'gender', 'relationship', 'is_taking_meds')
+            'birthdate', 'gender', 'relationship', 'med_or_nutr_status')
     filter_horizontal = ('medications', 'nutritions')
 
     inlines = [UserMedicationInline, UserNutritionInline]

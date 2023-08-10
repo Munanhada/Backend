@@ -3,7 +3,7 @@ from .models import Child, Parent
 from users.models import User, Medication, Nutrition
 
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('birthdate', 'gender', 'relationship', 'is_taking_meds', 'get_medications', 'get_nutritions')
+    list_display = ('birthdate', 'gender', 'relationship', 'med_or_nutr_status', 'get_medications', 'get_nutritions')
 
     def birthdate(self, obj):
         return obj.user.birthdate
@@ -14,8 +14,8 @@ class ChildAdmin(admin.ModelAdmin):
     def relationship(self, obj):
         return obj.user.relationship
     
-    def is_taking_meds(self, obj):
-        return obj.user.is_taking_meds
+    def med_or_nutr_status(self, obj):
+        return obj.user.med_or_nutr_status
     
     def get_medications(self, obj):
         medications = obj.medications.all()
@@ -29,7 +29,7 @@ class ChildAdmin(admin.ModelAdmin):
 admin.site.register(Child, ChildAdmin)
 
 class ParentAdmin(admin.ModelAdmin):
-    list_display = ('birthdate', 'gender', 'relationship', 'is_taking_meds', 'get_medications', 'get_nutritions')
+    list_display = ('birthdate', 'gender', 'relationship', 'med_or_nutr_status', 'get_medications', 'get_nutritions')
 
     def birthdate(self, obj):
         return obj.user.birthdate
@@ -40,8 +40,8 @@ class ParentAdmin(admin.ModelAdmin):
     def relationship(self, obj):
         return obj.user.relationship
     
-    def is_taking_meds(self, obj):
-        return obj.user.is_taking_meds
+    def med_or_nutr_status(self, obj):
+        return obj.user.med_or_nutr_status
 
     def get_medications(self, obj):
         medications = obj.medications.all()

@@ -16,17 +16,24 @@
         {% csrf_token %}
         <div class="nameBox">
           <p class="mainText">아이디</p>
-          <input type="text" name="name" placeholder="아이디를 입력해주세요." />
+          <input type="text" name="name" placeholder="아이디를 입력해주세요." required value="{{ user_id }}" />
+          {% if error_message and '아이디' in error_message %}
+          <div class="error-message"><img src="/static/image/Group 2046.svg">&nbsp;<p>{{ error_message }}</p></div>
+          {% endif %}
         </div>
         <div class="passwordBox">
           <p class="mainText">비밀번호</p>
           <input name="password" type="password" placeholder="비밀번호를 입력해주세요." id="passwordFeild" oninput="checkPassword()" />
           <img src="/static/image/Visibility off.svg" alt="눈 가리기" class="hiddenImg1" id="loginHiddenImg" onclick="togglePasswordVisiblity()" />
+          {% if error_message and '비밀번호' in error_message %}
+          <div class="error-message"><img src= "/static/image/Group 2046.svg">&nbsp;<p>{{ error_message }}</p></div>
+          {% endif %}
           <div class="saveBox">
-            <button type="button" class="checkButton" name="saveLogin" onclick="toggleSave()"> 
+            <input type="hidden" default="false">
+            <button type="button" class="checkButton" name="saveLogin" name="saveLogin" onclick="toggleSave()"> 
               <img src="/static/image/Group 1992.svg" alt="체크 이미지" class="checkImg" />
+              <p class="checkTextPassword" id="saveMessage">로그인 정보 저장하기</p>
             </button>
-            <p class="checkTextPassword" id="saveMessage">로그인 정보 저장하기</p>
           </div>
         </div>
         <div class="buttonBox">

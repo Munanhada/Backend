@@ -41,12 +41,12 @@ class Medication(models.Model):
         ('anti-inflammatory', '소염 진통제'),
         ('antidepressants', '우울증약'),
         ('hormone_therapy', '성호르몬제'),
-        ('add', '직접 입력'),
     ]
     medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
+    user_input_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 약 이름')
 
     def __str__(self):
-        return self.medication_name
+        return dict(self.MEDICATION_CHOICES)[self.medication_name]
 
 class Nutrition(models.Model):
     NUTRITION_CHOICES = [
@@ -65,12 +65,12 @@ class Nutrition(models.Model):
         ('magnesium', '마그네슘'),
         ('vitaminE', '비타민E'),
         ('calcium', '칼슘'),
-        ('add', '직접 입력'),
     ]
     nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
+    user_input_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 영양제 이름')
 
     def __str__(self):
-        return self.nutrition_name
+        return dict(self.NUTRITION_CHOICES)[self.nutrition_name]
 
 class User(AbstractUser):
     # 사용자 기본 정보
@@ -84,12 +84,12 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['name']
 
     # 사용자 추가 정보
-    birthdate = models.DateField(null=True, verbose_name='생년월일')
+    birthdate = models.DateField(null=True, verbose_name='생년월일', editable=True)
     GENDER_CHOICES = [
         ('male', '남성'),
         ('female', '여성'),
     ]
-    gender = models.CharField(null=True, max_length=10, choices=GENDER_CHOICES, verbose_name='성별')
+    gender = models.CharField(null=True, max_length=10, choices=GENDER_CHOICES, verbose_name='성별', editable=True)
     RELATIONSHIP_CHOICES = [
         ('father', '아빠'),
         ('mother', '엄마'),
@@ -100,10 +100,10 @@ class User(AbstractUser):
         ('grandson', '손자'),
         ('granddaughter', '손녀'),
     ]
-    relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계')
-    is_taking_meds = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부')
-    medications = models.ManyToManyField(Medication, blank=True, related_name='users_medications', through='UserMedication')
-    nutritions = models.ManyToManyField(Nutrition, blank=True, related_name='users_nutritions', through='UserNutrition')
+    relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계', editable=True)
+    med_or_nutr_status = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부', editable=True)
+    medications = models.ManyToManyField(Medication, blank=True, editable=True, related_name='users_medications', through='UserMedication')
+    nutritions = models.ManyToManyField(Nutrition, blank=True, editable=True, related_name='users_nutritions', through='UserNutrition')
 
     def __str__(self):
         return self.name

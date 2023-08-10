@@ -21,3 +21,9 @@
 .checkTextPassword.saved {
     color: #FF003A;
 }
+
+.error-message {
+    display: flex;
+    color: #08044E;
+    margin-top:-1vw;
+}
