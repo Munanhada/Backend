@@ -28,7 +28,7 @@ body {
 }
 
 header {
-    margin-bottom: 3vw;
+    margin-bottom: 4vw;
 }
 
 .join {
@@ -82,6 +82,12 @@ header {
     margin: 0;
     margin-top: 4px;
     margin-bottom: 7px;
+    font-size: 20px;
+}
+
+.join input::placeholder {
+    color: var(--1, #959AA4);
+    font-size: 15px;
 }
 
 .join .checkImg {
@@ -106,7 +112,7 @@ header {
 }
 
 .buttonBox {
-    margin-top: 177px;
+    margin-top: 150px;
     text-align: center;
 }
 
@@ -123,4 +129,52 @@ header {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+
+    .join .checkTextId,
+    .checkTextPassword,
+    .checkTextPasswordRepeat {
+        font-size: 13px;
+    }
+
+    .joinButton {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 450px) {
+    .join .mainText {
+        font-size: 13px;
+    }
+}
+
+.forAlreadyUser {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.forAlreadyUser .question {
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.forAlreadyUser .goToLogin {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
 }

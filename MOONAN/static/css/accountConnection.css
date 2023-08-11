@@ -13,8 +13,78 @@ header>p {
     padding-top: 1vh;
 }
 
+.connectBox {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.numberAndImgBox {
+    display: flex;
+    align-items: center;
+}
+
+.clearImg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: var(--1, #959AA4);
+    position: absolute;
+    right: 0%;
+}
+
+.selectBox {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.selectBox2 {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+#famIdField {
+    width: 50%;
+    text-align: center;
+}
+
+#famIdField::placeholder {
+    text-align: center;
+    color: var(--1, #959AA4);
+    font-size: 15px;
+    /* font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; */
+}
+
+.selectBoxText {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.connectIdText {
+    color: var(--unnamed, #17181A);
+    /* 메인 제목 볼드 16 */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+
 .addBox {
-    margin-top: 5vh;
+    margin-top: 1vh;
     display: flex;
 }
 
@@ -22,6 +92,7 @@ header>p {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .addBox .addText {
@@ -33,6 +104,7 @@ header>p {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    cursor: pointer;
 }
 
 .beAdded {
@@ -44,3 +116,140 @@ header>p {
 /* .connectionNumber {
     visibility: hidden;
 } */
+
+@media (max-width: 450px) {
+
+    .mainText,
+    .connectIdText,
+    .relationshipText {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    #myIdField,
+    #famIdField {
+        font-size: 10px;
+    }
+}
+
+.optionBox {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15vh;
+}
+
+.skipButton {
+    width: 20vw;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #17181A);
+    border: none;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.connectButton {
+    width: 20vw;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    border: none;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+
+    .skipButton,
+    .connectButton {
+        font-size: 15px;
+    }
+}
+
+.popup {
+    width: 80%;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+}
+
+.popup .popupContent {
+    color: var(--unnamed, #17181A);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 166.667% */
+}
+
+.popup .confirmBox {
+    padding: 4px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;
+    background: var(--unnamed, #FF003A);
+    cursor: pointer;
+}
+
+.confirmBox .confirmButton {
+    color: var(--unnamed, #F2F6FF);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 200% */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+    .popup .popupContent {
+        font-size: 15px;
+    }
+
+    .confirmBox .confirmButton {
+        font-size: 13px;
+    }
+}
+
+/* overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 24, 26, 0.20);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}

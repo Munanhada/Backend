@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문안하다 계정 연결 세부정보 입력</title>
+    <link rel="stylesheet" href="/static/css/accountConnectDetailDrug.css" />
+    <link rel="stylesheet" href="/static/css/accountConnectDetailBirth.css" />
+    <link rel="stylesheet" href="/static/css/mainFrame.css" />
+  </head>
+
+  <body>
+    <div class="mainFrame">
+      <div class="step-bar">
+        <progress id="progress" value="50" min="0" max="100"></progress>
+        <div class="icon-wrapper-2">
+          <img src="/static/image/Shape.svg" class="progress-drop" alt="progressDrop" />
+          <p id="drop-text">2</p>
+        </div>
+        <img src="/static/image/Group 2059.svg" class="progress-circle-2" alt="progressCircle" />
+      </div>
+      <div class="user-birth-box">
+        <div class="user-birth-info">
+          <span id="user-text">복용중인 약 및 영양제가 있으신가요?</span>
+          <p id="user-warn">매일 적절한 복용 시간대에 알림을 드릴게요.</p>
+        </div>
+      </div>
+      <div class="user-drug-box">
+        <div class="user-drug">
+          <button class="accountConntect-drug-1" id="male-button" onclick="toggleImg('male-button')">
+            복용중인 약 및 영양제가 있어요.<div class="icon-container">
+              <img src="/static/image/Ellipse 82 gray.svg" class="icon-circle-1" id="icon-circle-male" />
+              <img src="/static/image/Done.svg" class="icon-done-1" id="icon-done-male" />
+            </div>
+          </button>
+          <button class="accountConntect-drug-no" id="female-button" onclick="toggleImg('female-button')">
+            복용중인 약 및 영양제가 없어요.<div class="icon-container">
+              <img src="/static/image/Ellipse 82 gray.svg" class="icon-circle-1" id="icon-circle-female" />
+              <img src="/static/image/Done.svg" class="icon-done-1" id="icon-done-female" />
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="step-button-drug">
+        <button class="step-before">이전 단계</button>
+        <button class="step-next">다음 단계</button>
+      </div>
+    </div>
+
+    <script src="/static/javascript/accountConnectDetail.js"></script>
+    <script src="/static/javascript/accountConnectDetailDrug.js"></script>
+  </body>
+</html>

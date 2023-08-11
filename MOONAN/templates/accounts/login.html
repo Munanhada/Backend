@@ -40,6 +40,10 @@
           <button type="submit" class="joinButton">로그인 하기</button>
         </div>
       </form>
+      <div class="forAlreadyUser">
+        <p class="question">아직 회원이 아니신가요?</p>
+        <p class="goToLogin"><a href="{% url 'accounts:join' %}" style="text-decoration: none; color: inherit;">회원가입 하러가기</a></p>
+      </div>
     </div>
 
     <script src="/static/javascript/loginSave.js"></script>
