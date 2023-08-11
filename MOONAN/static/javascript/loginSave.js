@@ -1,4 +1,3 @@
-
 function toggleSave() {
     const checkImg = document.querySelector('.checkImg');
     const saveMessage = document.getElementById('saveMessage');

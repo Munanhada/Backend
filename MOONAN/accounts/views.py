@@ -145,6 +145,16 @@ def birth_info_view(request):
     return render(request, 'accounts/accountConnectDetailBirth.html')
 
 @login_required
+def drug_ask_view(request):
+    user = request.user
+    if request.method =='POST': 
+        med_or_nutr_status = request.POST.get("med_or_nutr_status")
+        user.med_or_nutr_status = med_or_nutr_status
+        user.save()
+    return render(request, 'accounts/drugAsk.html')
+        
+
+@login_required
 def drug_info_view(request):
     user = request.user
     if request.method =='POST': 
@@ -181,7 +191,7 @@ def drug_info_view(request):
         'nutrition_choices': Nutrition.NUTRITION_CHOICES,
     }
 
-    return render(request, 'accounts/accountConnectDetailDrug.html')
+    return render(request, 'accounts/drugAsk.html')
 
 # 사용자가 직접 복용하는 약 추가
 def add_medication(request): 

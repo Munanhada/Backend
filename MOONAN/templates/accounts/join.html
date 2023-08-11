@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문안하다 회원가입하기</title>
-    <link rel="stylesheet" href="/static/css/join.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/static/css/join.css">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <h1>회원가입</h1>
         </header>
         <form action="" class="join" method="POST">
-        {% csrf_token %}
+            {% csrf_token %}
             <div class="nameBox">
                 <p class="mainText">이름</p>
                 <input type="text" name="name" placeholder="이름을 입력해주세요.">
@@ -45,6 +45,10 @@
                 <button type="submit" class="joinButton">회원가입 하기</button>
             </div>
         </form>
+        <div class="forAlreadyUser">
+            <p class="question">이미 회원이신가요?</p>
+            <p class="goToLogin"> <a href="{% url 'accounts:login' %}" style="text-decoration: none; color: inherit;">로그인 하러가기</a></p>
+        </div>
     </div>
 
     <script src="/static/javascript/account.js"></script>

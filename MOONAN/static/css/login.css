@@ -1,3 +1,7 @@
+.passwordFieldBox {
+    position: relative;
+}
+
 #loginHiddenImg {
     position: absolute;
     right: 5%;
