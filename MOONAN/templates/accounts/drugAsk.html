@@ -11,9 +11,9 @@
   </head>
 
   <body>
-    <form method="POST">
-      {% csrf_token %}
-      <div class="mainFrame">
+    <div class="mainFrame">
+      <form method="POST">
+        {% csrf_token %}
         <div class="step-bar-drug">
           <progress id="progress" value="100" min="0" max="100"></progress>
           <div class="icon-wrapper">
@@ -27,35 +27,42 @@
           <p class="gray-text">매일 적절한 복용 시간대에 알림을 드릴게요.</p>
         </div>
         <div class="drug-ask-box">
-
           <div class="drug-ask-box-yes">
             <input type="radio" id="drug-yes" name="med_or_nutr_status" value="True" />
             <label for="drug-yes">
-              <span>복용중인 약 및 영양제가 있어요.</span>
-              <img src="/static/image/Ellipse 82 gray.svg" alt="원형 이미지" />
-              <img src="/static/image/Done.svg" alt="체크 이미지" />
+
+
+              <div class="drug-content-wrapper">
+                <span>복용중인 약 및 영양제가 있어요.</span>
+                <img src="/static/image/Ellipse 82 gray.svg" alt="원형 이미지" />
+                <img src="/static/image/Done.svg" alt="체크 이미지" />
+            </div>
+
+
             </label>
           </div>
-        
-  
+
           <div class="drug-ask-box-no">
             <input type="radio" id="drug-no" name="med_or_nutr_status" value="False" />
             <label for="drug-no">
+              <div class="drug-content-wrapper">
               <span>복용중인 약 및 영양제가 없어요.</span>
               <img src="/static/image/Ellipse 82 gray.svg" alt="원형 이미지" />
               <img src="/static/image/Done.svg" alt="체크 이미지" />
+            </div>
             </label>
           </div>
-        
         </div>
-        
+
+
         <div class="step-box">
           <button class="before-step">이전 단계</button>
           <button class="next-step">다음 단계</button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
 
     <script src="/static/javascript/accountConnectDetailDrug.js"></script>
+    <script src="/static/javascript/drugAsk.js"></script>
   </body>
 </html>
