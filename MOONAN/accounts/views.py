@@ -132,8 +132,12 @@ def birth_info_view(request):
     user = request.user
     if request.method =='POST':
         user_id = request.user.user_id  # 현재 로그인한 사용자의 아이디
-        birthdate_str = request.POST.get("birthdate")
-        birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
+        birth_year = int(request.POST.get('birthYear'))
+        birth_month = int(request.POST.get('birthMonth'))
+        birth_day = int(request.POST.get('birthDay'))
+
+        # 연도, 월, 일을 하나의 날짜로 변환
+        birthdate = datetime(birth_year, birth_month, birth_day).date()
         gender = request.POST.get("gender")
         
         # 사용자 추가 정보 업데이트
@@ -142,7 +146,9 @@ def birth_info_view(request):
         user.gender = gender
         user.save()
 
-    return render(request, 'accounts/accountConnectDetailBirth.html')
+        return redirect('accounts:drug_ask')
+
+    return render(request, 'accounts/accountBirth.html')
 
 @login_required
 def drug_ask_view(request):
