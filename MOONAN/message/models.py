@@ -15,7 +15,7 @@ class Message(models.Model):
         
     ]
     recommendContent = models.CharField(null=True, max_length=100, choices=RECOMMENDCONTENT_CHOICES, verbose_name='추천하는 메시지', editable=True)
-    customContent = models.TextField(blank=True)  # 사용자가 직접 입력할 내용
+    customContent = models.TextField(null=True, blank=True)  # 사용자가 직접 입력할 내용
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

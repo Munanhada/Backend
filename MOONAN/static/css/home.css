@@ -1,0 +1,9 @@
+/* 클릭되었을 때 파란색으로 변하게 하기 */
+.account-item.active {
+    color: blue;
+}
+
+/* 마우스 커서를 올렸을 때 pointer로 변경하기 */
+.account-item {
+    cursor: pointer;
+}
