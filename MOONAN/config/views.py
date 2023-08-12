@@ -29,7 +29,11 @@ def home_view(request):
     for connected_user in connected_users:
         if connected_user.user1 == user:
             relationship = connected_user.relationship2
-        
+            other_user = connected_user.user2
+        else:
+            relationship = connected_user.relationship1
+            other_user = connected_user.user1
+            
         connected_users_with_relationship.append({
             'other_user': other_user,
             'relationship': relationship,  
