@@ -1,0 +1,175 @@
+* {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+}
+
+/*진행바*/
+.step-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.step-bar img.progress-circle {
+    position: absolute;
+    top: 15;
+    left: 25%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.icon-wrapper {
+    position: absolute;
+    bottom: 200%;
+    left: 25%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+#drop-text {
+    display: flex;
+    width: 18px;
+    height: 19px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.icon-wrapper p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+progress {
+    width: 100%;
+    appearance: none;
+}
+
+#progress::-webkit-progress-bar {
+    background: #E3E9F6;
+    border-radius: 10px;
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 10px;
+    background-color: #FF003A;
+    z-index: 0;
+}
+
+/*사용자 생일 입력 안내*/
+.birth-info-box {
+    margin-top: 40px;
+}
+
+.black-text {
+    color: var(--unnamed, #17181A);
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.red-text {
+    color: var(--unnamed, #FF003A);
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.gray-text {
+    margin-top: 8px;
+    color: var(--1, #959AA4);
+    font-size: 24px;
+    font-weight: 400;
+}
+
+/*사용자 생일 입력*/
+.user-birth-box {
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.user-birth-box input, .user-birth-box select{ 
+    width: 63px;
+    height: 29px;
+}
+
+/*사용자 성별 입력 안내*/
+.gender-info-box {
+    margin-top: 80px;
+}
+
+/*사용자 성별 입력*/
+.user-gender-box {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60.09px;
+}
+
+.user-gender-box input[type="radio"] {
+    display: none;
+}
+
+.user-gender-box label span {
+    display: inline-block;
+    width: 279.958px;
+    height: 146px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #E3E9F6;
+    color: #17181A;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 146px;
+    text-align: center;
+}
+
+.user-gender-box input[type="radio"]:checked+label span {
+    background: #FF003A;
+    color: #F2F6FF;
+}
+
+/*단계 버튼*/
+.step-box {
+    margin-top: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.step-box button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    width: 300px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.before-step {
+    background: var(--2, #E3E9F6);
+    color: var(--1, #959AA4);
+}
+
+.next-step {
+    background: var(--unnamed, #17181A);
+    color: var(--unnamed, #F2F6FF);
+}

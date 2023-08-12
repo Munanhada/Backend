@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문안하다 계정 연결 세부정보 생일 및 성별 압력</title>
+    <link rel="stylesheet" href="/static/css/mainFrame.css" />
+    <link rel="stylesheet" href="/static/css/accountBirth.css" />
+  </head>
+
+  <body>
+    <div class="mainFrame">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="step-bar">
+          <progress id="progress" value="25" min="0" max="100"></progress>
+          <div class="icon-wrapper">
+            <img src="/static/image/Shape.svg" class="progress-drop" alt="progressDrop" />
+            <p id="drop-text">1</p>
+          </div>
+          <img src="/static/image/Group 2059.svg" class="progress-circle" alt="progressCircle" />
+        </div>
+        <div class="birth-info-box">
+          <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 생일을 알려주세요.</span>
+          <p class="gray-text">만 나이를 기준으로 정보가 제공됩니다.</p>
+        </div>
+        <div class="user-birth-box">
+            <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+          <input type="number" id="birthYear" name="birthYear" min="1900" max="2023" required />
+          <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+          <select id="birthMonth" name="birthMonth">
+            <option value="01">1월</option>
+            <option value="02">2월</option>
+            <option value="03">3월</option>
+            <option value="04">4월</option>
+            <option value="05">5월</option>
+            <option value="06">6월</option>
+            <option value="07">7월</option>
+            <option value="08">8월</option>
+            <option value="09">9월</option>
+            <option value="10">10월</option>
+            <option value="11">11월</option>
+            <option value="12">12월</option>
+          </select>
+          <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+          <input type="number" id="birthDay" name="birthDay" min="1" max="31" required />
+        </div>
+        <div class="gender-info-box">
+          <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 성별을 알려주세요.</span>
+        </div>
+        <div class="user-gender-box">
+          <input type="radio" id="male" name="gender" value="male" />
+          <label for="male"><span>남성</span></label>
+          <input type="radio" id="female" name="gender" value="female" />
+          <label for="female"><span>여성</span></label>
+        </div>
+        <div class="step-box">
+          <button class="before-step">이전 단계</button>
+          <button class="next-step">다음 단계</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
