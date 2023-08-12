@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+<body>
+    <h1>오늘 {{user.name}}님에게 온 문안 메시지</h1>
+    
+    <div>
+        {% comment %}메시지 받은 내용{% endcomment %}
+        <ul>
+            {% for message in received_messages %}
+                <li>{{ message.sender }} : 
+                    {% if message.recommendContent %}
+                        {{ message.get_recommendContent_display }}
+                    {% elif message.customContent %}
+                        {{ message.customContent }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <h1>누구에게 문안인사를 해볼까요?</h1>
+    <div id="send-letter">
+        <div id="connected-accounts">
+            <ul>
+                {% for account in connected_users %}
+                    <li>{{ account.other_user_name }} (관계: {{ account.relationship }})</li>
+                {% empty %}
+                    <li>연결된 계정이 없습니다.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h3>클릭 한번으로 보내는 오늘의 문안인사!</h3>
+
+        <input type="submit" class="reject-btn" name="{{request.id}}" value="전송하기">  
+        <a href="{% url 'accounts:connection' %}">계정 더 연결하기</a>
+
+    </div>
+</body>
+
+
+</html>

@@ -1,26 +1,27 @@
 from django.views.generic import TemplateView
 from users.models import User, Connection, ConnectionRequest
+from message.models import Message
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 import json
 from django.http import JsonResponse
+from django.utils import timezone
 
-def main_view(request):
+def home_view(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
 
     user = request.user
-    # 연결 요청 중인 경우
-    connection_requests = ConnectionRequest.objects.filter(from_user=user, is_accepted=False)
-    
-    # 연결 요청을 받은 경우
-    connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
+
+    # 오늘 받은 메시지 
+    today = timezone.now().date()  # 오늘 날짜
+    received_messages = Message.objects.filter(receiver=request.user, timestamp__date=today)
+
 
     # 연결 중인 계정과 관계 정보
     connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
-    
     connected_users_with_relationship = []
 
     # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
@@ -36,14 +37,14 @@ def main_view(request):
             'other_user_name': other_user_name,
             'relationship': relationship,  
         })
+        
     context = {
         'user': user,
-        'connection_requests' : connection_requests,
-        'connection_requests_received': connection_requests_received,
+        'received_messages' : received_messages,
         'connected_users': connected_users_with_relationship,
     }
 
-    return render(request, 'main.html', context)
+    return render(request, 'home.html', context)
 
 # 연결 요청 수락 - ConnetionRequest.is_accepted true, Connection 생성, json 형식으로 전달
 def accept_connection_request(request):
@@ -134,5 +135,22 @@ def reject_connection_request(request):
     print(response_data)
     return JsonResponse(response_data)
         
-        
+# home/alarm
+# 연결 요청중, 요청 받음, 메시지 받음 
+def alarm_view(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')  # 로그인 페이지로 리디렉션
+
+    user = request.user
+    # 연결 요청 중인 경우
+    connection_requests = ConnectionRequest.objects.filter(from_user=user, is_accepted=False)
     
+    # 연결 요청을 받은 경우
+    connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
+    
+    context = {
+        'user': user,
+        'connection_requests' : connection_requests,
+        'connection_requests_received': connection_requests_received,
+    }
+    return render(request, 'alarm.html', context)
