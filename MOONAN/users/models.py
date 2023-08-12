@@ -43,7 +43,6 @@ class Medication(models.Model):
         ('hormone_therapy', '성호르몬제'),
     ]
     medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
-    user_input_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 약 이름')
 
     def __str__(self):
         return dict(self.MEDICATION_CHOICES)[self.medication_name]
@@ -67,7 +66,6 @@ class Nutrition(models.Model):
         ('calcium', '칼슘'),
     ]
     nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
-    user_input_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 영양제 이름')
 
     def __str__(self):
         return dict(self.NUTRITION_CHOICES)[self.nutrition_name]
@@ -78,6 +76,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=20, verbose_name='이름', null=True)
     user_id = models.CharField(max_length=20, unique=True, verbose_name='아이디')
     email = models.EmailField(blank=True)
+    is_first_login = models.BooleanField(default=True, verbose_name='첫 번째 로그인 여부', editable=False)
 
     objects = UserManager()
     USERNAME_FIELD = 'user_id' # username 대신 user_id을 사용
@@ -100,10 +99,11 @@ class User(AbstractUser):
         ('grandson', '손자'),
         ('granddaughter', '손녀'),
     ]
-    relationship = models.CharField(null=True, max_length=20, choices=RELATIONSHIP_CHOICES, verbose_name='소중한 분과의 관계', editable=True)
     med_or_nutr_status = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부', editable=True)
     medications = models.ManyToManyField(Medication, blank=True, editable=True, related_name='users_medications', through='UserMedication')
     nutritions = models.ManyToManyField(Nutrition, blank=True, editable=True, related_name='users_nutritions', through='UserNutrition')
+    has_medication_or_nutrition = models.BooleanField(default=False, verbose_name="약 및 영양제 섭취 여부")
+    has_exercised = models.BooleanField(default=False, verbose_name="운동 여부")
 
     def __str__(self):
         return self.name
@@ -121,7 +121,6 @@ class ConnectionRequest(models.Model):
             models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection_request')
         ]
 
-
 # 연결 완료된
 class Connection(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_users')
@@ -135,18 +134,36 @@ class Connection(models.Model):
             models.UniqueConstraint(fields=['user1', 'user2'], name='unique_connection')
         ]
 
+# 사용자 - 약 연결하는 모델
 class UserMedication(models.Model):
-    # 사용자 - 약 연결하는 모델
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_medications')
+    medication = models.ForeignKey(Medication, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='복용 중인 약')
+    user_input_med_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 약 이름')
 
-    class Meta: # 중복된 사용자 - 약 데이터 생성하지 않게 함
-        unique_together = ('user', 'medication')
+    class Meta: 
+        unique_together = ('user', 'medication') # 중복된 사용자 - 약 데이터 생성하지 않게 함
+
+    def __str__(self):
+        if self.medication:
+            return str(self.medication)
+        elif self.user_input_med_name:
+            return self.user_input_med_name
+        else:
+            return "약이 선택되지 않았습니다."
     
+# 사용자 - 영양제 연결하는 모델
 class UserNutrition(models.Model):
-    # 사용자 - 영양제 연결하는 모델
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_nutritions')
+    nutrition = models.ForeignKey(Nutrition, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='복용 중인 영양제')
+    user_input_nutr_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 영양제 이름')
 
-    class Meta: # 중복된 사용자 - 영양제 데이터 생성하지 않게 함
-        unique_together = ('user', 'nutrition')
+    class Meta: 
+        unique_together = ('user', 'nutrition') # 중복된 사용자 - 영양제 데이터 생성하지 않게 함
+    
+    def __str__(self):
+        if self.nutrition:
+            return str(self.nutrition)
+        elif self.user_input_nutr_name:
+            return self.user_input_nutr_name
+        else:
+            return "영양제가 선택되지 않았습니다."

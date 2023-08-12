@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,12 +7,10 @@ from django.conf import settings
 from users.models import User, Connection, ConnectionRequest
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from .models import Medication, Nutrition
-from users.models import UserMedication, UserNutrition
+from users.models import Medication, Nutrition, UserMedication, UserNutrition
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.db.models import Q
-
 
 User = get_user_model()
 
@@ -157,6 +155,9 @@ def drug_ask_view(request):
         med_or_nutr_status = request.POST.get("med_or_nutr_status")
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
+
+        # return redirect('accounts:') # 복용하는 약과 영양제를 선택하는 페이지로 리다이렉트해야됨
+
     return render(request, 'accounts/drugAsk.html')
         
 
@@ -190,12 +191,12 @@ def drug_info_view(request):
             if created:
                 user.nutritions.add(nutrition)
 
-        return redirect('main')
+        return redirect('home')
 
-    context = {
-        'medication_choices': Medication.MEDICATION_CHOICES,
-        'nutrition_choices': Nutrition.NUTRITION_CHOICES,
-    }
+    # context = {
+    #     'medication_choices': Medication.MEDICATION_CHOICES,
+    #     'nutrition_choices': Nutrition.NUTRITION_CHOICES,
+    # }
 
     return render(request, 'accounts/drugAsk.html')
 
