@@ -1,49 +1,94 @@
 from django.views.generic import TemplateView
 from users.models import User, Connection, ConnectionRequest
+from message.models import Message
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 import json
 from django.http import JsonResponse
+from django.utils import timezone
+from datetime import timedelta
 
-def main_view(request):
+def home_view(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
 
     user = request.user
-    # 연결 요청 중인 경우
-    connection_requests = ConnectionRequest.objects.filter(from_user=user, is_accepted=False)
-    
-    # 연결 요청을 받은 경우
-    connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
+
+    # 오늘 받은 메시지 
+    today = timezone.now().date()  # 오늘 날짜
+    received_messages = Message.objects.filter(receiver=request.user, timestamp__date=today)
+
 
     # 연결 중인 계정과 관계 정보
     connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
-    
     connected_users_with_relationship = []
 
     # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
     for connected_user in connected_users:
         if connected_user.user1 == user:
             relationship = connected_user.relationship2
-            other_user_name = connected_user.user2.name
-        else:
-            relationship = connected_user.relationship1
-            other_user_name = connected_user.user1.name
         
         connected_users_with_relationship.append({
-            'other_user_name': other_user_name,
+            'other_user': other_user,
             'relationship': relationship,  
         })
+    
+    # 추천 문안인사 선택지 
+    recommendContent_choices = Message.RECOMMENDCONTENT_CHOICES
+    
     context = {
         'user': user,
-        'connection_requests' : connection_requests,
-        'connection_requests_received': connection_requests_received,
+        'received_messages' : received_messages,
+        'recommendContent_choices': recommendContent_choices,
         'connected_users': connected_users_with_relationship,
     }
 
-    return render(request, 'main.html', context)
+    return render(request, 'home.html', context)
+
+# 문안인사 메시지 보내기
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        receiver_id = request.POST.get('receiver_id')
+        recommendContent = request.POST.get('recommendContent')
+        customContent = request.POST.get('customContent')
+        
+        # 오류 처리 
+        if not receiver_id:
+            response_data = {
+                'success': False,
+                'message': '수신자를 선택해주세요.',
+            }
+            return JsonResponse(response_data, status=400)
+        if not recommendContent and not customContent:
+            response_data = {
+                'success': False,
+                'message': '메시지 내용을 입력해주세요.',
+            }
+            return JsonResponse(response_data, status=400)
+        try:
+            receiver = User.objects.get(id=receiver_id)
+            sender = request.user
+            Message.objects.create(
+                sender=sender,
+                receiver=receiver,
+                recommendContent=recommendContent,
+                customContent=customContent,
+            )
+            response_data = {
+                'success': True,
+                'message': '문안인사가 성공적으로 전송되었습니다!',
+            }
+            return JsonResponse(response_data)
+        except User.DoesNotExist:
+            response_data = {
+                'success': False,
+                'message': '수신자를 찾을 수 없습니다.',
+            }
+            return JsonResponse(response_data, status=400)
+    
 
 # 연결 요청 수락 - ConnetionRequest.is_accepted true, Connection 생성, json 형식으로 전달
 def accept_connection_request(request):
@@ -134,5 +179,45 @@ def reject_connection_request(request):
     print(response_data)
     return JsonResponse(response_data)
         
-        
+# home/alarm
+# 연결 요청중, 요청 받음, 메시지 받음 
+def alarm_view(request):
+    if request.method == 'POST':
+        pass
     
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')  # 로그인 페이지로 리디렉션
+
+    user = request.user
+    # 연결 요청 중인 경우
+    connection_requests = ConnectionRequest.objects.filter(from_user=user, is_accepted=False)
+    
+    # 연결 요청을 받은 경우
+    connection_requests_received = ConnectionRequest.objects.filter(to_user=user, is_accepted=False)
+    
+    today = timezone.now().date()  # 오늘 날짜
+    last_week_start = today - timedelta(days=today.weekday() + 7)  # 이번주 첫째 날
+    last_month_start = today.replace(day=1) - timedelta(days=1)  # 이번달 첫째 날의 이전 날
+    
+    # 오늘 받은 메시지 
+    received_todayMessages = Message.objects.filter(receiver=request.user, timestamp__date=today)
+    
+    # 이번주 중 오늘을 제외한 메시지
+    received_last_week_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_week_start, today - timedelta(days=1)))
+
+    # 이번달 중 오늘을 제외한 메시지
+    received_last_month_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_month_start, today - timedelta(days=1)))
+
+    context = {
+        'user': user,
+        'connection_requests' : connection_requests,
+        'connection_requests_received': connection_requests_received,
+        'received_todayMessages': received_todayMessages,
+        'received_last_week_messages' : received_last_week_messages,
+        'received_last_month_messages' : received_last_month_messages,
+    }
+    return render(request, 'alarm.html', context)
+
+
+def locker_view(request):
+    return render(request,'locker.html')

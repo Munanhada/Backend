@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <h1>오늘 {{user.name}}님에게 온 문안 메시지</h1>
+    
+    <div>
+        {% comment %}메시지 받은 내용{% endcomment %}
+        <ul>
+            {% for message in received_messages %}
+                <li>{{ message.sender }} : 
+                    {% if message.recommendContent and message.recommendContent != 'custom' %}
+                        {{ message.get_recommendContent_display }}
+                    {% elif message.customContent %}
+                        {{ message.customContent }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <h1>누구에게 문안인사를 해볼까요?</h1>
+    <div id="send-letter">
+        <div id="connected-accounts">
+            <ul>
+                {% for account in connected_users %}
+                    <li class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} (관계: {{ account.relationship }})</li>
+                {% empty %}
+                    <li>연결된 계정이 없습니다.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{% url 'accounts:connection' %}">계정 더 연결하기</a>
+        <h3>클릭 한번으로 보내는 오늘의 문안인사!</h3>
+
+        <div>
+        <select id="recommendContentSelect">
+            {% for choice in recommendContent_choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+            <option value="custom">직접입력하세요</option>
+        </select>
+        <div>
+        <div id="customInputContainer" style="display: none;">
+            <input type="text" id="customContentInput" placeholder="직접 입력하세요">
+        </div>
+
+        <input type="submit" class="sendMessage-btn" id="sendMessageButton" value="전송하기">  
+        
+    </div>
+
+    <br>
+    <a href="{% url 'home' %}">홈</a>
+    <a href="{% url 'locker' %}">보관함</a>
+    <a href="{% url 'alarm' %}">알림</a>
+
+    <div id="myModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>문안인사가 성공적으로 전송되었습니다!</p>
+        </div>
+    </div>
+    
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // 사용자 클릭 이벤트 핸들러 함수
+    function handleAccountItemClick(event) {
+        const accountId = event.currentTarget.getAttribute('data-id');
+        const sendMessageButton = document.querySelector('#sendMessageButton');
+        
+        // 기존에 활성화된 계정 아이템의 active 클래스 제거
+        const activeAccountItem = document.querySelector('.account-item.active');
+        if (activeAccountItem) {
+            activeAccountItem.classList.remove('active');
+        }
+        
+        // 현재 클릭한 계정 아이템에 active 클래스 추가
+        event.currentTarget.classList.add('active');
+        
+        sendMessageButton.setAttribute('data-account-id', accountId);
+    }
+
+    // 사용자 클릭 이벤트 핸들러 추가
+    const accountItems = document.querySelectorAll('.account-item');
+    accountItems.forEach(item => {
+        item.addEventListener('click', handleAccountItemClick);
+    });
+
+    //직접 입력
+    const recommendContentSelect = document.querySelector('#recommendContentSelect');
+    const customInputContainer = document.querySelector('#customInputContainer');
+    const customContentInput = document.querySelector('#customContentInput');
+
+    recommendContentSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+        if (selectedValue === 'custom') {
+            customInputContainer.style.display = 'block';
+        } else {
+            customInputContainer.style.display = 'none';
+        }
+    });
+
+    //메시지 전송 
+    document.querySelector('#sendMessageButton').addEventListener('click', function () {
+        const selectedAccountId = this.getAttribute('data-account-id');
+        const selectedRecommendContent = document.querySelector('#recommendContentSelect').value;
+        const customContent = document.querySelector('#customContentInput').value;
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'send_message' %}',
+            data: {'receiver_id' : selectedAccountId, 'recommendContent' : selectedRecommendContent, 'customContent' : customContent, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) { 
+                    showModal(response.message); 
+                }else{
+                    showModal(response.message); 
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    
+    });
+
+    function showModal(message) {
+        // 모달창
+        var modal = document.getElementById("myModal");
+        var modalContent = modal.querySelector('.modal-content');
+        var span = modal.querySelector('.close');
+        var modalParagraph = modalContent.querySelector('p');
+        
+        modalParagraph.textContent = message;
+        modal.style.display = "block";
+    
+        // 모달 닫기
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // 모달 이외의 영역을 클릭하면 모달 닫기
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+    
+</script>
+
+
+</html>
