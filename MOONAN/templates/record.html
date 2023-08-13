@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/record.css' %}">
+</head>
+<body>
+    <h1>행복한 하루를 보내셨나요?</h1>
+    <h3>{{user.name}}님의 사소한 일상이 궁금해요!</h3>
+        
+    <br>
+    <br>
+    <h2>오늘 하루를 표정으로 표현해주세요</h2>
+
+
+
+
+    <br>
+    <a href="/home/">홈</a>
+    <a href="/home/locker/">보관함</a>
+    <a href="/home/alarm/">알림</a>
+
+
+
+</body>
+</html>

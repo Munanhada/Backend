@@ -1,0 +1,74 @@
+/* .calendarbox 스타일 */
+.calendarbox {
+    display: flex;
+    height: 100vh;
+}
+
+/* .Calendar1 스타일 */
+.Calendar1 {
+    width: 100vw;
+    height: 60vh;
+    overflow: hidden;
+}
+
+/* .innerCalendar 스타일 */
+.innerCalendar {
+    display: flex;
+    height: 100%;
+}
+
+/* .calendar 스타일 */
+.calendar {
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* #monthSelect 스타일 */
+#monthSelect {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* .main 스타일 */
+.main {
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .days 스타일 */
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2rem;
+    margin: 0.5rem 0;
+}
+
+/* .day 스타일 */
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* .dates 스타일 */
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2rem;
+}
+
+/* .date, .empty 스타일 */
+.date, .empty {
+    display: flex;
+    justify-content: center;
+    
+    font-size: 1rem;
+    width: 100%;
+    height: 4rem;
+    
+    border: 1px solid #ccc;
+}
