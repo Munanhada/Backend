@@ -24,24 +24,32 @@
     font-weight: 700;
 }
 
-.drug-ask-box input[type="radio"]:checked+label span {
-    background: #FF003A;
-    color: #F2F6FF;
+.drug-content-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 69px;
+    margin-top: 66px;
+    position: relative;
 }
 
-.drug-ask-box-yes img, .drug-ask-box-no img {
+.drug-content-wrapper span {
+    margin-right: 50px;
+
+}
+
+.drug-ask-box-yes .drug-content-wrapper img,
+.drug-ask-box-no .drug-content-wrapper img {
     position: absolute;
-  }
-
-  .ellipse-image {
-    top: 0;
     left: 0;
-  }
+    margin-left: 450px;
+    margin-top: 0px;
+}
 
-  .check-image {
-    top: 0;
-    right: 0;
-  }
+.drug-ask-box-yes .drug-content-wrapper img:last-child,
+.drug-ask-box-no .drug-content-wrapper img:last-child {
+    left: 5px;
+}
+
 /*진행바*/
 .step-bar-drug {
     width: 100%;

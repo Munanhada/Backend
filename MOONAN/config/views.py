@@ -33,7 +33,7 @@ def home_view(request):
         else:
             relationship = connected_user.relationship1
             other_user = connected_user.user1
-
+            
         connected_users_with_relationship.append({
             'other_user': other_user,
             'relationship': relationship,  
