@@ -128,8 +128,7 @@ def send_connection_request(request):
                 # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
                 return redirect('main')  # 또는 적절한 리다이렉트 경로 설정
     else:
-        # return render(request, 'accounts/accountConnection.html')
-        return render (request, 'connection.html')
+        return render(request, 'accounts/accountConnection.html')
     
 @login_required
 def birth_info_view(request):
