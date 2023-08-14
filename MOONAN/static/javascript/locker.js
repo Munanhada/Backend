@@ -4,8 +4,9 @@ const monthSelect = document.getElementById('monthSelect');
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-const currentOptionValue = `${currentYear}-${currentMonth}`;
+const currentOptionValue = `${currentYear}년 ${currentMonth}월`;
 
+// 이번 달 기준으로 5개월 전만 선택가능
 for (let i = 5; i >= 0; i--) {
     const year = currentYear;
     let month = currentMonth - i;
@@ -26,14 +27,15 @@ for (let i = 5; i >= 0; i--) {
     monthSelect.appendChild(option);
 }
 
-// 이번달 기본 선택
-monthSelect.value = currentOptionValue;
+// // 이번달 기본 선택
+// monthSelect.value = currentOptionValue;
+// console.log(currentOptionValue);
+// console.log(monthSelect.value);
 
-
-//출력 ----------------------------------
+//달력 만드는 코드 ----------------------------------
 // DOM이 로드된 후에 스크립트 실행
 document.addEventListener('DOMContentLoaded', function () {
-    const monthSelect = document.getElementById('monthSelect');
+    // const monthSelect = document.getElementById('monthSelect');
     const daysContainer = document.querySelector('.days');
     const datesContainer = document.querySelector('.dates');
     const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const selectedMonth = selectedDate.getMonth() + 1;
         const selectedYear = selectedDate.getFullYear();
-
+        
         // 현재 달의 날짜 생성
         for (let i = 1; i <= daysInMonth; i++) {
             const dateBorderElement = document.createElement('div');
@@ -80,25 +82,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const dayNumberElement = document.createElement('div');
             dayNumberElement.classList.add('day-number');
-
-            // 여기서 선택한 날짜인 경우 클래스를 추가
-            if (i === currentDate.getDate() && currentMonth === selectedMonth && currentYear === selectedYear) {
-                dateBorderElement.classList.add('selected-date');
-            }
-
             dayNumberElement.textContent = i;
             dateElement.appendChild(dayNumberElement);
-            
+
             const image = new Image();
-            const imagePath = `../../static/image/expression/empty.svg`;
+            const imagePath = `../../static/image/expression/empty.png`;
             image.src = imagePath;
             
             dateElement.appendChild(image);
             dateBorderElement.appendChild(dateElement);
 
+            // 오늘 날짜에 selected-date 클래스 추가
+            const currentDate = new Date();
+            if (
+                i === currentDate.getDate() &&
+                currentMonth === currentDate.getMonth() &&
+                currentYear === currentDate.getFullYear()
+            ) {
+                dateElement.classList.add('selected-date');
+            }
+
+            // p태그 출력
+            const recordDayElement = document.querySelector('.recordday p');
+            recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${currentDate.getDate()}일의 문안기록`;
+
+
+
             datesContainer.appendChild(dateBorderElement);
         }
-
 
     }
 
@@ -113,40 +124,36 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCalendar(currentDate);
 
 
-    // 선택한 달의 날짜 업데이트
-    monthSelect.addEventListener('change', function () {
-        const selectedDate = new Date(monthSelect.value + '-01');
-        updateCalendar(selectedDate);
-    });
-
     // 날짜 클릭 이벤트 처리
     datesContainer.addEventListener('click', function (event) {
         const clickedDateElement = event.target.closest('.date'); // .date 요소를 찾음
     
         if (clickedDateElement) {
-            const clickedDate = clickedDateElement.querySelector('div').textContent;
-            const selectedYear = new Date(monthSelect.value + '-01').getFullYear();
-            const selectedMonth = new Date(monthSelect.value + '-01').getMonth() + 1;
+            const selectedDate = new Date(monthSelect.value + '-01');
+            const selectedYear = selectedDate.getFullYear();
+            const selectedMonth = selectedDate.getMonth() + 1;
+            const clickedDate = clickedDateElement.querySelector('.day-number').textContent;
     
             // 기존에 선택한 날짜의 클래스를 삭제
             const prevSelected = datesContainer.querySelector('.selected-date');
             if (prevSelected) {
                 prevSelected.classList.remove('selected-date');
             }
-
+    
             // 선택한 날짜에 클래스를 추가하여 스타일 적용
-            event.target.classList.add('selected-date');
-
+            clickedDateElement.classList.add('selected-date');
+    
             const recordDayElement = document.querySelector('.recordday p');
             recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${clickedDate}일의 문안기록`;
     
             // 선택한 날짜의 기록 정보를 가져와서 .selectedrecord 에 추가하는 로직 추가 가능
         }
     });
+    
 
-    // 초기에 현재 달의 날짜 표시
-    monthSelect.value = `${currentYear}-${('0' + (currentMonth + 1)).slice(-2)}`;
-    updateCalendar(currentDate);
+    // // 초기에 현재 달의 날짜 표시
+    // monthSelect.value = `${currentYear}-${('0' + (currentMonth + 1)).slice(-2)}`;
+    // updateCalendar(currentDate);
 });
 
 

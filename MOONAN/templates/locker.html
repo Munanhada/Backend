@@ -9,96 +9,96 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/locker.css' %}">
 </head>
 <body>
-    <h1>문안기록을 확인할 대상을 선택해주세요.<h2>
-    
-    <div id="connected-accounts">
-        <ul>
-            {% for account in connected_users %}
-                <li class="account-item" data-id="{{ account.other_user.id }}" data-name="{{account.other_user.name}}">{{ account.other_user.name }} (관계: {{ account.relationship }})</li>
-            {% empty %}
-                <li>연결된 계정이 없습니다.</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <a href="{% url 'accounts:connection' %}">계정 더 연결하기</a>
+    <div class="mainFrame">
+        <div class="subFrame">
+            <h2>문안기록을 확인할 대상을 선택해주세요.</h2>
+            
+            <div id="connected-accounts">
+                {% for account in connected_users %}
+                    <div class="accountbox" data-id="{{ account.other_user.id }}" data-name="{{account.other_user.name}}"> 
+                        <div class="accountimagebox">
+                            <img src="{% static 'image/expression/munan.png' %}" alt="이미지 설명">
+                        </div>
+                        <div>{{ account.other_user.name }}</div>
+                        <div>({{ account.relationship }})</div>
+                    </div>
+                {% empty %}
+                    <div>연결된 계정이 없습니다.</div>
+                {% endfor %}
+            </div>
 
-    <br>
-    <hr>
+            <hr>
 
-    <p id="selected-username">문안기록이 없어요. 먼저 문안인사를 드려봐요!</p>
+            <p id="selected-username">문안기록이 없어요. 먼저 문안인사를 드려봐요!</p>
 
-    <div class="recordtotalbox">
-        <div class="calendarbox">
-            <div class="Calendar1">
+            <div class="recordtotalbox">
+                <div class="calendarbox">
+                    <div class="Calendar1">
+                        <div class="calendar">
+                            <select id="monthSelect">
+                                <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
+                            </select>
+                        </div>
+                        <div>
+                            <div class="daysbox">
+                                <div class="days">
+                                    <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
+                                </div>
+                            </div>
 
-                <div class="calendar">
-                    <select id="monthSelect">
-                        <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
-                    </select>
-                </div>
+                            <div class="dates">
+                                <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
+                            </div>
+                        </div>
 
-                <div class="main">
-                    <div class="days">
-                        <div class="day">일</div>
-                        <div class="day">월</div>
-                        <div class="day">화</div>
-                        <div class="day">수</div>
-                        <div class="day">목</div>
-                        <div class="day">금</div>
-                        <div class="day">토</div>
                     </div>
                 </div>
 
-                <div class="dates">
-                    <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
-                </div>
-
-            </div>
-        </div>
-
-        <div class="recordbox">
-            <div class="recordday">
-                <p>
-                    <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
-                </p>
-            </div>
-            <div class="selectedrecord">
-                <div class="expressionbox">
-                    <img src="../../static/image/expression/empty.svg" alt="이미지 설명">
-                    <p class="expression">안좋아요</p>
-                </div>
-                <p class="ment">무난하지 않았던 이유</p>
-                <div class="reasonbox">
-                    <div class="reason">
-                        <img src="../../static/image/expression/empty.svg" alt="이미지 설명">
-                        <div class="reasonContent">
-                            <div>
-                                <div class="reasontype">
-                                    식사
-                                </div>
-                                <div class="reasonment">
-                                    입맛이 없었어... 시원한게 먹고 싶구나 
+                <div class="recordbox">
+                    <div class="recordday">
+                        <p>
+                            <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
+                        </p>
+                    </div>
+                    <div class="selectedrecord">
+                        <div class="expressionbox">
+                            <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                            <p class="expression">안좋아요</p>
+                        </div>
+                        <p class="ment">무난하지 않았던 이유</p>
+                        <div class="reasonbox">
+                            <div class="reason">
+                                <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                                <div class="reasonContent">
+                                    <div>
+                                        <div class="reasontype">
+                                            식사
+                                        </div>
+                                        <div class="reasonment">
+                                            입맛이 없었어... 시원한게 먹고 싶구나 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
-                <div class="todaycontent">
-                    <p>
-                        오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
-                    </p>
-                </div>
+                        
+                        <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
+                        <div class="todaycontent">
+                            <p>
+                                오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
+                            </p>
+                        </div>
 
+                    </div>
+
+                </div>
             </div>
 
+            <a href="{% url 'home' %}">홈</a>
+            <a href="{% url 'locker' %}">보관함</a>
+            <a href="{% url 'alarm' %}">알림</a>
         </div>
     </div>
-
-    <a href="{% url 'home' %}">홈</a>
-    <a href="{% url 'locker' %}">보관함</a>
-    <a href="{% url 'alarm' %}">알림</a>
 </body>
 </html>
 
@@ -114,7 +114,7 @@
     }
 
     // 클릭 이벤트 핸들러 추가
-    const accountItems = document.querySelectorAll('.account-item');
+    const accountItems = document.querySelectorAll('.accountbox');
     accountItems.forEach(item => {
         item.addEventListener('click', handleAccountItemClick);
     });
