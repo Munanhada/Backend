@@ -229,15 +229,6 @@ def alarm_view(request):
     }
     return render(request, 'alarm.html', context)
 
-# home/record
-# 오늘 하루 어땠는지 상태 업데이트
-def record_view(request):
-    if request.method == 'method':
-        pass
-    else:
-        return render(request, 'record.html')
-
-
 # 약/영양제 먹었는지, 운동했는지 상태 업데이트
 @login_required
 def daily_status(request):

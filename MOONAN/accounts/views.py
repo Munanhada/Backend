@@ -108,8 +108,8 @@ def send_connection_request(request):
             to_user = get_user_model().objects.get(name=to_user)
         except get_user_model().DoesNotExist:
             # 사용자를 찾을 수 없는 경우에 대한 처리
-            error_message = '사용자를 찾을 수 없습니다.'
-            return render(request, 'connection.html', {'error_message': error_message})
+            error_message = '연결 계정을 다시 한번 확인해주세요.'
+            return render(request, 'accounts/accountConnection.html', {'error_message': error_message})
         else:
                 # 중복 신청 검사
                 existing_connection = ConnectionRequest.objects.filter(
@@ -117,7 +117,7 @@ def send_connection_request(request):
                 )
                 if existing_connection.exists():
                     error_message = '이미 연결 신청을 하셨습니다.'
-                    return render(request, 'connection.html', {'error_message': error_message})
+                    return render(request, 'accounts/accountConnection.html', {'error_message': error_message})
                 
                 connection_request = ConnectionRequest.objects.create(
                     from_user=from_user,
@@ -126,7 +126,7 @@ def send_connection_request(request):
                     relationship2=relationship2,
                 )
                 # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
-                return redirect('main')  # 또는 적절한 리다이렉트 경로 설정
+                return redirect('account:birth_info')  # 또는 적절한 리다이렉트 경로 설정
     else:
         return render(request, 'accounts/accountConnection.html')
     
