@@ -74,8 +74,14 @@ def login_view(request):
             else:
             # "로그인 정보 저장하기" 체크박스가 선택된 경우, settings에서 설정한 만료 시간으로 설정
                 request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-            # 리다이렉트
-            return redirect('accounts:connection')
+
+            if user.is_first_login:
+                user.is_first_login = False
+                user.save()
+                return redirect('accounts:connection')  # 첫 번째 로그인 시 계정 연결 페이지로 리디렉션
+            else:
+                return redirect('home')  # 계정 연결 및 사용자 추가 정보를 이미 입력한 경우 메인 페이지로 리디렉션
+
         else:
             # 사용자 인증 실패 시 에러 처리
             user_exists = User.objects.filter(user_id=user_id).exists()
