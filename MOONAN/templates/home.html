@@ -52,6 +52,23 @@
         </div>
 
         <input type="submit" class="sendMessage-btn" id="sendMessageButton" value="전송하기">  
+
+            {% csrf_token %}
+        <h1>간단하게 표시하는 나의 건강한 일상</h1>
+        <div>
+            <p>약 영양제 챙겨먹기 <button class="status-button" id="medButton">챙겨먹었어요</button></p>
+            {% for user_medication in user_medications %}
+                <p value="{{ user_medication.medication }}">{{ user_medication }}</p>
+            {% endfor %}
+        </div>
+            {% csrf_token %}
+        <div>
+            {% for user_nutrition in user_nutritions %}
+                <p value="{{ user_nutrition.nutrition }}">{{ user_nutrition }}</p>
+            {% endfor %}
+            <p>운동하기 <button class="status-button" id="exerciseButton">했어요</button></p>
+            <p>산책하기 외출하기 간단한 체조</p>
+        </div>
         
     </div>
 
@@ -156,7 +173,158 @@
             }
         }
     }
+
+    $(document).ready(function () {
+    var csrfToken = getCookie('csrftoken'); // 한 번만 토큰을 가져옴
+
+    // 약/영양제 먹었는지 버튼
+    var takeMedButton = document.getElementById('medButton');
+    var isMedTaken = false; // 초기값 설정
+
+    takeMedButton.addEventListener('click', function () {
+        isMedTaken = !isMedTaken; // 값을 토글
+        var actionType = 'medication'; // actionType 변수를 정의
+        var isMedicationTaken = !$(this).hasClass('taken');
+        updateStatus('medication', isMedicationTaken, csrfToken); // 토큰 사용
+        // 버튼 색 변경
+        if (isMedicationTaken) {
+            $(this).addClass('taken');
+            $(this).css('background-color', '#FF003A');
+        } else {
+            $(this).removeClass('taken');
+            $(this).css('background-color', ''); // 원래 색상으로 변경
+        }
+    });
+
+    // 운동했는지 버튼
+    var takeExerciseButton = document.getElementById('exerciseButton');
+    var isExerciseTaken = false; // 초기값 설정
+
+    takeExerciseButton.addEventListener('click', function () {
+        var actionType = 'exercise'; // actionType 변수를 정의
+        var hasExercised = !$(this).hasClass('taken');
+        updateStatus('exercise', hasExercised, csrfToken); // 토큰 사용
+        isExerciseTaken = !isExerciseTaken; // 값을 토글
+        // 버튼 색 변경
+        if (isExerciseTaken) {
+            $(this).addClass('taken');
+            $(this).css('background-color', '#FF003A');
+        } else {
+            $(this).removeClass('taken');
+            $(this).css('background-color', ''); // 원래 색상으로 변경
+        }
+    });
+
+    // getCookie 함수 정의
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function updateStatus(actionType, status, csrfToken) {
+        $.ajax({
+            url: '/daily_status/',
+            type: 'POST',
+            data: { actionType: actionType, status: status },
+            headers: { "X-CSRFToken": csrfToken },
+            success: function (data) {
+                // 서버 응답 처리
+                if (data.status === 'success') {
+                    // 버튼 상태 업데이트
+                    if (actionType === 'medication') {
+                        $('#medication-button').toggleClass('taken', status);
+                    } else if (actionType === 'exercise') {
+                        $('#exercise-button').toggleClass('taken', status);
+                    }
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                // 에러 처리
+            }
+        });
+    }
+});
+
+
+
+// $(document).ready(function () {
+//     var csrfToken = getCookie('csrftoken');
+
+//     // 약을 먹었는지 버튼 처리
+//     $('#medButton').click(function () {
+//         var isMedicationTaken = !$(this).hasClass('taken');
+//         updateStatus('medication', isMedicationTaken, csrfToken);
+//     });
+
+//     // 운동했는지 버튼 처리
+//     $('#exerciseButton').click(function () {
+//         var hasExercised = !$(this).hasClass('taken');
+//         updateStatus('exercise', hasExercised, csrfToken);
+//     });
+
+//     function getCookie(name) {
+//         var cookieValue = null;
+//         if (document.cookie && document.cookie !== '') {
+//             var cookies = document.cookie.split(';');
+//             for (var i = 0; i < cookies.length; i++) {
+//                 var cookie = cookies[i].trim();
+//                 if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                     break;
+//                 }
+//             }
+//         }
+//         return cookieValue;
+//     }
+
+//     function updateStatus(actionType, status, csrfToken) {
+//         $.ajax({
+//             url: '/daily_status/',
+//             type: 'POST',
+//             data: { actionType: actionType, status: status },
+//             headers: { "X-CSRFToken": csrfToken },
+//             success: function (data) {
+//                 // 서버 응답 처리
+//                 if (data.status === 'success') {
+//                     // 버튼 상태 업데이트
+//                     if (actionType === 'medication') {
+//                         $('#medication-button').toggleClass('taken', status);
+//                         if (status) {
+//                             $('#medButton').css('background-color', '#FF003A');
+//                         } else {
+//                             $('#medButton').css('background-color', ''); // 원래 색상으로 변경
+//                         }
+//                     } else if (actionType === 'exercise') {
+//                         $('#exerciseButton').toggleClass('taken', status);
+//                         if (status) {
+//                             $('#exerciseButton').css('background-color', '#FF003A');
+//                         } else {
+//                             $('#exerciseButton').css('background-color', ''); // 원래 색상으로 변경
+//                         }
+//                     }
+//                 }
+//             },
+//             error: function (xhr, textStatus, errorThrown) {
+//                 // 에러 처리
+//             }
+//         });
+//     }
+
+//     // getCookie 함수 정의 (이하 동일)
     
+// });
+
+
 </script>
 
 

@@ -156,7 +156,7 @@ def drug_ask_view(request):
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
 
-        # return redirect('accounts:') # 복용하는 약과 영양제를 선택하는 페이지로 리다이렉트해야됨
+        return redirect('accounts:drug_info') 
 
     return render(request, 'accounts/drugAsk.html')
         
@@ -193,14 +193,15 @@ def drug_info_view(request):
 
         return redirect('home')
 
-    # context = {
-    #     'medication_choices': Medication.MEDICATION_CHOICES,
-    #     'nutrition_choices': Nutrition.NUTRITION_CHOICES,
-    # }
+    context = {
+        'medication_choices': Medication.MEDICATION_CHOICES,
+        'nutrition_choices': Nutrition.NUTRITION_CHOICES,
+    }
 
-    return render(request, 'accounts/drugAsk.html')
+    return render(request, 'accounts/drugYes2.html', context)
 
 # 사용자가 직접 복용하는 약 추가
+@transaction.atomic
 def add_medication(request): 
     new_medication = request.POST.get("new_medication")
     
@@ -210,13 +211,17 @@ def add_medication(request):
         
     # 선택지 목록 업데이트
     medication_choices = list(Medication.MEDICATION_CHOICES)  # 기존 선택지
-    medication_choices.append((medication.medication_name, medication.medication_name))  # 새로운 선택지
+    if created:
+            medication_choices.append((medication.medication_name, medication.medication_name))  # 새로운 선택지
+
     response_data = {
         "medication_list": [{"label": label, "value": value} for value, label in medication_choices]
     }
+
     return JsonResponse(response_data)
 
 # 사용자가 직접 복용하는 영양제 추가
+@transaction.atomic
 def add_nutrition(request): 
     new_nutrition = request.POST.get("new_nutrition")
     
@@ -226,11 +231,16 @@ def add_nutrition(request):
         
     # 선택지 목록 업데이트
     nutrition_choices = list(Nutrition.NUTRITION_CHOICES)  # 기존 선택지
-    nutrition_choices.append((nutrition.nutrition_name, nutrition.nutrition_name))  # 새로운 선택지
+    if created:
+        nutrition_choices.append((nutrition.nutrition_name, nutrition.nutrition_name))  # 새로운 선택지
+
     response_data = {
-        "nutrition_list": [{"label": label, "value": value} for value, label in nutrition_choices]
-    }
+            "nutrition_list": [{"label": label, "value": value} for value, label in nutrition_choices]
+        }
+    
     return JsonResponse(response_data)
+
+
     
 def logout_view(request):
     # 로그인일 때 데이터 유효성 검사

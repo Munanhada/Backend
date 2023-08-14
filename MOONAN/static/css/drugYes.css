@@ -1,0 +1,49 @@
+/*구역 표시용*/
+.user-nutri-contents {
+    background-color: coral;
+}
+
+.user-choice-contents {
+    background-color: lightblue;
+}
+
+.user-drug-contents {
+    background-color: khaki;
+}
+
+/*구역 표시 끝*/
+
+.three-circle-box {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.user-drug-box {
+    margin-top: 60px;
+}
+
+.user-drug-contents {
+    margin-top: 20px;
+}
+
+.user-nutri-box {
+    margin-top: 60px;
+}
+
+.user-nutri-contents {
+    margin-top: 20px;
+}
+
+.user-choice-box {
+    margin-top: 60px;
+}
+
+.user-choice-contents {
+    margin-top: 20px;
+}
+
+/*단계 버튼 bottom 마진*/
+.mainFrame #choice-complete{ 
+    margin-bottom: 215px;
+}

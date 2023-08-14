@@ -102,8 +102,8 @@ class User(AbstractUser):
     med_or_nutr_status = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부', editable=True)
     medications = models.ManyToManyField(Medication, blank=True, editable=True, related_name='users_medications', through='UserMedication')
     nutritions = models.ManyToManyField(Nutrition, blank=True, editable=True, related_name='users_nutritions', through='UserNutrition')
-    has_medication_or_nutrition = models.BooleanField(default=False, verbose_name="약 및 영양제 섭취 여부")
-    has_exercised = models.BooleanField(default=False, verbose_name="운동 여부")
+    has_medication_or_nutrition = models.BooleanField(default=False, blank=True, verbose_name="약 및 영양제 섭취 여부")
+    has_exercised = models.BooleanField(default=False, blank=True, verbose_name="운동 여부")
 
     def __str__(self):
         return self.name

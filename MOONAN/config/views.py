@@ -9,6 +9,7 @@ import json
 from django.http import JsonResponse
 from django.utils import timezone
 from datetime import timedelta
+from users.models import UserMedication, UserNutrition
 
 def home_view(request):
     if not request.user.is_authenticated:
@@ -41,12 +42,25 @@ def home_view(request):
     
     # 추천 문안인사 선택지 
     recommendContent_choices = Message.RECOMMENDCONTENT_CHOICES
-    
+
+    # 나의 일상 확인
+    user_medications = UserMedication.objects.filter(user=request.user)
+    user_nutritions = UserNutrition.objects.filter(user=request.user)
+
+    if request.method =='POST': 
+        has_medication_or_nutrition = request.POST.get("has_medication_or_nutrition")
+        has_exercised = request.POST.get("has_exercised")
+        user.has_medication_or_nutrition = has_medication_or_nutrition
+        user.has_exercised = has_exercised
+        user.save()
+
     context = {
         'user': user,
         'received_messages' : received_messages,
         'recommendContent_choices': recommendContent_choices,
         'connected_users': connected_users_with_relationship,
+        'user_medications': user_medications,
+        'user_nutritions': user_nutritions,
     }
 
     return render(request, 'home.html', context)
@@ -182,6 +196,26 @@ def reject_connection_request(request):
     }
     print(response_data)
     return JsonResponse(response_data)
+
+# 약/영양제 먹었는지, 운동했는지 상태 체크
+@login_required
+def daily_status(request):
+    user = request.user
+    if request.method == 'POST':
+        status_type = request.POST.get("actionType")
+        status_value = request.POST.get("status")
+
+        if status_type == 'medication':
+            user.has_medication_or_nutrition = (status_value == 'true')
+        elif status_type == 'exercise':
+            user.has_exercised = (status_value == 'true')
+        
+        user.save()
+                
+        return JsonResponse({'status': 'success'})
+        
+    return JsonResponse({'status': 'error', 'message': '요청 실패'})
+
         
 # home/alarm
 # 연결 요청중, 요청 받음, 메시지 받음 
@@ -221,7 +255,6 @@ def alarm_view(request):
         'received_last_month_messages' : received_last_month_messages,
     }
     return render(request, 'alarm.html', context)
-
 
 def locker_view(request):
     return render(request,'locker.html')

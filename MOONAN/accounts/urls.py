@@ -10,6 +10,7 @@ urlpatterns = [
     path('accountConnection/', send_connection_request, name='connection'),
     path('accountBirth/', birth_info_view, name='birth_info'),
     path('drugAsk/', drug_ask_view, name='drug_ask'),
+    path('drugYes/', drug_info_view, name='drug_info'),
     path('add_medication/', add_medication, name='add_medication'),
     path('add_nutrition/', add_nutrition, name='add_nutrition'),
     path('logout/', logout_view, name='logout'),
