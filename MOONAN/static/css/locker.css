@@ -16,6 +16,24 @@ body {
     padding:5%;
 }
 
+#selected-username{
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3.125rem; /* 138.889% */
+}
+
+.selecttarget{
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3.125rem; /* 138.889% */
+}
+
 #connected-accounts {
     display: flex;
     justify-content: flex-start; /* 왼쪽으로 가로 정렬 */
@@ -55,6 +73,29 @@ hr{
     margin: 1rem 0; /* 위 아래 여백 추가 */
 }
 
+.emptyment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.emptyment > p{
+    color: var(--1, #959AA4);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3.125rem; /* 156.25% */
+}
+
+.recordtotalbox{
+    display:none;
+}
+
 .calendarbox{
     display: flex;
     justify-content: center;
@@ -62,7 +103,12 @@ hr{
 }
 #monthSelect {
     border: none; 
-    font-size: 1rem;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.125rem; /* 106.25% */
 }
 
 .daysbox {

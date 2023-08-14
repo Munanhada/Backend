@@ -8,7 +8,7 @@ class Record(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     EXPRESSION_CHOICES = [
         ('best', '최고예요'),
-        ('okay', '무난해요'),
+        ('munan', '무난해요'),
         ('soso', '그럭저럭'),
         ('notgood', '안좋아요'),
         ('bad', '나빠요'),
