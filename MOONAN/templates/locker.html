@@ -9,96 +9,100 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/locker.css' %}">
 </head>
 <body>
-    <h1>문안기록을 확인할 대상을 선택해주세요.<h2>
-    
-    <div id="connected-accounts">
-        <ul>
-            {% for account in connected_users %}
-                <li class="account-item" data-id="{{ account.other_user.id }}" data-name="{{account.other_user.name}}">{{ account.other_user.name }} (관계: {{ account.relationship }})</li>
-            {% empty %}
-                <li>연결된 계정이 없습니다.</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <a href="{% url 'accounts:connection' %}">계정 더 연결하기</a>
-
-    <br>
-    <hr>
-
-    <p id="selected-username">문안기록이 없어요. 먼저 문안인사를 드려봐요!</p>
-
-    <div class="recordtotalbox">
-        <div class="calendarbox">
-            <div class="Calendar1">
-
-                <div class="calendar">
-                    <select id="monthSelect">
-                        <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
-                    </select>
-                </div>
-
-                <div class="main">
-                    <div class="days">
-                        <div class="day">일</div>
-                        <div class="day">월</div>
-                        <div class="day">화</div>
-                        <div class="day">수</div>
-                        <div class="day">목</div>
-                        <div class="day">금</div>
-                        <div class="day">토</div>
+    <div class="mainFrame">
+        <div class="subFrame">
+            <p class="selecttarget">문안기록을 확인할 대상을 선택해주세요.</p>
+            
+            <div id="connected-accounts">
+                {% for account in connected_users %}
+                    <div class="accountbox" data-id="{{ account.other_user.id }}" data-name="{{account.other_user.name}}"> 
+                        <div class="accountimagebox">
+                            <img src="{% static 'image/expression/munan.png' %}" alt="이미지 설명">
+                        </div>
+                        <div>{{ account.other_user.name }}</div>
+                        <div>({{ account.relationship }})</div>
                     </div>
-                </div>
-
-                <div class="dates">
-                    <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
-                </div>
-
+                {% empty %}
+                    <div>연결된 계정이 없습니다.</div>
+                {% endfor %}
             </div>
-        </div>
 
-        <div class="recordbox">
-            <div class="recordday">
-                <p>
-                    <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
-                </p>
-            </div>
-            <div class="selectedrecord">
-                <div class="expressionbox">
-                    <img src="../../static/image/expression/empty.svg" alt="이미지 설명">
-                    <p class="expression">안좋아요</p>
+            <hr>
+            <div>
+                <p id="selected-username"></p>
+                <div class="emptyment">
+                    <p>문안기록이 없어요.<br>먼저 문안인사를 건네보세요!</p>
+                    <img src="{%static 'image/lockerempty.png'%}" alt="이미지 설명">
                 </div>
-                <p class="ment">무난하지 않았던 이유</p>
-                <div class="reasonbox">
-                    <div class="reason">
-                        <img src="../../static/image/expression/empty.svg" alt="이미지 설명">
-                        <div class="reasonContent">
+
+                <div class="recordtotalbox">
+                    <div class="calendarbox">
+                        <div class="Calendar1">
+                            <div class="calendar">
+                                <select id="monthSelect">
+                                    <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
+                                </select>
+                            </div>
                             <div>
-                                <div class="reasontype">
-                                    식사
+                                <div class="daysbox">
+                                    <div class="days">
+                                        <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
+                                    </div>
                                 </div>
-                                <div class="reasonment">
-                                    입맛이 없었어... 시원한게 먹고 싶구나 
+
+                                <div class="dates">
+                                    <!-- JavaScript를 사용하여 달력을 동적으로 생성 -->
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                
-                <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
-                <div class="todaycontent">
-                    <p>
-                        오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
-                    </p>
-                </div>
 
+                    <div class="recordbox">
+                        <div class="recordday">
+                            <p>
+                                <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
+                            </p>
+                        </div>
+                        <div class="selectedrecord">
+                            <div class="expressionbox">
+                                <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                                <p class="expression">안좋아요</p>
+                            </div>
+                            <p class="ment">무난하지 않았던 이유</p>
+                            <div class="reasonbox">
+                                <div class="reason">
+                                    <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                                    <div class="reasonContent">
+                                        <div>
+                                            <div class="reasontype">
+                                                식사
+                                            </div>
+                                            <div class="reasonment">
+                                                입맛이 없었어... 시원한게 먹고 싶구나 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
+                            <div class="todaycontent">
+                                <p>
+                                    오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
+            <a href="{% url 'home' %}">홈</a>
+            <a href="{% url 'locker' %}">보관함</a>
+            <a href="{% url 'alarm' %}">알림</a>
         </div>
     </div>
-
-    <a href="{% url 'home' %}">홈</a>
-    <a href="{% url 'locker' %}">보관함</a>
-    <a href="{% url 'alarm' %}">알림</a>
 </body>
 </html>
 
@@ -106,17 +110,198 @@
 <script src="/static/javascript/locker.js"></script> <!-- 필요한 커스텀 자바스크립트 파일을 추가합니다 -->
 
 <script>
+    let accountId;
+
     // 클릭 이벤트 핸들러 함수
     function handleAccountItemClick(event) {
-        const accountId = event.currentTarget.getAttribute('data-id');
+        const accountboxes = document.querySelectorAll('.accountbox'); // 모든 accountbox 선택
+
+        // 모든 accountbox의 테두리 제거
+        accountboxes.forEach(accountbox => {
+            const accountImageBox = accountbox.querySelector('.accountimagebox');
+            accountImageBox.style.border = 'none';
+        });
+        const clickedAccountImageBox = event.currentTarget.querySelector('.accountimagebox');
+        clickedAccountImageBox.style.border = '2px solid red'; // 클릭된 요소에 빨간색 테두리 추가
+
+
+        accountId = event.currentTarget.getAttribute('data-id');
         const accountName = event.currentTarget.getAttribute('data-name');
-        document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요"; // 수정된 부분
+        document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요."; // 수정된 부분
+        
+        const emptyment = document.querySelector('.emptyment');
+        const recordtotalbox = document.querySelector('.recordtotalbox');
+
+        emptyment.style.display = 'none'; // emptyment 숨기기
+        recordtotalbox.style.display = 'block'; // recordtotalbox 보이기
+
+        // 초기에 현재 달의 날짜 표시
+        const currentDate = new Date();
+        monthSelect.value = `${currentYear}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}`;
+        updateCalendar(currentDate);
+
     }
 
     // 클릭 이벤트 핸들러 추가
-    const accountItems = document.querySelectorAll('.account-item');
+    const accountItems = document.querySelectorAll('.accountbox');
     accountItems.forEach(item => {
         item.addEventListener('click', handleAccountItemClick);
+    });
+
+
+    //달력 만드는 코드 ----------------------------------
+    const daysContainer = document.querySelector('.days');
+    const datesContainer = document.querySelector('.dates');
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+
+    function updateCalendar(selectedDate) {
+
+        daysContainer.innerHTML = ''; // 요일 업데이트
+        datesContainer.innerHTML = ''; // 날짜 업데이트
+
+        const currentMonth = selectedDate.getMonth(); //월
+        const currentYear = selectedDate.getFullYear(); //일
+
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+        const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+        const daysInMonth = lastDayOfMonth.getDate();
+
+        console.log(currentYear,currentMonth+1 )
+
+        // 요일명 생성
+        for (const dayName of dayNames) {
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('day');
+            dayElement.textContent = dayName;
+            daysContainer.appendChild(dayElement);
+        }
+
+        // 이전 달의 마지막 날짜
+        const lastDayOfPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+        // 이전 달의 빈 칸 생성
+        for (let i = firstDayOfMonth.getDay(); i > 0; i--) {
+            const emptyElement = document.createElement('div');
+            emptyElement.classList.add('empty');
+            datesContainer.appendChild(emptyElement);
+        }
+
+        const selectedMonth = selectedDate.getMonth() + 1;
+        const selectedYear = selectedDate.getFullYear();
+
+        // Ajax 요청 보내기
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'locker' %}',
+            data: {'account_id' : accountId, 'current_year' : selectedYear, 'current_month' : selectedMonth, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) { 
+                    console.log(response.record_data);
+                    // 특정 날짜의 expression 가져와서 표시하기
+                    // 현재 달의 날짜 생성
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        const dateBorderElement = document.createElement('div');
+                        dateBorderElement.classList.add('date-border');
+                        
+                        const dateElement = document.createElement('div');
+                        dateElement.classList.add('date');
+
+                        const dayNumberElement = document.createElement('div');
+                        dayNumberElement.classList.add('day-number');
+                        dayNumberElement.textContent = i;
+                        dateElement.appendChild(dayNumberElement);
+
+                        // 특정 날짜의 expression 가져와서 표시하기
+                        const currentDateData = response.record_data.find(data => data.date === i);
+                        
+                        if (currentDateData) {
+                            const expressionImage = new Image();
+                            const expressionImagePath = `../../static/image/expression/${currentDateData.expression}.png`;
+                            expressionImage.src = expressionImagePath;
+                            dateElement.appendChild(expressionImage);
+                        }else{
+                            const image = new Image();
+                            const imagePath = `../../static/image/expression/empty.png`;
+                            image.src = imagePath;
+                            
+                            dateElement.appendChild(image);
+                        }
+
+                        dateBorderElement.appendChild(dateElement);
+
+                        // 오늘 날짜에 selected-date 클래스 추가
+                        if (
+                            i === currentDate.getDate() &&
+                            currentMonth === currentDate.getMonth() &&
+                            currentYear === currentDate.getFullYear()
+                        ) {
+                            dateElement.classList.add('selected-date');
+                        }
+
+                        
+                        // p태그 출력
+                        const recordDayElement = document.querySelector('.recordday p');
+                        recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${currentDate.getDate()}일의 문안기록`;
+
+
+                        datesContainer.appendChild(dateBorderElement);
+                    }
+                    
+                }else{
+                    console.log("false")
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        }); 
+
+        
+
+    }
+
+    
+   
+    // DOM이 로드된 후에 스크립트 실행
+    document.addEventListener('DOMContentLoaded', function () {
+        // const monthSelect = document.getElementById('monthSelect');
+        
+        // 선택한 달의 날짜 업데이트
+        monthSelect.addEventListener('change', function () {
+            const selectedDate = new Date(monthSelect.value + '-01');
+            updateCalendar(selectedDate);
+        });
+
+        
+
+        // 날짜 클릭 이벤트 처리
+        datesContainer.addEventListener('click', function (event) {
+            const clickedDateElement = event.target.closest('.date'); // .date 요소를 찾음
+        
+            if (clickedDateElement) {
+                const selectedDate = new Date(monthSelect.value + '-01');
+                const selectedYear = selectedDate.getFullYear();
+                const selectedMonth = selectedDate.getMonth() + 1;
+                const clickedDate = clickedDateElement.querySelector('.day-number').textContent;
+        
+                // 기존에 선택한 날짜의 클래스를 삭제
+                const prevSelected = datesContainer.querySelector('.selected-date');
+                if (prevSelected) {
+                    prevSelected.classList.remove('selected-date');
+                }
+        
+                // 선택한 날짜에 클래스를 추가하여 스타일 적용
+                clickedDateElement.classList.add('selected-date');
+        
+                const recordDayElement = document.querySelector('.recordday p');
+                recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${clickedDate}일의 문안기록`;
+        
+                // 선택한 날짜의 기록 정보를 가져와서 .selectedrecord 에 추가하는 로직 추가 가능
+            }
+        });
+        
     });
 
 

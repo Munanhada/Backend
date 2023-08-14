@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from users.models import User, Connection, ConnectionRequest
 from message.models import Message
+from record.models import Record
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -253,6 +254,41 @@ def locker_view(request):
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
 
     user = request.user
+    
+    if request.method == 'POST':
+        account_id = request.POST.get('account_id')
+        current_year = int(request.POST.get('current_year'))
+        current_month = int(request.POST.get('current_month'))
+
+        print(current_year, current_month)
+        # 이번 달의 레코드 데이터를 가져오는 로직 작성
+        # 해당 ID와 년/월에 해당하는 레코드들을 가져옴
+        record_data = Record.objects.filter(user=account_id,
+                                            created_date__year=current_year,
+                                            created_date__month=current_month)
+        
+        # 필요한 데이터를 추출하여 리스트로 저장
+        extracted_data = []
+        for record in record_data:
+            extracted_data.append({
+                'date': record.created_date.day,  # 날짜 추출
+                'expression': record.expression,
+                'eating': record.eating,
+                'health': record.health,
+                'sleep': record.sleep,
+                'mood': record.mood,
+                'accident': record.accident,
+                'customContent': record.customContent,  # 관련된 이유들 추출
+            })
+
+        # 가져온 레코드 데이터를 Json 형식으로 응답
+        response_data = {
+            'success': True,  # 성공 여부를 나타내는 키 추가
+            'record_data': extracted_data
+        }
+        print(response_data)
+        return JsonResponse(response_data)
+
     
     # 연결 중인 계정과 관계 정보
     connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
