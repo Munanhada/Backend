@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문안하다 답변하기</title>
     <link rel="stylesheet" href="/static/css/mainFrame.css">
-    <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/home-record.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="mainFrame">
@@ -21,42 +21,141 @@
             <p class="recordText">행복한 하루를 보내셨나요?</p>
             <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
         </div>
-        <div class="selecFaceBox">
-            <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
-            <div class="selectFaceImgBox">
-                <div class="Face goodBox">
-                    <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="goodImg">
-                    <p class="goodText">최고예요</p>
+        <form action="" class="recordEmotion" method="POST">
+            {% csrf_token %}
+            <div class="selectFaceBox">
+                <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
+                <div class="selectFaceImgBox">
+                    <div class="Face goodBox">
+                        <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
+                        <p class="goodText">최고예요</p>
+                    </div>
+                    <div class="Face okayBox">
+                        <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
+                        <p class="okayText">무난해요</p>
+                    </div>
+                    <div class="Face sosoBox">
+                        <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
+                        <p class="sosoText">그럭저럭</p>
+                    </div>
+                    <div class="Face badBox">
+                        <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
+                        <p class="badText">안좋아요</p>
+                    </div>
+                    <div class="Face worseBox">
+                        <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="worseImg">
+                        <p class="worseText">나빠요</p>
+                    </div>
                 </div>
-                <div class="Face okayBox">
-                    <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="okayImg">
-                    <p class="okayText">무난해요</p>
-                </div>
-                <div class="Face sosoBox">
-                    <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="sosoImg">
-                    <p class="sosoText">그럭저럭</p>
-                </div>
-                <div class="Face badBox">
-                    <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="badImg">
-                    <p class="badText">안좋아요</p>
-                </div>
-                <div class="Face worseBox">
-                    <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="worseImg">
-                    <p class="worseText">나빠요</p>
-                </div>
-            </div>
-            <div class="emotionBox">
-                <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
-                <textarea name="" id="receiveEmotionText" cols="30" rows="10"></textarea>
-            </div>
-        </div>
 
-        <br>
-        <a href="/home/">홈</a>
-        <a href="/home/locker/">보관함</a>
-        <a href="/home/alarm/">알림</a>
+                <!-- 선택 박스 -->
+                <div calss="reasonBox">
+                    <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
+                    <div class="selectReasonBox">
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">식사</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <ul class="reasonMenuOption">
+                                        {% for eating_choice in eating_choices %}
+                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/health.svg" alt="건강 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">건강</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <ul class="reasonMenuOption">
+                                        {% for eating_choice in eating_choices %}
+                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/sleep.svg" alt="수면 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">수면</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <ul class="reasonMenuOption">
+                                        {% for sleep_choice in sleep_choices %}
+                                        <li data-category="sleep">{{ sleep_choice.1 }}</button>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/기분.svg" alt="기분 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">기분</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <ul class="reasonMenuOption">
+                                        {% for mood_choice in mood_choices %}
+                                        <li data-category="mood">{{ mood_choice.1 }}</button>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/accident.svg" alt="사고 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">사고</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <ul class="reasonMenuOption">
+                                        {% for accidents_choice in accidents_choices %}
+                                        <li data-category="accident">{{ accidents_choice.1 }}</button>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="reasonOptionBox">
+                            <img src="/static/image/직접 입력.svg" alt="직집입력 이미지" class="reasonMenuImg">
+                            <div class="reasonMenuBox">
+                                <p class="reasonMenuText">직접 입력</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <div class="reasonMenu">
+                                    <textarea name="" id="directText" cols="30" rows="10" placeholder="이유를 직접 적어주세요."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emotionBox">
+                    <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
+                    <div class="emotionTextBox">
+                        <textarea name="" id="receiveEmotionText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
+                        <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg" onclick="mikeImgAlert()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="inputCompletedBox">
+                <button class="inputCompletedButton">입력완료</button>
+            </div>
+        </form>
+
     </div>
 
-    <script src="/static/javascript/home-recorde.js"></script>
+    <script src="/static/javascript/home-record.js"></script>
+    <script>
+        // CSRF 토큰을 자바스크립트 변수에 저장
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    
 </body>
 </html>
