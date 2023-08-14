@@ -26,10 +26,6 @@ class UserAdmin(admin.ModelAdmin):
         return ", ".join(str(nutrition) for nutrition in obj.nutritions.all())
     
 admin.site.register(User, UserAdmin) # 사용자 안에서 약/영양제 확인 가능
-admin.site.register(UserNutrition)
-admin.site.register(UserMedication)
-admin.site.register(Medication)
-admin.site.register(Nutrition)
 
 @admin.register(Connection)
 class ConnectionAdmin(admin.ModelAdmin):

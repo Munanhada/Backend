@@ -1,0 +1,77 @@
+.recordTextBox>p {
+    margin: 0;
+}
+
+.recordText {
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    /* 138.889% */
+}
+
+.recordSubText {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 34px;
+    padding-top: 1vh;
+}
+
+.mainUserId {
+    color: var(--unnamed, #FF003A);
+    font-weight: 700;
+}
+
+/* 표정 선택 박스 */
+.selectFaceText, .emotionText {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    /* 156.25% */
+    margin-top: 60px;
+}
+
+.selectFaceImgBox {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.Face {
+    width: 108px;
+    height: 220px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Face>img {
+    width: 68.688px;
+    height: 94.199px;
+    flex-shrink: 0;
+}
+
+.Face>p {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.emotionBox {
+    margin-top: 60px;
+}

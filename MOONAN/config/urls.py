@@ -27,6 +27,7 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('home/', home_view, name='home'),
     path('home/alarm/', alarm_view, name='alarm'),
+    path('home/record/', include('record.urls')),
     path('home/locker/', locker_view, name='locker'),
     path('send_message', send_message, name='send_message'),
     path('accept_connection_request/', accept_connection_request, name='accept_connection_request'),
