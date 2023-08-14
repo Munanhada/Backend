@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import record_view, expression_button_highlight
+from .views import record_view, submit_expression, submit_reason
 
 app_name = 'record'
 
 urlpatterns = [
-    path('', record_view, name='record'),
-    path('/expression_button_highlight', expression_button_highlight, name='highlight')
+    path('', record_view, name='records'),
+    path('submit_expression/', submit_expression, name='submit_expression'),
+    path('submit_reason/', submit_reason, name='submit_reason'),
 ]

@@ -28,7 +28,13 @@
 }
 
 /* 표정 선택 박스 */
-.selectFaceText, .emotionText {
+.selectFaceBox {
+    width: 100%;
+}
+
+.selectFaceText,
+.emotionText,
+.reasonText {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
     font-size: 32px;
@@ -46,7 +52,7 @@
 }
 
 .Face {
-    width: 108px;
+    width: 9vw;
     height: 220px;
     flex-shrink: 0;
     border-radius: 100px;
@@ -74,4 +80,158 @@
 
 .emotionBox {
     margin-top: 60px;
+}
+
+.emotionTextBox {
+    position: relative;
+}
+
+/* 사용자의 글 작성 */
+#receiveEmotionText {
+    width: 100%;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--unnamed, #F2F6FF);
+    font-size: 20px;
+    text-align: left;
+}
+
+#receiveEmotionText::placeholder {
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 34px;
+    /* 141.667% */
+}
+
+.mikeImg {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    z-index: 0;
+}
+
+/* 입력 완료 버튼 */
+.inputCompletedBox {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.inputCompletedButton {
+    width: 30vw;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    border: none;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+
+/* 이유 선택 메뉴 */
+.selectReasonBox {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* 드롭다운 */
+.reasonOptionBox {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.reasonMenuImg {
+    width: 6vw;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.reasonMenuBox {
+    width: 85%;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.reasonMenuText {
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: absolute;
+    left: 5%;
+}
+
+.reasonDropdownImg {
+    width: 14.82px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: var(--unnamed, #17181A);
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+}
+
+.reasonMenu {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    border-radius: 10px;
+    background: var(--2, #E3E9F6);
+    border-top: 1px solid var(--unnamed, #F2F6FF);
+    z-index: 1;
+    display: none;
+}
+
+.reasonMenuOption {
+    list-style: none;
+    margin: 25px 0;
+}
+
+.reasonMenuOption li {
+    margin-top: 40px;
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#directText {
+    width: 100%;
+    border-radius: 10px;
+    background: var(--2, #E3E9F6);
+    flex-shrink: 0;
+    font-size: 20px;
+    position: relative;
+}
+
+#directText::placeholder {
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: absolute;
+    top: 5%;
+    left: 2%;
 }
