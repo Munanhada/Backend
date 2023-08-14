@@ -89,16 +89,6 @@ class User(AbstractUser):
         ('female', '여성'),
     ]
     gender = models.CharField(null=True, max_length=10, choices=GENDER_CHOICES, verbose_name='성별', editable=True)
-    RELATIONSHIP_CHOICES = [
-        ('father', '아빠'),
-        ('mother', '엄마'),
-        ('daughter', '딸'),
-        ('son', '아들'),
-        ('grandmother', '할머니'),
-        ('grandfather', '할아버지'),
-        ('grandson', '손자'),
-        ('granddaughter', '손녀'),
-    ]
     med_or_nutr_status = models.BooleanField(default=False, verbose_name='복용 중인 약 및 영양제 여부', editable=True)
     medications = models.ManyToManyField(Medication, blank=True, editable=True, related_name='users_medications', through='UserMedication')
     nutritions = models.ManyToManyField(Nutrition, blank=True, editable=True, related_name='users_nutritions', through='UserNutrition')

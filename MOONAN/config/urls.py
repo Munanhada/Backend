@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from config.views import (home_view, accept_connection_request, reject_connection_request, alarm_view, 
-                          send_message, daily_status, locker_view)
+                          record_view, send_message, daily_status, locker_view)
 from django.views.generic import RedirectView
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('home/', home_view, name='home'),
     path('home/alarm/', alarm_view, name='alarm'),
+    path('home/record/', record_view, name='record'),
     path('home/locker/', locker_view, name='locker'),
     path('send_message', send_message, name='send_message'),
     path('accept_connection_request/', accept_connection_request, name='accept_connection_request'),
