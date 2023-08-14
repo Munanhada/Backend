@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
         </footer> -->
         <div class="recordTextBox">
             <p class="recordText">행복한 하루를 보내셨나요?</p>
-            <p class="recordSubText"><span class="mainUserId">효도르</span>님의 사소한 일상이 궁금해요!</p>
+            <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
         </div>
         <div class="selecFaceBox">
             <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
@@ -50,6 +51,11 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <a href="/home/">홈</a>
+    <a href="/home/locker/">보관함</a>
+    <a href="/home/alarm/">알림</a>
 
     <script src="/static/javascript/home-recorde.js"></script>
 </body>

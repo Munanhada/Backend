@@ -258,4 +258,32 @@ def daily_status(request):
     return JsonResponse({'status': 'error', 'message': '요청 실패'})
 
 def locker_view(request):
-    return render(request,'locker.html')
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')  # 로그인 페이지로 리디렉션
+
+    user = request.user
+    
+    # 연결 중인 계정과 관계 정보
+    connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
+    connected_users_with_relationship = []
+
+    # user1-user2 mother-daughter이면 user1에게 user2는 daughter 처리
+    for connected_user in connected_users:
+        if connected_user.user1 == user:
+            relationship = connected_user.relationship2
+            other_user = connected_user.user2
+        else:
+            relationship = connected_user.relationship1
+            other_user = connected_user.user1
+            
+        connected_users_with_relationship.append({
+            'other_user': other_user,
+            'relationship': relationship,  
+    })
+        
+    context = {
+        'user': user,
+        'connected_users': connected_users_with_relationship,
+    }
+
+    return render(request,'locker.html', context)

@@ -1,0 +1,135 @@
+.recordtotalbox {
+    width: 95vw;
+}
+
+.calendarbox > .Calendar1 {
+    overflow: hidden;
+}
+
+#monthSelect {
+    border: none; 
+    font-size: 1rem;
+}
+
+.main {
+    flex-direction: column;
+    align-items: center;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin: 0.5rem 0;
+}
+
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+/* .date-border, .empty 스타일 */
+.date-border, .empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    width: 100%;
+    height: 10rem;
+    border: 1px solid #ccc;
+}
+
+
+.date{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    width: 70%;
+    height: 10rem;
+    border-radius: 65px;
+    padding: 5px;
+}
+
+
+.selected-date {
+    border: 2px solid red; /* 빨간색 테두리 스타일 */
+}
+
+.date > div{
+    display: flex;
+    flex: 1;
+}
+
+.date > img{
+    margin-top: 0.5rem;
+}
+
+.selectedrecord{
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);   
+    padding:3% 
+}
+
+.selectedrecord > .ment{
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.selectedrecord > .expressionbox{
+    display: flex;
+    align-items: center;
+}
+
+.selectedrecord > .expressionbox > p{
+    margin-left:2%;
+}
+
+.reasonbox > .reason{
+    display: flex;
+    align-items: center;
+}
+
+.reasonbox > .reason > .reasonContent{
+    margin-left:2%;
+}
+
+.reasonbox > .reason > .reasonContent> div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reasonbox > .reason > .reasonContent> div> .reasonment{
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.todaycontent{
+    border-radius: 20px;
+    background: var(--unnamed, #FFF);
+    padding:1%;
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

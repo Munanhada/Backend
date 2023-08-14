@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'accounts',
     'message',
+    'record',
 ]
 
 MIDDLEWARE = [
