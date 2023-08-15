@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="/static/css/accountBirth.css" />
     <link rel="stylesheet" href="/static/css/drugAsk.css" />
     <link rel="stylesheet" href="/static/css/drugYes.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
     <div class="mainFrame">
-      <form method="POST">
+      <form method="post">
         {% csrf_token %}
         <div class="step-bar-drug">
           <progress id="progress" value="100" min="0" max="100"></progress>
@@ -52,47 +53,59 @@
         <div class="three-circle-box">
           <img src="/static/image/Group 2088.svg" alt="threeCircle" />
         </div>
-
         <div class="user-drug-box">
           <span class="black-text">복용중인 <span class="red-text">약</span>을 선택해주세요.</span>
-          <div class="user-drug-contents">
-            <div id="todo-list">
-                
-                <ul id="task-list">
-                    <button type="button" class="drug-1">혈압약</button>
-                    <button type="button" class="drug-2">당뇨약</button>
-                    <button type="button" class="drug-3">소화제</button>
-                    <button type="button" class="drug-4">고지혈증약</button>
-                    <button type="button" class="drug-5">변비약</button>
-                    <button type="button" class="drug-6">위장약</button>
-                    <button type="button" class="drug-7">항생제</button>
-                    <button type="button" class="drug-8">항히스타민제</button>
-                    <button type="button" class="drug-9">갑상선질환 치료제</button>
-                    <button type="button" class="drug-10">통풍 치료제</button>
-                    <button type="button" class="drug-11">소염진통제</button>
-                    <button type="button" class="drug-12">우울증약</button>
-                    <button type="button" class="drug-13">성호르몬제</button>
-                    <form id="task-form">
-                      <input type="text" id="task" placeholder="직접입력">
-                    </form>
-                </ul>
-              </div>
+          <div class="user-drug-content" id="medication-list">
+            <button type="button" class="drug-1">혈압약</button>
+            <button type="button" class="drug-2">당뇨약</button>
+            <button type="button" class="drug-3">소화제</button>
+            <button type="button" class="drug-4">고지혈증약</button>
+            <button type="button" class="drug-5">변비약</button>
+            <button type="button" class="drug-6">위장약</button>
+            <button type="button" class="drug-7">항생제</button>
+            <button type="button" class="drug-8">항히스타민제</button>
+            <button type="button" class="drug-9">갑상선질환 치료제</button>
+            <button type="button" class="drug-10">통풍 치료제</button>
+            <button type="button" class="drug-11">소염진통제</button>
+            <button type="button" class="drug-12">우울증약</button>
+            <button type="button" class="drug-13">성호르몬제</button>
+            <form id="medication-form">
+              <input type="text" id="medication-input" placeholder="직접입력" />
+            </form>
           </div>
         </div>
 
         <div class="user-nutri-box">
           <span class="black-text">복용중인 <span class="red-text">영양제</span>를 선택해주세요.</span>
-          <div class="user-nutri-contents">ㄹㅇㄹㅇㄹㅇㄹ</div>
+          <div class="user-nutri-content">
+            <button type="button" class="nutri-1">유산균</button>
+            <button type="button" class="nutri-2">오메가3</button>
+            <button type="button" class="nutri-3">루테인</button>
+            <button type="button" class="nutri-4">종합비타민</button>
+            <button type="button" class="nutri-5">비타민C</button>
+            <button type="button" class="nutri-6">비타민D</button>
+            <button type="button" class="nutri-7">비타민A</button>
+            <button type="button" class="nutri-8">콜라겐</button>
+            <button type="button" class="nutri-9">철분</button>
+            <button type="button" class="nutri-10">프로폴리스</button>
+            <button type="button" class="nutri-11">아로니아</button>
+            <button type="button" class="nutri-12">엽산</button>
+            <button type="button" class="nutri-13">마그네슘</button>
+            <button type="button" class="nutri-14">비타민E</button>
+            <button type="button" class="nutri-15">칼슘</button>
+            <form id="nutri-form">
+              <input type="text" id="nutri-input" placeholder="직접입력" />
+            </form>
+          </div>
         </div>
-
         <div class="user-choice-box">
           <span class="black-text">내가 선택한 약과 영양제</span>
-          <div class="user-choice-contents">dsd</div>
+          <div class="user-choice-contents"></div>
         </div>
 
         <div class="step-box" id="choice-complete">
-          <button class="before-step">이전 단계</button>
-          <button type="submit" class="next-step">선택 완료</button>
+          <button type="button" class="before-step">이전 단계</button>
+          <button class="next-step">선택 완료</button>
         </div>
       </form>
     </div>
@@ -102,3 +115,4 @@
     <script src="/static/javascript/drugYes.js"></script>
   </body>
 </html>
+
