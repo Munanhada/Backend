@@ -60,39 +60,37 @@
 
                     <div class="recordbox">
                         <div class="recordday">
-                            <p>
+                            <p class="selectedDay">
                                 <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
                             </p>
                         </div>
                         <div class="selectedrecord">
                             <div class="expressionbox">
-                                <img src="../../static/image/expression/empty.png" alt="이미지 설명">
-                                <p class="expression">안좋아요</p>
+                                <img>
+                                <p class="expression"></p>
                             </div>
-                            <p class="ment">무난하지 않았던 이유</p>
+                            <p class="ment"></p>
                             <div class="reasonbox">
                                 <div class="reason">
-                                    <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                                    <img>
                                     <div class="reasonContent">
                                         <div>
                                             <div class="reasontype">
-                                                식사
+                                                
                                             </div>
                                             <div class="reasonment">
-                                                입맛이 없었어... 시원한게 먹고 싶구나 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+        
                             </div>
                             
-                            <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
+                            <p class="ment"></p>
                             <div class="todaycontent">
                                 <p>
-                                    오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
                                 </p>
                             </div>
-
                         </div>
 
                     </div>
@@ -111,6 +109,7 @@
 
 <script>
     let accountId;
+    let selectedUserName;
 
     // 클릭 이벤트 핸들러 함수
     function handleAccountItemClick(event) {
@@ -130,10 +129,10 @@
         document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요."; // 수정된 부분
         
         const emptyment = document.querySelector('.emptyment');
-        const recordtotalbox = document.querySelector('.recordtotalbox');
+        const calendarbox = document.querySelector('.calendarbox');
 
         emptyment.style.display = 'none'; // emptyment 숨기기
-        recordtotalbox.style.display = 'block'; // recordtotalbox 보이기
+        calendarbox.style.display = 'block'; // recordtotalbox 보이기
 
         // 초기에 현재 달의 날짜 표시
         const currentDate = new Date();
@@ -199,6 +198,8 @@
                 // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
                 if (response.success) { 
                     console.log(response.record_data);
+                    selectedUserName = response.username;
+
                     // 특정 날짜의 expression 가져와서 표시하기
                     // 현재 달의 날짜 생성
                     for (let i = 1; i <= daysInMonth; i++) {
@@ -241,12 +242,15 @@
                         }
 
                         
-                        // p태그 출력
+                        // 사용자 선택했을 때 오늘 날짜 출력 p태그 출력
                         const recordDayElement = document.querySelector('.recordday p');
                         recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${currentDate.getDate()}일의 문안기록`;
 
 
                         datesContainer.appendChild(dateBorderElement);
+
+                        //밑에 업데이트
+                        updateRecordbox(currentDate.getDate(), response.record_data)
                     }
                     
                 }else{
@@ -262,8 +266,92 @@
 
     }
 
+    function updateRecordbox(selectedDay, recordData){
+        const recordbox = document.querySelector('.recordbox');
+
+        const selectedRecordBox = document.querySelector('.selectedrecord');
+        const expressionBox = selectedRecordBox.querySelector('.expressionbox');
+        const expressionImage = expressionBox.querySelector('img');
+        const expressionText = expressionBox.querySelector('.expression');
+        
+        const reasonBox = selectedRecordBox.querySelector('.reasonbox');
+        const reasonContent = reasonBox.querySelector('.reasonContent');
+        
+        const todayContent = selectedRecordBox.querySelector('.todaycontent p');
+        
+        // 특정 날짜의 recordData 가져오기
+        const currentDateData = recordData.find(data => data.date === selectedDay);
+
+        if (currentDateData) {
+            console.log(currentDateData)
+            recordbox.style.display = 'block'; 
+
+            // 표정 이미지와 텍스트 업데이트
+            expressionImage.src = `../../static/image/expression/${currentDateData.expression}.png`;
+            expressionText.textContent = currentDateData.expression;
+        
+            reasonContent.innerHTML = '';
+
+            // 이유 출력
+            for (const item in currentDateData) {
+                if (currentDateData.hasOwnProperty(item)) { // 객체 자체의 속성인지 확인
+                    if (item !== 'date' && item !== 'expression') {
+                        if (item === 'happyorsad') {
+                            // 멘트 추가
+                            const mentElement = document.createElement('p');
+                            mentElement.classList.add('ment');
+                            mentElement.textContent = `${selectedUserName}님에게 있었던 오늘의 기뻤거나 슬펐던 일`;
+                            // todaycontent 추가
+                            const todayContentElement = document.createElement('div');
+                            todayContentElement.classList.add('todaycontent');
+                            const pElement = document.createElement('p');
+                            pElement.textContent = currentDateData[item]
+                            todayContentElement.appendChild(pElement);
+
+                            selectedRecordBox.appendChild(mentElement)
+                            selectedRecordBox.appendChild(todayContentElement)
+                        }else if (currentDateData[item] !== null) {
+                            const reasonElement = document.createElement('div');
+                            reasonElement.classList.add('reason');
+            
+                            const reasonImage = new Image();
+                            const imageSource = `../../static/image/reason/${item}.png`;
+                            reasonImage.src = imageSource;
+                            reasonImage.alt = item;
+            
+                            const reasonContent = document.createElement('div');
+                            reasonContent.classList.add('reasonContent');
+            
+                            const reasonType = document.createElement('div');
+                            reasonType.classList.add('reasontype');
+                            reasonType.textContent = item;
+            
+                            const reasonment = document.createElement('div');
+                            reasonment.classList.add('reasonment');
+                            reasonment.textContent = currentDateData[item];
+            
+                            reasonContent.appendChild(reasonType);
+                            reasonContent.appendChild(reasonment);
+                            reasonElement.appendChild(reasonImage);
+                            reasonElement.appendChild(reasonContent);
+                            reasonBox.appendChild(reasonElement);
+                        }
+                    }
+                }
+            }
+
+
+            // 오늘의 내용 업데이트
+            todayContent.textContent = currentDateData.todayContent;
+            
+            // 여기서 필요한 데이터를 사용하여 업데이트하는 로직을 추가할 수 있습니다.
+        } else {
+            // 데이터가 없을 경우 처리할 내용
+            recordbox.style.display = 'none'; 
+
+        }
+    }
     
-   
     // DOM이 로드된 후에 스크립트 실행
     document.addEventListener('DOMContentLoaded', function () {
         // const monthSelect = document.getElementById('monthSelect');

@@ -92,7 +92,7 @@ hr{
     line-height: 3.125rem; /* 156.25% */
 }
 
-.recordtotalbox{
+.calendarbox, .recordbox{
     display:none;
 }
 
@@ -101,6 +101,7 @@ hr{
     justify-content: center;
     align-items: center;
 }
+
 #monthSelect {
     border: none; 
     color: #000;
@@ -175,6 +176,15 @@ hr{
     height: 4.87481rem;
 }
 
+.selectedDay{
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px; /* 156.25% */
+}
+
 .selectedrecord{
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);   
@@ -202,11 +212,18 @@ hr{
 
 .selectedrecord > .expressionbox > p{
     margin-left:2%;
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
 .reasonbox > .reason{
     display: flex;
     align-items: center;
+    margin-bottom:3%;
 }
 
 .reasonbox > .reason > .reasonContent{

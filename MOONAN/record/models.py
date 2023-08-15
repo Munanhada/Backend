@@ -58,4 +58,6 @@ class Record(models.Model):
     mood = models.CharField(null=True, blank=True, max_length=100, choices=MOOD_CHOICES, verbose_name='기분')
     accident = models.CharField(null=True, blank=True, max_length=100, choices=ACCIDENTS_CHOICES, verbose_name='사고')
     customContent = models.TextField(null=True, blank=True)  # 사용자가 직접 입력할 내용
+    happyorsad = models.TextField(null=True, blank=True)  # 기쁘거나 슬펐던 일
+
     created_date = models.DateField(default=timezone.now)
