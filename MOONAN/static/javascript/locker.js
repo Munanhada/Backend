@@ -26,22 +26,3 @@ for (let i = 5; i >= 0; i--) {
     
     monthSelect.appendChild(option);
 }
-
-
-
-
-
-
-
-
-
-//할 일
-const expression = 0;
-
-const renderCalendar = () => {
-    const viewYear = date.getFullYear(); // 현재 년도 가져오기
-    const viewMonth = (date.getMonth() + 1).toString().padStart(2, '0'); // 현재 월 가져오기, 2자리로 변환
-    
-
-
-};
