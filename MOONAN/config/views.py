@@ -231,7 +231,6 @@ def alarm_view(request):
     return render(request, 'alarm.html', context)
 
 # 약/영양제 먹었는지, 운동했는지 상태 업데이트
-@login_required
 def daily_status(request):
     user = request.user
     if request.method == 'POST':
@@ -248,6 +247,21 @@ def daily_status(request):
         return JsonResponse({'status': 'success'})
         
     return JsonResponse({'status': 'error', 'message': '요청 실패'})
+
+
+# 약/영양제 먹었는지, 운동했는지 상태 초기화
+def reset_daily_status(request):
+    user = request.user
+    if request.method == 'POST':
+        user.has_medication_or_nutrition = False
+        user.has_exercised = False
+        user.save()
+        
+        # 로컬 스토리지 데이터도 초기화
+        response_data = {'status': 'success'}
+        return JsonResponse(response_data)
+    
+    return JsonResponse({'status': 'error'}, status=400)
 
 def locker_view(request):
     if not request.user.is_authenticated:

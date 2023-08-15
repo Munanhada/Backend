@@ -1,9 +1,542 @@
-/* 클릭되었을 때 파란색으로 변하게 하기 */
-.account-item.active {
-    color: blue;
+/*전체 Frame 시작*/
+* {
+    box-sizing: border-box;
 }
 
-/* 마우스 커서를 올렸을 때 pointer로 변경하기 */
-.account-item {
-    cursor: pointer;
+body {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainFrame {
+    background: #FFF;
+    width: 50%;
+    position: relative;
+}
+
+.subFrame {
+    padding: 5%;
+}
+
+button {
+    border: none;
+    background: none;
+}
+
+/*각자의 margin값*/
+.who_message,
+.today_munan,
+.daily_health {
+    margin-top: 60px;
+}
+
+.munan_message,
+.who_message,
+.today_munan,
+.daily_health,
+.munan_contents,
+.main-box {
+    width: 100%;
+}
+
+/*전체 Frame 끝*/
+
+/*header base.css 대체*/
+/*footer base.css 대체*/
+
+/*main 시작*/
+/*오늘 000님에게 온 문안 메세지*/
+.munan_title {
+    display: flex;
+}
+
+.munan_title #today_message {
+    color: var(--unnamed, #FF003A);
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    margin-right: 38%;
+}
+
+.munan_title #message_count {
+    display: inline-flex;
+    padding: 5px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+}
+
+/*real 메세지 박스*/
+.munan_contents {
+    height: 132px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    margin-top: 20px;
+    display: flex;
+    padding-top: 20px;
+}
+
+.user-icon {
+    margin-left: 20px;
+}
+
+/*유저 정보 및 날짜 표기*/
+.user-text {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    display: flex;
+}
+
+.user-info #user-name {
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.user-info #day {
+    color: var(--1, #959AA4);
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 14px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    margin-right: 0;
+}
+
+.user-message {
+    color: var(--unnamed, #17181A);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-top: 8px;
+    width: 208px;
+    height: 60px;
+}
+
+/*통화하가*/
+.call-button {
+    margin-left: 45%;
+}
+
+.call-button button {
+    width: 100px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/*누구에게 문안인사를 해볼까요?*/
+.who_message #today_message {
+    color: var(--unnamed, #FF003A);
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.user-account-icon {
+    margin-top: 20px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.user-account-icon button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.account button {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+}
+
+.account p {
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 8px;
+    width: max-content;
+    margin: 0;
+}
+
+.account #plus {
+    color: var(--1, #959AA4);
+    margin-top: 8px;
+}
+
+.overlap-button {
+    margin-right: 0;
+    position: relative;
+}
+
+.user-account-icon p {
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+#overlap-button img:nth-child(2) {
+    /* 이미지 겹치기 설정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*클릭 한번으로 보내는 오늘의 문안인사*/
+.click-munan {
+    margin-top: 31px;
+    display: flex;
+    flex-direction: column;
+}
+
+.click-munan #click-munan-title {
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.munan-list {
+    width: 100%;
+    height: 132px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+.munan-list-text {
+    position: absolute;
+    left: 5%;
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 34px;
+    margin-right: 138px;
+    width: 440px;
+    height: 68px;
+}
+
+.munanDropdownImg {
+    width: 14.82px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: var(--unnamed, #17181A);
+    position: absolute;
+    right: 5%;
+}
+
+.munan-menu-list {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    border-radius: 10px;
+    background: var(--2, #E3E9F6);
+    border-top: 1px solid var(--unnamed, #F2F6FF);
+    z-index: 1;
+    display: none;
+}
+
+.munan-menu-list-detail {
+    list-style: none;
+    margin: 25px 0;
+}
+
+.munan-menu-list-detail li {
+    margin-top: 40px;
+    color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 400;
+    transition: color 0.3s; /* 텍스트 색상 변경에 트랜지션 효과를 추가합니다. */
+}
+
+.munan-menu-list-detail li:hover,
+.munan-menu-list-detail li:focus {
+    color:#FF003A; 
+    font-weight : 700;
+}
+
+.munan-menu-list-detail #user-text {
+    color: var(--1, #959AA4);
+    font-weight : 400;
+}
+
+/*전송하기 버튼*/
+.sand-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.sand-box button {
+    margin-top: 60px;
+    width: 420px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/*잠깐! 오늘 하루, 무난했나요?*/
+.today_munan {
+    width: 100%;
+    height: 377px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.today-question {
+    color: var(--unnamed, #FF003A);
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.check-myday {
+    margin-top: 20px;
+}
+
+.check-myday button {
+    background: none;
+    border: none;
+    width: 420px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.feel-icon {
+    display: flex;
+    gap: 31.42px;
+}
+
+/*간단하게 표시하는 나의 건강한 일상*/
+.daily_health {
+    margin-top: 60px;
+}
+
+.daily_health p {
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.eat-drug-box {
+    margin-top: 20px;
+    width: 100%;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+}
+
+.eat-drug-button {
+    display: flex;
+}
+
+.eat-drug-text {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 26px;
+    margin-left: 19px;
+}
+
+.eat-drug-not-yet {
+    margin-left: 212px;
+    margin-top: 15px;
+}
+
+.eat-drug-not-yet button {
+    width: 179px;
+    height: 50px;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-radius: 30px;
+    background: var(--1, #959AA4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eat-drug-not-yet #text-not-yet {
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.eat-drug-list {
+    padding-top: 20px;
+    display: flex;
+    padding: 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    background-color: red;
+}
+
+.eat-drug-list button {
+    border: none;
+    background: none;
+    border-radius: 30px;
+    background: var(--2, #E3E9F6);
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    gap: 14px;
+}
+
+/*운동하기*/
+
+.excer-box {
+    margin-top: 40px;
+    width: 100%;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+}
+
+.excer-button {
+    display: flex;
+}
+
+.excer-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 26px;
+    margin-left: 19px;
+}
+
+.excer-not-yet {
+    margin-left: 212px;
+    margin-top: 15px;
+}
+
+.excer-not-yet button {
+    width: 179px;
+    height: 50px;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-radius: 30px;
+    background: var(--1, #959AA4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.excer-not-yet #text-not-yet {
+
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.excer-list {
+    margin-top: 20px;
+    display: flex;
+    padding: 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    background-color: red;
+}
+
+.excer-list button {
+    border: none;
+    background: none;
+    border-radius: 30px;
+    background: var(--2, #E3E9F6);
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    gap: 14px;
+}
+
+/*main 끝*/
+
+/*임시 영역 표시용*/
+
+.who_message {
+    background-color: cornflowerblue;
+}
+
+.subFrame {
+    background-color: pink;
+}
+
+
+.main-box {
+    background-color: lightsalmon;
 }

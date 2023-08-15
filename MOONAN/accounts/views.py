@@ -203,7 +203,7 @@ def drug_info_view(request):
         'nutrition_choices': Nutrition.NUTRITION_CHOICES,
     }
 
-    return render(request, 'accounts/drugYes2.html', context)
+    return render(request, 'accounts/drugYes.html', context)
 
 # 사용자가 직접 복용하는 약 추가
 @transaction.atomic
