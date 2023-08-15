@@ -7,9 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locker</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/locker.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 </head>
 <body>
     <div class="mainFrame">
+        <header class="logoBox">
+            <div class="logoImgBox">
+                <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
+                <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
+            </div>
+        </header>
         <div class="subFrame">
             <p class="selecttarget">문안기록을 확인할 대상을 선택해주세요.</p>
             
@@ -96,10 +103,23 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'home' %}">홈</a>
-            <a href="{% url 'locker' %}">보관함</a>
-            <a href="{% url 'alarm' %}">알림</a>
         </div>
+        <footer class="main-footer">
+            <div class="footer-box">
+                <a href="{% url 'home' %}" class="home-button">
+                    <img src="{% static 'image/headerfooter/homeLogo.png'%}" />
+                    <p id="red">홈</p>
+                </a>
+                <a href="{% url 'locker' %}" class="save-button">
+                    <img src="{% static 'image/headerfooter/saveLogo.png'%}" />
+                    <p id="gray">보관함</p>
+                </a>
+                <a href="{% url 'alarm' %}" class="alarm-button">
+                    <img src="{% static 'image/headerfooter/alarmLogo.png'%}" />
+                    <p id="gray">알림</p>
+                </a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
@@ -120,6 +140,10 @@
 
     // user 선택했을 때 클릭 이벤트 핸들러 함수
     function handleAccountItemClick(event) {
+        const monthSelectElement = document.querySelector('#monthSelect');
+        console.log(monthSelectElement);
+        monthSelectElement.style.display = 'block';
+
         const accountboxes = document.querySelectorAll('.accountbox'); // 모든 accountbox 선택
 
         // 1. 모든 accountbox의 테두리 제거
