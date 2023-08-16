@@ -118,3 +118,9 @@ function showReasonBox(emotion) {
         selectFace.style.display = 'none';
     }
 } 
+
+document.getElementById("directText").addEventListener("input", function() {
+    const directTextValue = this.value;
+    const titleDirectTextElement = document.getElementById("titleDirectText");
+    titleDirectTextElement.textContent = directTextValue;
+});
