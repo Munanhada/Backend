@@ -45,7 +45,7 @@ class Medication(models.Model):
     medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
 
     def __str__(self):
-        return dict(self.MEDICATION_CHOICES)[self.medication_name]
+        return self.medication_name
 
 class Nutrition(models.Model):
     NUTRITION_CHOICES = [
@@ -68,7 +68,7 @@ class Nutrition(models.Model):
     nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
 
     def __str__(self):
-        return dict(self.NUTRITION_CHOICES)[self.nutrition_name]
+        return self.nutrition_name
 
 class User(AbstractUser):
     # 사용자 기본 정보
@@ -128,7 +128,6 @@ class Connection(models.Model):
 class UserMedication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_medications')
     medication = models.ForeignKey(Medication, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='복용 중인 약')
-    user_input_med_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 약 이름')
 
     class Meta: 
         unique_together = ('user', 'medication') # 중복된 사용자 - 약 데이터 생성하지 않게 함
@@ -136,8 +135,6 @@ class UserMedication(models.Model):
     def __str__(self):
         if self.medication:
             return str(self.medication)
-        elif self.user_input_med_name:
-            return self.user_input_med_name
         else:
             return "약이 선택되지 않았습니다."
     
@@ -145,7 +142,6 @@ class UserMedication(models.Model):
 class UserNutrition(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_nutritions')
     nutrition = models.ForeignKey(Nutrition, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='복용 중인 영양제')
-    user_input_nutr_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='직접 입력한 영양제 이름')
 
     class Meta: 
         unique_together = ('user', 'nutrition') # 중복된 사용자 - 영양제 데이터 생성하지 않게 함
@@ -153,7 +149,5 @@ class UserNutrition(models.Model):
     def __str__(self):
         if self.nutrition:
             return str(self.nutrition)
-        elif self.user_input_nutr_name:
-            return self.user_input_nutr_name
         else:
             return "영양제가 선택되지 않았습니다."

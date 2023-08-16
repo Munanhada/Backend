@@ -25,7 +25,13 @@ class UserAdmin(admin.ModelAdmin):
     def get_nutritions(self, obj):
         return ", ".join(str(nutrition) for nutrition in obj.nutritions.all())
     
+    
+    
 admin.site.register(User, UserAdmin) # 사용자 안에서 약/영양제 확인 가능
+admin.site.register(Medication)
+admin.site.register(Nutrition)
+admin.site.register(UserMedication)
+admin.site.register(UserNutrition)
 
 @admin.register(Connection)
 class ConnectionAdmin(admin.ModelAdmin):
