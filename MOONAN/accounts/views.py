@@ -99,6 +99,7 @@ def login_view(request):
 
 # 초기 계정 연결
 
+# 연결 요청
 @login_required
 def send_connection_request(request):
     if request.method =='POST':
@@ -133,10 +134,10 @@ def send_connection_request(request):
                     to_user=to_user_instance,
                     relationship1=relationship1,
                     relationship2=relationship2,
+                )
+        response_data['success'] = True
 
-                # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
-                return redirect('account:birth_info')  # 또는 적절한 리다이렉트 경로 설정
-
+        return JsonResponse(response_data)
     else:
         return render(request, 'accounts/accountConnection.html')
 
