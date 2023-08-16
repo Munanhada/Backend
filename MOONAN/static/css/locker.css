@@ -111,6 +111,10 @@ hr{
     align-items: center;
 }
 
+.calendardar{
+    margin-bottom: 3%;
+}
+
 #monthSelect {
     border: none; 
     color: #000;
@@ -199,6 +203,7 @@ hr{
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);   
     padding:3% 
+
 }
 
 .selectedrecord > .expressionbox> img{

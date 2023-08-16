@@ -20,7 +20,7 @@
     {% comment %}요청 받음{% endcomment %}
     <ul>
         {% for request in connection_requests_received %}
-            <li>
+            <li id="request_{{ request.id }}">
                 {{ request.from_user.name }} (관계: {{ request.relationship1 }})
                 <div class="button-container">
                     <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
@@ -80,3 +80,57 @@
 
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //수락 
+    $(".accept-btn").click(function(){
+        var request_id = $(this).attr('name')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'accept_connection_request' %}',
+            data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) {
+                    // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                    // 예시 코드:
+                    alert("요청을 수락하셨습니다!")
+                    $('#request_' + request_id).remove(); // 해당 요소 삭제
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    
+    }) 
+
+    //거절
+    $(".reject-btn").click(function(){
+        var request_id = $(this).attr('name');
+        console.log(request_id);
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'reject_connection_request' %}',
+            data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) {
+                    // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                    // 예시 코드:
+                    $('#request_' + request_id).remove(); // 해당 요소 삭제
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }) 
+
+
+</script>
