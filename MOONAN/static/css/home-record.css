@@ -142,7 +142,7 @@
 
 
 /* 이유 선택 메뉴 */
-.selectReasonBox2 {
+.selectReasonBox {
     display: flex;
     flex-direction: column;
     gap: 40px;

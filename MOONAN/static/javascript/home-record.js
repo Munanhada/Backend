@@ -142,7 +142,7 @@ function closeSavePopUp() {
 }
 
 // 페이스 선택화면 숨기거나 보이기 
-let selectFace = document.querySelector(".selectReasonBox2");
+let selectFace = document.querySelector(".selectReasonBox");
 selectFace.style.display = "none";
 function showReasonBox(emotion) {
     if(emotion === "sosoBox" || emotion === "badBox" || emotion === "worseBox") {
@@ -152,3 +152,10 @@ function showReasonBox(emotion) {
         selectFace.style.display = 'none';
     }
 } 
+
+// 직접 입력 텍스트 변경
+document.getElementById("directText").addEventListener("input", function() {
+    const directTextValue = this.value;
+    const titleDirectTextElement = document.getElementById("titleDirectText");
+    titleDirectTextElement.textContent = directTextValue;
+});
