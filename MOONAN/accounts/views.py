@@ -204,7 +204,7 @@ def birth_info_view(request):
 
     return render(request, 'accounts/accountBirth.html')
 
-# 
+#
 @login_required
 def drug_ask_view(request):
     user = request.user
