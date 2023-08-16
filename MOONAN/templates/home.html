@@ -86,14 +86,14 @@
                     <div class="munan-menu-list">
                       <ul class="munan-menu-list-detail">
                         {% for choice in recommendContent_choices %}
-                            <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
+                          <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                         {% endfor %}
-                            <li id="user-text" >
-                                <button type="button" onclick="addList()">
-                                    <img src="/static/image/plus-gray.svg" alt="추가 이미지">
-                                </button>
-                                <input type="text" id="customContentInput" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
-                            </li>
+                          <li id="user-text" >
+                              <button type="button" onclick="addList()">
+                                  <img src="/static/image/plus-gray.svg" alt="추가 이미지">
+                              </button>
+                              <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
+                          </li>
                       </ul>
                     </div>
                   </div>
