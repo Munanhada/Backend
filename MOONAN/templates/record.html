@@ -7,6 +7,7 @@
     <title>문안하다 답변하기</title>
     <link rel="stylesheet" href="/static/css/mainFrame.css">
     <link rel="stylesheet" href="/static/css/home-record.css">
+    <link rel="stylesheet" href="/static/css/base.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -47,12 +48,10 @@
                         <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
                         <p class="worseText">나빠요</p>
                     </div>
-                </div>
 
-                <!-- 선택 박스 -->
-                <div calss="selectReasonBox">
-                    <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
+                    <!-- 선택 박스 -->
                     <div class="selectReasonBox">
+                        <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
                         <div class="reasonOptionBox">
                             <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg" id="mealImg">
                             <div class="reasonMenuBox">
@@ -131,7 +130,7 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/직접 입력.svg" alt="직집입력 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">직접 입력</p>
+                                <p class="reasonMenuText" id="titleDirectText">직접 입력</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -140,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>        
 
                     <div class="emotionBox">
                         <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
@@ -149,7 +148,7 @@
                             <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg"
                                 onclick="mikeImgAlert()">
                         </div>
-                    </div>
+                    </div>   
                 </div>
 
                 <div class="inputCompletedBox">
@@ -161,7 +160,7 @@
                 <div class="saveConfirmBox">
                     <button class="saveConfirmButton" onclick="closeSavePopUp()">확인</button>
                 </div>
-            </div>
+            </div>    
         </div>
         <footer class="main-footer">
             <div class="footer-box">
@@ -178,7 +177,7 @@
                 <p id="gray"><a href="{% url 'alarm' %}">알림</a></p>
               </button>
             </div>
-          </footer>
+        </footer>
     </div>
 
     <script src="/static/javascript/home-record.js"></script>

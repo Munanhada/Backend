@@ -118,3 +118,10 @@ function showReasonBox(emotion) {
         selectFace.style.display = 'none';
     }
 } 
+
+// 직접 입력 텍스트 변경
+document.getElementById("directText").addEventListener("input", function() {
+    const directTextValue = this.value;
+    const titleDirectTextElement = document.getElementById("titleDirectText");
+    titleDirectTextElement.textContent = directTextValue;
+});
