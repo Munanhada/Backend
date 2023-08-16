@@ -7,9 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locker</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/locker.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 </head>
 <body>
     <div class="mainFrame">
+        <header class="logoBox">
+            <div class="logoImgBox">
+                <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
+                <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
+            </div>
+        </header>
         <div class="subFrame">
             <p class="selecttarget">문안기록을 확인할 대상을 선택해주세요.</p>
             
@@ -60,48 +67,59 @@
 
                     <div class="recordbox">
                         <div class="recordday">
-                            <p>
+                            <p class="selectedDay">
                                 <!-- JavaScript를 사용하여 옵션을 동적으로 생성 -->
                             </p>
                         </div>
                         <div class="selectedrecord">
                             <div class="expressionbox">
-                                <img src="../../static/image/expression/empty.png" alt="이미지 설명">
-                                <p class="expression">안좋아요</p>
+                                <img>
+                                <p class="expression"></p>
                             </div>
                             <p class="ment">무난하지 않았던 이유</p>
                             <div class="reasonbox">
                                 <div class="reason">
-                                    <img src="../../static/image/expression/empty.png" alt="이미지 설명">
+                                    <img>
                                     <div class="reasonContent">
                                         <div>
                                             <div class="reasontype">
-                                                식사
+                                                
                                             </div>
                                             <div class="reasonment">
-                                                입맛이 없었어... 시원한게 먹고 싶구나 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+        
                             </div>
                             
-                            <p class="ment">00님에게 있었던 오늘의 기뻤거나 슬펐던 일</p>
+                            <p class="ment2"></p>
                             <div class="todaycontent">
                                 <p>
-                                    오늘 영기엄마랑 텃밭을 갔는데 고구마호박 따다가 인삼을 발견 했잖아,, 근데 너무 좋아한 나머지 심봤다하면서 방방 뛰다가 넘어졌어,,
                                 </p>
                             </div>
-
                         </div>
 
                     </div>
                 </div>
             </div>
-            <a href="{% url 'home' %}">홈</a>
-            <a href="{% url 'locker' %}">보관함</a>
-            <a href="{% url 'alarm' %}">알림</a>
         </div>
+        <footer class="main-footer">
+            <div class="footer-box">
+                <a href="{% url 'home' %}" class="home-button">
+                    <img src="{% static 'image/headerfooter/homeLogo.png'%}" />
+                    <p id="red">홈</p>
+                </a>
+                <a href="{% url 'locker' %}" class="save-button">
+                    <img src="{% static 'image/headerfooter/saveLogo.png'%}" />
+                    <p id="gray">보관함</p>
+                </a>
+                <a href="{% url 'alarm' %}" class="alarm-button">
+                    <img src="{% static 'image/headerfooter/alarmLogo.png'%}" />
+                    <p id="gray">알림</p>
+                </a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
@@ -111,12 +129,24 @@
 
 <script>
     let accountId;
+    let selectedUserName;
 
-    // 클릭 이벤트 핸들러 함수
+
+    // 클릭 이벤트 핸들러 추가
+    const accountItems = document.querySelectorAll('.accountbox');
+    accountItems.forEach(item => {
+        item.addEventListener('click', handleAccountItemClick);
+    });
+
+    // user 선택했을 때 클릭 이벤트 핸들러 함수
     function handleAccountItemClick(event) {
+        const monthSelectElement = document.querySelector('#monthSelect');
+        console.log(monthSelectElement);
+        monthSelectElement.style.display = 'block';
+
         const accountboxes = document.querySelectorAll('.accountbox'); // 모든 accountbox 선택
 
-        // 모든 accountbox의 테두리 제거
+        // 1. 모든 accountbox의 테두리 제거
         accountboxes.forEach(accountbox => {
             const accountImageBox = accountbox.querySelector('.accountimagebox');
             accountImageBox.style.border = 'none';
@@ -124,29 +154,25 @@
         const clickedAccountImageBox = event.currentTarget.querySelector('.accountimagebox');
         clickedAccountImageBox.style.border = '2px solid red'; // 클릭된 요소에 빨간색 테두리 추가
 
-
+        // 2. 누구의 문안기록인지
         accountId = event.currentTarget.getAttribute('data-id');
         const accountName = event.currentTarget.getAttribute('data-name');
         document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요."; // 수정된 부분
         
         const emptyment = document.querySelector('.emptyment');
-        const recordtotalbox = document.querySelector('.recordtotalbox');
+        const calendarbox = document.querySelector('.calendarbox');
 
         emptyment.style.display = 'none'; // emptyment 숨기기
-        recordtotalbox.style.display = 'block'; // recordtotalbox 보이기
+        calendarbox.style.display = 'block'; // calendar 보이기
 
-        // 초기에 현재 달의 날짜 표시
+        // 3. 초기에 날짜 option에 현재 달의 날짜 표시
         const currentDate = new Date();
         monthSelect.value = `${currentYear}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}`;
+        
+        // 4. 달력 화면에 나타내기 - 이번 달을 전달
         updateCalendar(currentDate);
-
     }
 
-    // 클릭 이벤트 핸들러 추가
-    const accountItems = document.querySelectorAll('.accountbox');
-    accountItems.forEach(item => {
-        item.addEventListener('click', handleAccountItemClick);
-    });
 
 
     //달력 만드는 코드 ----------------------------------
@@ -199,6 +225,9 @@
                 // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
                 if (response.success) { 
                     console.log(response.record_data);
+                    selectedUserName = response.username;
+
+                    // 1. 달력 ui 생성
                     // 특정 날짜의 expression 가져와서 표시하기
                     // 현재 달의 날짜 생성
                     for (let i = 1; i <= daysInMonth; i++) {
@@ -213,7 +242,7 @@
                         dayNumberElement.textContent = i;
                         dateElement.appendChild(dayNumberElement);
 
-                        // 특정 날짜의 expression 가져와서 표시하기
+                        // 2. 특정 날짜의 expression 가져와서 표시하기
                         const currentDateData = response.record_data.find(data => data.date === i);
                         
                         if (currentDateData) {
@@ -231,7 +260,7 @@
 
                         dateBorderElement.appendChild(dateElement);
 
-                        // 오늘 날짜에 selected-date 클래스 추가
+                        // 오늘 날짜에 selected-date 클래스 추가 => 빨간 테두리 생성
                         if (
                             i === currentDate.getDate() &&
                             currentMonth === currentDate.getMonth() &&
@@ -240,14 +269,17 @@
                             dateElement.classList.add('selected-date');
                         }
 
-                        
-                        // p태그 출력
+                        // 3. 사용자 선택했을 때 오늘 날짜 출력 p태그 출력
                         const recordDayElement = document.querySelector('.recordday p');
                         recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${currentDate.getDate()}일의 문안기록`;
-
-
+                        
                         datesContainer.appendChild(dateBorderElement);
                     }
+                    
+                    // 4. 밑에 업데이트
+                    const currentDateData = response.record_data.find(data => data.date === currentDate.getDate());
+
+                    updateRecordbox(currentDateData)
                     
                 }else{
                     console.log("false")
@@ -258,24 +290,104 @@
             }
         }); 
 
-        
-
     }
 
+    function updateRecordbox(currentDateData){
+        const recordbox = document.querySelector('.recordbox');
+
+        const selectedRecordBox = document.querySelector('.selectedrecord');
+        const expressionBox = selectedRecordBox.querySelector('.expressionbox');
+        const expressionImage = expressionBox.querySelector('img');
+        const expressionText = expressionBox.querySelector('.expression');
+        
+        const reasonBox = selectedRecordBox.querySelector('.reasonbox');
+        reasonBox.innerHTML = '';
+
+        if (currentDateData) {
+            //console.log(currentDateData)
+            recordbox.style.display = 'block'; 
+
+            // 표정 이미지와 텍스트 업데이트
+            expressionImage.src = `../../static/image/expression/${currentDateData.expression}.png`;
+            expressionText.textContent = currentDateData.expression;
+        
+            // 이유 출력
+            for (const item in currentDateData) {
+                if (item !== 'date' && item !== 'expression') {
+                    if (item === 'happyorsad') {
+                        if (currentDateData[item] !== null) {
+                            // 멘트 추가
+                            const mentElement = document.querySelector('.ment2');
+                            mentElement.textContent = `${selectedUserName}님에게 있었던 오늘의 기뻤거나 슬펐던 일`;
+                            
+                            // todaycontent 추가
+                            const todayContentElement = document.querySelector('.todaycontent');
+                            const pElement = todayContentElement.querySelector('p');
+                            pElement.textContent = currentDateData[item]
+
+                            // todaycontent 요소를 보이게 처리
+                            todayContentElement.style.display = 'block';
+                        }else{
+                            const mentElement = document.querySelector('.ment2');
+                            mentElement.innerHTML='';
+                            // todaycontent 요소 제거
+                            const todayContentElement = document.querySelector('.todaycontent');
+                            todayContentElement.style.display = 'none';
+                        }
+
+                    }else if (currentDateData[item] !== null) {
+                        const reasonElement = document.createElement('div');
+                        reasonElement.classList.add('reason');
+        
+                        const reasonImage = new Image();
+                        const imageSource = `../../static/image/reason/${item}.png`;
+                        reasonImage.src = imageSource;
+                        reasonImage.alt = item;
+        
+                        const reasonContent = document.createElement('div');
+                        reasonContent.classList.add('reasonContent');
+        
+                        const reasonType = document.createElement('div');
+                        reasonType.classList.add('reasontype');
+                        reasonType.textContent = item;
+        
+                        const reasonment = document.createElement('div');
+                        reasonment.classList.add('reasonment');
+                        reasonment.textContent = currentDateData[item];
+        
+                        reasonContent.appendChild(reasonType);
+                        reasonContent.appendChild(reasonment);
+                        reasonElement.appendChild(reasonImage);
+                        reasonElement.appendChild(reasonContent);
+                        reasonBox.appendChild(reasonElement);
+                    }
+                }
+                
+            }
+
+
+            
+            
+            // 여기서 필요한 데이터를 사용하여 업데이트하는 로직을 추가할 수 있습니다.
+        } else {
+            // 데이터가 없을 경우 처리할 내용
+            recordbox.style.display = 'none'; 
+
+        }
+    }
     
-   
     // DOM이 로드된 후에 스크립트 실행
     document.addEventListener('DOMContentLoaded', function () {
         // const monthSelect = document.getElementById('monthSelect');
         
         // 선택한 달의 날짜 업데이트
         monthSelect.addEventListener('change', function () {
+            console.log("change");
             const selectedDate = new Date(monthSelect.value + '-01');
             updateCalendar(selectedDate);
         });
 
         
-
         // 날짜 클릭 이벤트 처리
         datesContainer.addEventListener('click', function (event) {
             const clickedDateElement = event.target.closest('.date'); // .date 요소를 찾음
@@ -299,6 +411,27 @@
                 recordDayElement.textContent = `${selectedYear}년 ${selectedMonth}월 ${clickedDate}일의 문안기록`;
         
                 // 선택한 날짜의 기록 정보를 가져와서 .selectedrecord 에 추가하는 로직 추가 가능
+                // Ajax 요청 보내기
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'get_selectDay' %}',
+                    data: {'account_id' : accountId, 'selectedYear' : selectedYear, 'selectedMonth' : selectedMonth, 'clickedDate' : clickedDate, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                    dataType: 'json',
+                    success: function(response) {
+                        // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                        if (response.success) { 
+                            console.log(response.record_data[0]);
+                            
+                            updateRecordbox(response.record_data[0])
+                            
+                        }else{
+                            console.log("false")
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                }); 
             }
         });
         
