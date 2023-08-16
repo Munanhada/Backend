@@ -142,7 +142,7 @@ function closeSavePopUp() {
 }
 
 // 페이스 선택화면 숨기거나 보이기 
-let selectFace = document.querySelector(".selectReasonBox");
+let selectFace = document.querySelector(".selectReasonBox2");
 selectFace.style.display = "none";
 function showReasonBox(emotion) {
     if(emotion === "sosoBox" || emotion === "badBox" || emotion === "worseBox") {

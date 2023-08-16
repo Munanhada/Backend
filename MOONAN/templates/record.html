@@ -22,37 +22,36 @@
                 <p class="recordText">행복한 하루를 보내셨나요?</p>
                 <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
             </div>
-        <form action="" class="recordEmotion" method="POST">
-            {% csrf_token %}
-            <div class="selectFaceBox">
-                <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
-                <div class="selectFaceImgBox">
-                    <div class="Face goodBox" onclick="showReasonBox('goodBox')">
-                        <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
-                        <p class="goodText">최고예요</p>
+            <form action="" class="recordEmotion" method="POST">
+                {% csrf_token %}
+                <div class="selectFaceBox">
+                    <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
+                    <div class="selectFaceImgBox">
+                        <div class="Face goodBox" onclick="showReasonBox('goodBox')">
+                            <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
+                            <p class="goodText">최고예요</p>
+                        </div>
+                        <div class="Face okayBox" onclick="showReasonBox('okayBox')">
+                            <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
+                            <p class="okayText">무난해요</p>
+                        </div>
+                        <div class="Face sosoBox" onclick="showReasonBox('sosoBox')">
+                            <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
+                            <p class="sosoText">그럭저럭</p>
+                        </div>
+                        <div class="Face badBox" onclick="showReasonBox('badBox')">
+                            <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
+                            <p class="badText">안좋아요</p>
+                        </div>
+                        <div class="Face worseBox" onclick="showReasonBox('worseBox')">
+                            <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
+                            <p class="worseText">나빠요</p>
+                        </div>
                     </div>
-                    <div class="Face okayBox" onclick="showReasonBox('okayBox')">
-                        <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
-                        <p class="okayText">무난해요</p>
-                    </div>
-                    <div class="Face sosoBox" onclick="showReasonBox('sosoBox')">
-                        <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
-                        <p class="sosoText">그럭저럭</p>
-                    </div>
-                    <div class="Face badBox" onclick="showReasonBox('badBox')">
-                        <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
-                        <p class="badText">안좋아요</p>
-                    </div>
-                    <div class="Face worseBox" onclick="showReasonBox('worseBox')">
-                        <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
-                        <p class="worseText">나빠요</p>
-                    </div>
-                </div>
 
-                <!-- 선택 박스 -->
-                <div calss="selectReasonBox">
-                    <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
-                    <div class="selectReasonBox">
+                    <!-- 선택 박스 -->
+                    <div calss="selectReasonBox2">
+                        <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
                         <div class="reasonOptionBox">
                             <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg" id="mealImg">
                             <div class="reasonMenuBox">
@@ -140,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>        
 
                     <div class="emotionBox">
                         <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
@@ -149,7 +148,7 @@
                             <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg"
                                 onclick="mikeImgAlert()">
                         </div>
-                    </div>
+                    </div>   
                 </div>
 
                 <div class="inputCompletedBox">
@@ -161,7 +160,7 @@
                 <div class="saveConfirmBox">
                     <button class="saveConfirmButton" onclick="closeSavePopUp()">확인</button>
                 </div>
-            </div>
+            </div>    
         </div>
         <footer class="main-footer">
             <div class="footer-box">
@@ -178,7 +177,7 @@
                 <p id="gray"><a href="{% url 'alarm' %}">알림</a></p>
               </button>
             </div>
-          </footer>
+        </footer>
     </div>
 
     <script src="/static/javascript/home-record.js"></script>
