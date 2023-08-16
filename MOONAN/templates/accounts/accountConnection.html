@@ -27,10 +27,21 @@
                         <img src="/static/image/Clear.svg" alt="삭제 이미지" class="clearImg">
                     </div>
                     <div class="selectBox">
-                        <input type="text" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
+                        <input type="text" id="to_user" name="to_user" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
                         <p class="selectBoxText">는 소중한 나의</p>
-                        <div id="famRelationship">
-                            <p class="selectText">선택</p>
+                        <select name="relationship2" id="relationship2" class="hello">
+                            <option value="" disabled selected hidden>선택</option>
+                            <option value="father">아빠</option>
+                            <option value="mother">엄마</option>
+                            <option value="daughter">딸</option>
+                            <option value="son">아들</option>
+                            <option value="grandmother">할머니</option>
+                            <option value="grandfather">할아버지</option>
+                            <option value="grandson">손자</option>
+                            <option value="granddaughter">손녀</option>
+                        </select>
+                        {% comment %} <div id="famRelationship">
+                            <p class="selectText" name="relationship2" id="relationship2" >선택</p>
                             <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown(this)">
                             <div class="dropdownBox">
                                 <ul class="dropdownMenu">
@@ -44,14 +55,25 @@
                                     <li class="dropdownOption">손자</li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="selectBox2">
                         <p class="selectBoxText">나는</p>
                         <input type="text" placeholder="연결할 아이디" class="famIdField2">
                         <p class="selectBoxText">의</p>
-                        <div id="famRelationship">
-                            <p class="selectText2">선택</p>
+                        <select name="relationship1" id="relationship1" class="hello">
+                            <option value="" disabled selected hidden>선택</option>
+                            <option value="father">아빠</option>
+                            <option value="mother">엄마</option>
+                            <option value="daughter">딸</option>
+                            <option value="son">아들</option>
+                            <option value="grandmother">할머니</option>
+                            <option value="grandfather">할아버지</option>
+                            <option value="grandson">손자</option>
+                            <option value="granddaughter">손녀</option>
+                        </select>
+                        {% comment %} <div id="famRelationship">
+                            <p class="selectText2" name="relationship1" id="relationship1" >선택</p>
                             <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown2(this)">
                             <div class="dropdownBox2">
                                 <ul class="dropdownMenu">
@@ -65,7 +87,7 @@
                                     <li class="dropdownOption2">손자</li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -76,22 +98,40 @@
             </div>
             <div class="optionBox">
                 <div class="skipBox">
-                    <button class="skipButton" onclick="skip()">건너뛰기</button>
+                    <button class="skipButton" onclick="skip()"> 건너뛰기
+                    </button>
                 </div>
                 <div class="connectBox">
                     <button type="submit" class="connectButton">연결하기</button>
                 </div>
             </div>
         </form>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        
         <div class="popup" id="popUp">
             <p class="popupContent">지금 건너뛰기 할 경우 <br>계정 연결이 진행되지 않습니다.</p>
             <div class="confirmBox">
-                <button class="confirmButton" onclick="closePopup()">확인</button>
+                <a href="{% url 'accounts:birth_info' %}" class="confirmButton">확인</a>
             </div>
         </div>
     </div>
 
     <script src="/static/javascript/accountConnection.js"></script>
 </body>
-
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // 선택하면 색 변경
+    $("#relationship2").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    $("#relationship1").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    
+</script>
