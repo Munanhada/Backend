@@ -261,7 +261,7 @@ def reset_daily_status(request):
         return JsonResponse(response_data)
     
     return JsonResponse({'status': 'error'}, status=400)
-
+        
 def locker_view(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션

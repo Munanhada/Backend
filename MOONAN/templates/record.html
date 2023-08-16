@@ -22,7 +22,7 @@
                 <p class="recordText">행복한 하루를 보내셨나요?</p>
                 <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
             </div>
-        <form action="" class="recordEmotion" method="POST">
+        <form action="" class="recordEmotion" id="expressionForm" method="POST">
             {% csrf_token %}
             <div class="selectFaceBox">
                 <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
@@ -56,13 +56,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg" id="mealImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">식사</p>
+                                <p class="reasonMenuText" id="eating">식사</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for eating_choice in eating_choices %}
-                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        <li data-category="eating">{{ eating_choice.1|safe}}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -71,13 +71,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/health.svg" alt="건강 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">건강</p>
+                                <p class="reasonMenuText" id="health">건강</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
-                                        {% for eating_choice in eating_choices %}
-                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        {% for health_choice in health_choices %}
+                                        <li data-category="health">{{ health_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -86,13 +86,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/sleep.svg" alt="수면 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">수면</p>
+                                <p class="reasonMenuText" id="sleep">수면</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for sleep_choice in sleep_choices %}
-                                        <li data-category="sleep">{{ sleep_choice.1 }}</button>
+                                        <li data-category="sleep">{{ sleep_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -101,13 +101,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/기분.svg" alt="기분 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">기분</p>
+                                <p class="reasonMenuText" id="mood">기분</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for mood_choice in mood_choices %}
-                                        <li data-category="mood">{{ mood_choice.1 }}</button>
+                                        <li data-category="mood">{{ mood_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -116,13 +116,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/accident.svg" alt="사고 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">사고</p>
+                                <p class="reasonMenuText" id="accident">사고</p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for accidents_choice in accidents_choices %}
-                                        <li data-category="accident">{{ accidents_choice.1 }}</button>
+                                        <li data-category="accident">{{ accidents_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="inputCompletedBox">
-                    <button class="inputCompletedButton" onclick="showSavePopUp()">입력완료</button>
+                    <button type="submit" class="inputCompletedButton" onclick="showSavePopUp()">입력완료</button>
                 </div>
             </form>
             <div class="savePopUp" id="savePopUp">

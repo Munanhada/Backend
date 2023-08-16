@@ -1,15 +1,11 @@
 from django.shortcuts import render
+import json
 from django.http import JsonResponse
 from .models import Record
+from django.core.exceptions import ObjectDoesNotExist
 
 # 오늘 하루 감정 업데이트
 def record_view(request):
-    if request.method == 'POST':
-        expression = request.POST.get('expression')
-        if request.user.is_authenticated:
-            record, create = Record.objects.get_or_create(user=request.user)
-            record.expression = expression
-            record.save()
     
     # 무난하지 않았던 이유 카테고리 속 각각의 내용 불러오기
     context = {
@@ -22,42 +18,35 @@ def record_view(request):
 
     return render(request, 'record.html', context)
 
-# 오늘 하루 표정 표현
-def submit_expression(request):
+# 오늘 하루 표정 선택 & 무난하지 않았던 이유 저장
+def submit_data(request):
     if request.method == 'POST':
         expression = request.POST.get('expression')
-        if request.user.is_authenticated:
-            record, created = Record.objects.get_or_create(user=request.user)
-            record.expression = expression
-            record.save()
+        custom_reason = request.POST.get('customReason')
+        selected_data_json = request.POST.get('selectedData', '')
 
-        return JsonResponse({'message': '표정 전달 성공'}) 
+        # JSON 데이터 파싱
+        try:
+            selected_data = json.loads(selected_data_json)
+        except json.JSONDecodeError:
+            selected_data = {}  # JSON 파싱 실패 시 빈 딕셔너리
 
-    return JsonResponse({'message': '표정 전달 실패'}, status=400)
+        # 모델에 선택된 데이터 저장
+        if selected_data:
+            Record.objects.filter(user=request.user).update(
+                expression = expression,
+                eating=selected_data.get('eating'),
+                health=selected_data.get('health'),
+                sleep=selected_data.get('sleep'),
+                mood=selected_data.get('mood'),
+                accident=selected_data.get('accident'),
+                customContent = custom_reason,
+            )
 
-# 무난하지 않았던 이유 업데이트
-def submit_reason(request):
-    if request.method == 'POST':
-        selected_category = request.POST.get('category')  # 선택한 카테고리 이름 가져오기
-        selected_reason = request.POST.get('reason')
+        print("표정:", expression)
+        print("선택한 이유:", selected_data)
+        print("직접 쓴 이유:", custom_reason)
 
-        if request.user.is_authenticated:
-            record, created = Record.objects.get_or_create(user=request.user)
-
-            # 선택한 카테고리에 따라서 해당 필드에 이유를 저장
-            if selected_category == 'eating':
-                record.eating = selected_reason if selected_reason in dict(Record.EATING_CHOICES) else None
-            elif selected_category == 'health':
-                record.health = selected_reason if selected_reason in dict(Record.HEALTH_CHOICES) else None
-            elif selected_category == 'sleep':
-                record.sleep = selected_reason if selected_reason in dict(Record.SLEEP_CHOICES) else None
-            elif selected_category == 'mood':
-                record.mood = selected_reason if selected_reason in dict(Record.MOOD_CHOICES) else None
-            elif selected_category == 'accident':
-                record.accident = selected_reason if selected_reason in dict(Record.ACCIDENTS_CHOICES) else None
-
-            record.save()
-
-        return JsonResponse({'message': '문안인사가 성공적으로 전송되었습니다!'}) 
-
-    return JsonResponse({'message': '문안인사 전송에 실패하였습니다.'}, status=400)
+        return JsonResponse({'status': '문안 기록이 저장되었습니다.'})
+    
+    return JsonResponse({'status': 'error', 'message': '문안 기록 저장에 실패하였습니다.'})
