@@ -28,44 +28,44 @@ class UserManager(DjangoUserManager):
     
 class Medication(models.Model):
     MEDICATION_CHOICES = [
-        ('blood_pressure', '혈압약'),
-        ('diabetes', '당뇨약'),
-        ('digestive', '소화제'),
-        ('cholesterol', '고지혈증약'),
-        ('constipation', '변비약'),
-        ('digestive_system', '위장약'),
-        ('antibiotics', '항생제'),
-        ('antihistamines', '항히스타민제'),
-        ('thyroid_disorder', '갑상선질환 치료제'),
-        ('gout_treatment', '통풍 치료제'),
-        ('anti-inflammatory', '소염 진통제'),
-        ('antidepressants', '우울증약'),
-        ('hormone_therapy', '성호르몬제'),
+        ('혈압약', '혈압약'),
+        ('당뇨약', '당뇨약'),
+        ('소화제', '소화제'),
+        ('고지혈증약', '고지혈증약'),
+        ('변비약', '변비약'),
+        ('위장약', '위장약'),
+        ('항생제', '항생제'),
+        ('항히스타민제', '항히스타민제'),
+        ('갑상선질환 치료제', '갑상선질환 치료제'),
+        ('통풍 치료제', '통풍 치료제'),
+        ('소염 진통제', '소염 진통제'),
+        ('우울증약', '우울증약'),
+        ('성호르몬제', '성호르몬제'),
     ]
-    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, verbose_name='복용 중인 약')
+    medication_name = models.CharField(max_length=100, choices=MEDICATION_CHOICES, unique=True, verbose_name='복용 중인 약')
 
     def __str__(self):
         return self.medication_name
 
 class Nutrition(models.Model):
     NUTRITION_CHOICES = [
-        ('probiotics', '유산균'),
-        ('omega3', '오메가3'),
-        ('lutein', '루테인'),
-        ('multivitamin', '종합비타민'),
-        ('vitaminC', '비타민C'),
-        ('vitaminD', '비타민D'),
-        ('vitaminA', '비타민A'),
-        ('collagen', '콜라겐'),
-        ('iron', '철분'),
-        ('propolis', '프로폴리스'),
-        ('aronia', '아로니아'),
-        ('folic_acid', '엽산'),
+        ('유산균', '유산균'),
+        ('오메가3', '오메가3'),
+        ('루테인', '루테인'),
+        ('종합비타민', '종합비타민'),
+        ('비타민C', '비타민C'),
+        ('비타민D', '비타민D'),
+        ('비타민A', '비타민A'),
+        ('콜라겐', '콜라겐'),
+        ('철분', '철분'),
+        ('프로폴리스', '프로폴리스'),
+        ('아로니아', '아로니아'),
+        ('엽산', '엽산'),
         ('magnesium', '마그네슘'),
-        ('vitaminE', '비타민E'),
-        ('calcium', '칼슘'),
+        ('비타민E', '비타민E'),
+        ('칼슘', '칼슘'),
     ]
-    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, verbose_name='복용 중인 영양제')
+    nutrition_name = models.CharField(max_length=100, choices=NUTRITION_CHOICES, unique=True, verbose_name='복용 중인 영양제')
 
     def __str__(self):
         return self.nutrition_name

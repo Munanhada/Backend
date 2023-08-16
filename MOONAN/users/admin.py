@@ -30,8 +30,6 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin) # 사용자 안에서 약/영양제 확인 가능
 admin.site.register(Medication)
 admin.site.register(Nutrition)
-admin.site.register(UserMedication)
-admin.site.register(UserNutrition)
 
 @admin.register(Connection)
 class ConnectionAdmin(admin.ModelAdmin):

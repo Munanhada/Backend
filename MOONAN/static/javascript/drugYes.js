@@ -1,3 +1,6 @@
+const medications = [];
+const nutritions = [];
+
 document.addEventListener("DOMContentLoaded", function () {
     const userChoiceContents = document.querySelector(".user-choice-contents");
     const medicationInput = document.getElementById("medication-input");
@@ -116,6 +119,10 @@ function addMedication(newMedication) {
     // CSRF 토큰 가져오기
     const csrfToken = getCookie("csrftoken");
 
+    // medications 리스트에 추가
+    medications.push(newMedication);
+    console.log("medications:", medications);
+
     $.ajax({
         url: "/accounts/add_medication/",
         method: "POST",
@@ -138,6 +145,10 @@ function addMedication(newMedication) {
 function addNutrition(newNutrition) {
     // CSRF 토큰 가져오기
     const csrfToken = getCookie("csrftoken");
+
+    // nutritions 리스트에 추가
+    nutritions.push(newNutrition);
+    console.log("nutritions:", nutritions);
 
     $.ajax({
         url: "/accounts/add_nutrition/",
@@ -168,63 +179,65 @@ function getCookie(name) {
 }
 
 
-     $(document).ready(function() {
-        $(".next-step").click(function() {
-            // 선택 완료 버튼 클릭 시 이벤트 핸들러
-            $("form").submit();
-        });
+$(document).ready(function() {
 
-        $("form").on("submit", function(event) {
+    $(".user-drug-button").click(function() {
+        const medication = $(this).data("medication");
+        if (!medications.includes(medication)) {
+            medications.push(medication);
+            $(this).addClass("selected");
+        } else {
+            const index = medications.indexOf(medication);
+            if (index > -1) {
+                medications.splice(index, 1);
+            }
+            $(this).removeClass("selected");
+        }
+        console.log("medications:", medications);
+    });
 
-            let med_or_nutr_status = $("input[name='med_or_nutr_status']:checked").val() === "True" ? "True" : "False";
-            let medications = [];
-            let nutritions = [];
+    $(".user-nutri-button").click(function() {
+        const nutrition = $(this).data("nutrition");
+        if (!nutritions.includes(nutrition)) {
+            nutritions.push(nutrition);
+            $(this).addClass("selected");
+        } else {
+            const index = nutritions.indexOf(nutrition);
+            if (index > -1) {
+                nutritions.splice(index, 1);
+            }
+            $(this).removeClass("selected");
+        }
+        console.log("nutritions:", nutritions);
+    });
 
-            $(".user-drug-button.selected").each(function() {
-                medications.push($(this).data("medication"));
-            });
+    $(".next-step").click(function() {
+        // 선택 완료 버튼 클릭 시 이벤트 핸들러
+        $("form").submit();
+    });
 
-            $(".user-nutri-button.selected").each(function() {
-                nutritions.push($(this).data("nutrition"));
-            });
+    $("form").on("submit", function(event) {
+        let med_or_nutr_status = $("input[name='med_or_nutr_status']:checked").val() === "True" ? "True" : "False";
 
-            console.log("med_or_nutr_status:", med_or_nutr_status);
-            console.log("medications:", medications);
-            console.log("nutritions:", nutritions);
+        console.log("med_or_nutr_status:", med_or_nutr_status);
+        console.log("medications:", medications);
+        console.log("nutritions:", nutritions);
 
-            // 폼 데이터를 제출하고 서버 응답 처리
-            $.post("/accounts/drugYes/", {
-                med_or_nutr_status: med_or_nutr_status,
-                medication: medications,
-                nutrition: nutritions,
-                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
-            })
-            .done(function(data) {
-                // 서버 응답 처리 코드
-                console.log("Server Response:", data); // 서버 응답을 콘솔에 출력
-                window.location.href = "{% url 'home' %}"; // home으로 리디렉션
-            })
-            .fail(function(error) {
-                // 실패 시 처리 코드
-                console.error("Error:", error);
-            });
-        });
-
-        $(".med-or-nutr-status, .user-drug-button, .user-nutri-button").click(function() {
-            let med_or_nutr_status = $("input[name='med_or_nutr_status']:checked").val() === "True" ? "True" : "False";
-            let medications = [];
-            let nutritions = [];
-
-            $(".user-drug-button.selected").each(function() {
-                medications.push($(this).data("medication"));
-            });
-
-            $(".user-nutri-button.selected").each(function() {
-                nutritions.push($(this).data("nutrition"));
-            });
-
-            console.log("med_or_nutr_status:", med_or_nutr_status);
-            console.log("medications:", medications);
-            console.log("nutritions:", nutritions);
+        // 폼 데이터를 제출하고 서버 응답 처리
+        $.post("/accounts/med_nutr_data/", {
+            med_or_nutr_status: med_or_nutr_status,
+            medication: medications,
+            nutrition: nutritions,
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
+        })
+        .done(function(data) {
+            // 서버 응답 처리 코드
+            console.log("Server Response:", data); // 서버 응답 출력
+            window.location.href = "/home"; // home으로 리디렉션
+        })
+        .fail(function(error) {
+            // 실패 시 처리 코드
+            console.error("Error:", error);
         });
     });
+});

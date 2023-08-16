@@ -54,8 +54,8 @@
         <div class="user-drug-box">
           <span class="black-text">복용중인 <span class="red-text">약</span>을 선택해주세요.</span>
           <div class="user-drug-content" id="medication-list">
-            {% for medication_choice in medication_choices %}
-            <button type="button" class="user-drug-button" name="medication" data-medication="{{ medication_choice.0 }}">{{ medication_choice.1 }}</button>
+            {% for label, value in medication_choices %}
+            <button type="button" class="user-drug-button" name="medication" data-medication="{{ label }}">{{ value }}</button>
             {% endfor %}
             <form id="medication-form">
               <input type="text" id="medication-input" placeholder="직접입력" />
@@ -66,8 +66,8 @@
         <div class="user-nutri-box">
           <span class="black-text">복용중인 <span class="red-text">영양제</span>를 선택해주세요.</span>
           <div class="user-nutri-content" id="nutrition-list">
-            {% for nutrition_choice in nutrition_choices %}
-            <button type="button" class="user-nutri-button" name="nutrition" data-nutrition="{{ nutrition_choice.0 }}">{{ nutrition_choice.1 }}</button>
+            {% for label,value in nutrition_choices %}
+            <button type="button" class="user-nutri-button" name="nutrition" data-nutrition="{{ label }}">{{ value }}</button>
             {% endfor %}
             <form id="nutri-form">
               <input type="text" id="nutri-input" placeholder="직접입력" />

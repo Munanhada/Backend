@@ -31,17 +31,19 @@ def submit_data(request):
         except json.JSONDecodeError:
             selected_data = {}  # JSON 파싱 실패 시 빈 딕셔너리
 
-        # 모델에 선택된 데이터 저장
-        if selected_data:
-            Record.objects.filter(user=request.user).update(
-                expression = expression,
-                eating=selected_data.get('eating'),
-                health=selected_data.get('health'),
-                sleep=selected_data.get('sleep'),
-                mood=selected_data.get('mood'),
-                accident=selected_data.get('accident'),
-                customContent = custom_reason,
-            )
+        # 모델에 선택된 데이터 생성 또는 수정
+        record, created = Record.objects.update_or_create(
+            user=request.user,
+            defaults={
+                'expression': expression,
+                'eating': selected_data.get('eating'),
+                'health': selected_data.get('health'),
+                'sleep': selected_data.get('sleep'),
+                'mood': selected_data.get('mood'),
+                'accident': selected_data.get('accident'),
+                'customContent': custom_reason,
+            }
+        )
 
         print("표정:", expression)
         print("선택한 이유:", selected_data)
