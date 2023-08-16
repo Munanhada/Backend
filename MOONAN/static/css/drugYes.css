@@ -162,3 +162,12 @@
     font-weight: 400;
     border: none;
 }
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}

@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         medicationButton.addEventListener("click", function () {
             const selectedDrug = medicationName;
             toggleSelection(medicationButton, selectedDrug);
+            // medications 리스트에 추가
+            medications.push(medicationName);
+            console.log("medications:", medications);
         });
     }
 
@@ -42,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         nutritionButton.addEventListener("click", function () {
             const selectedNutri = nutritionName;
             toggleSelection(nutritionButton, selectedNutri);
+            // nutritions 리스트에 추가
+            nutritions.push(nutritionName);
+            console.log("nutritions:", nutritions);
         });
     }
 
@@ -119,10 +125,6 @@ function addMedication(newMedication) {
     // CSRF 토큰 가져오기
     const csrfToken = getCookie("csrftoken");
 
-    // medications 리스트에 추가
-    medications.push(newMedication);
-    console.log("medications:", medications);
-
     $.ajax({
         url: "/accounts/add_medication/",
         method: "POST",
@@ -146,10 +148,6 @@ function addNutrition(newNutrition) {
     // CSRF 토큰 가져오기
     const csrfToken = getCookie("csrftoken");
 
-    // nutritions 리스트에 추가
-    nutritions.push(newNutrition);
-    console.log("nutritions:", nutritions);
-
     $.ajax({
         url: "/accounts/add_nutrition/",
         method: "POST",
@@ -160,8 +158,6 @@ function addNutrition(newNutrition) {
         dataType: "json",
         success: function (data) {
             console.log("서버 응답 데이터:", data); // 서버 응답 정보 출력
-            // 선택지 목록 업데이트 등의 처리
-            console.log("서버 응답 데이터:", data.message);
         },
         error: function (xhr, textStatus, errorThrown) {
             console.error("에러 발생:", textStatus, errorThrown); // 에러 정보 출력
@@ -178,14 +174,39 @@ function getCookie(name) {
     }
 }
 
+// 데이터를 업데이트하는 함수
+function updateData() {
+    $.get("/get_updated_data/", function(data) {
+        // 서버에서 받은 데이터를 이용하여 화면 업데이트
+        $(".user-drug-list").empty(); // 기존 버튼들 제거
+        console.log(data.user_medication)
+        console.log(data.user_nutrition)
+
+        // 약 데이터 업데이트
+        data.user_medications.forEach(function(um) {
+            var button = $('<button type="button" class="user-medication"></button>');
+            button.append($('<p class="detail-drug"></p>').text(um.medication));
+            $(".user-drug-list").append(button);
+        });
+
+        // 영양제 데이터 업데이트
+        data.user_nutritions.forEach(function(un) {
+            var button = $('<button type="button" class="user-nutrition"></button>');
+            button.append($('<p class="detail-drug"></p>').text(un.nutrition));
+            $(".user-drug-list").append(button);
+        });
+    });
+}
 
 $(document).ready(function() {
-
+    updateData();
+    setInterval(updateData, 5000);
     $(".user-drug-button").click(function() {
         const medication = $(this).data("medication");
         if (!medications.includes(medication)) {
             medications.push(medication);
             $(this).addClass("selected");
+            $(this).toggleClass("selected-button");
         } else {
             const index = medications.indexOf(medication);
             if (index > -1) {
@@ -233,6 +254,7 @@ $(document).ready(function() {
         .done(function(data) {
             // 서버 응답 처리 코드
             console.log("Server Response:", data); // 서버 응답 출력
+            // 가져온 데이터를 사용하여 화면 업데이트
             window.location.href = "/home"; // home으로 리디렉션
         })
         .fail(function(error) {

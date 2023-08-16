@@ -519,4 +519,13 @@ button {
     font-weight: 400;
     margin: 5px; /* 버튼 주위 여백 */
 }
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}
 /*main 끝*/

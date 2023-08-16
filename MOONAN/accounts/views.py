@@ -180,7 +180,7 @@ def add_connection_request(request):
     else:
         return render(request, 'accounts/addAccountConnection.html')
     
-
+# 사용자 추가 정보 입력(생년월일, 성별)
 @login_required
 def birth_info_view(request):
     user = request.user
@@ -204,6 +204,7 @@ def birth_info_view(request):
 
     return render(request, 'accounts/accountBirth.html')
 
+# 
 @login_required
 def drug_ask_view(request):
     user = request.user
@@ -212,7 +213,10 @@ def drug_ask_view(request):
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
 
-        return redirect('accounts:drug_info') 
+        if med_or_nutr_status == 'True':
+            return redirect('accounts:drug_info') 
+        else:
+            return redirect('home')
 
     return render(request, 'accounts/drugAsk.html')
         
@@ -260,7 +264,7 @@ def med_nutr_data(request):
             nutrition, _ = Nutrition.objects.get_or_create(nutrition_name=nutrition_name)
             user_nutrition, created = UserNutrition.objects.get_or_create(user=user, nutrition=nutrition)
             if created:
-                user.nutritions.add("nutrition")
+                user.nutritions.add(nutrition)
             user_nutrition.save()
 
         response_data = {
@@ -308,6 +312,20 @@ def add_nutrition(request):
         }
     
     return JsonResponse(response_data)
+
+
+# 홈으로 리디렉션할 때 데이터 업데이트를 위한 목적
+def get_updated_data(request):
+    # 데이터 가져오는 로직
+    user_medications = UserMedication.objects.filter(user=request.user)
+    user_nutritions = UserNutrition.objects.filter(user=request.user)
+    
+    data = {
+        'user_medications': [{'medication': um.medication.medication_name} for um in user_medications],
+        'user_nutritions': [{'nutrition': un.nutrition.nutrition_name} for un in user_nutritions],
+    }
+    
+    return JsonResponse(data)
 
 
     

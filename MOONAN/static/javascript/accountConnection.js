@@ -63,7 +63,7 @@ function closePopup() {
     let popup = document.getElementById("popUp");
     popup.style.display = "none";
 
-    window.location.href = "/home";
+    window.location.href = "/accounts/accountBirth";
 }
 
 // 선택된 요소 색 변경 
