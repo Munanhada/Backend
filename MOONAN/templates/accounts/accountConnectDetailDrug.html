@@ -42,12 +42,12 @@
         </div>
       </div>
       <div class="step-button-drug">
-        <button class="step-before">이전 단계</button>
-        <button class="step-next">다음 단계</button>
+        <a href="{% url 'accounts:drug_ask' %}"class="step-before">이전 단계</a>
+        <a href="{% url 'home' %}"class="step-next">선택 완료</a>
       </div>
     </div>
 
     <script src="/static/javascript/accountConnectDetail.js"></script>
-    <script src="/static/javascript/accountConnectDetailDrug.js"></script>
+    {% comment %} <script src="/static/javascript/accountConnectDetailDrug.js"></script> {% endcomment %}
   </body>
 </html>

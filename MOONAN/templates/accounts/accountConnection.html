@@ -25,10 +25,21 @@
                         <img src="/static/image/Clear.svg" alt="삭제 이미지" class="clearImg">
                     </div>
                     <div class="selectBox">
-                        <input type="text" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
+                        <input type="text" id="to_user1" name="to_user1" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
                         <p class="selectBoxText">는 소중한 나의</p>
-                        <div id="famRelationship">
-                            <p class="selectText">선택</p>
+                        <select name="relationship2_1" id="relationship2_1" class="hello">
+                            <option value="" disabled selected hidden>선택</option>
+                            <option value="father">아빠</option>
+                            <option value="mother">엄마</option>
+                            <option value="daughter">딸</option>
+                            <option value="son">아들</option>
+                            <option value="grandmother">할머니</option>
+                            <option value="grandfather">할아버지</option>
+                            <option value="grandson">손자</option>
+                            <option value="granddaughter">손녀</option>
+                        </select>
+                        {% comment %} <div id="famRelationship">
+                            <p class="selectText" name="relationship2" id="relationship2" >선택</p>
                             <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown(this)">
                             <div class="dropdownBox">
                                 <ul class="dropdownMenu">
@@ -42,14 +53,25 @@
                                     <li class="dropdownOption">손자</li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="selectBox2">
                         <p class="selectBoxText">나는</p>
                         <input type="text" placeholder="연결할 아이디" class="famIdField2">
                         <p class="selectBoxText">의</p>
-                        <div id="famRelationship">
-                            <p class="selectText2">선택</p>
+                        <select name="relationship1_1" id="relationship1_1" class="hello2">
+                            <option value="" disabled selected hidden>선택</option>
+                            <option value="father">아빠</option>
+                            <option value="mother">엄마</option>
+                            <option value="daughter">딸</option>
+                            <option value="son">아들</option>
+                            <option value="grandmother">할머니</option>
+                            <option value="grandfather">할아버지</option>
+                            <option value="grandson">손자</option>
+                            <option value="granddaughter">손녀</option>
+                        </select>
+                        {% comment %} <div id="famRelationship">
+                            <p class="selectText2" name="relationship1" id="relationship1" >선택</p>
                             <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown2(this)">
                             <div class="dropdownBox2">
                                 <ul class="dropdownMenu">
@@ -63,7 +85,7 @@
                                     <li class="dropdownOption2">손자</li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -74,23 +96,91 @@
             </div>
             <div class="optionBox">
                 <div class="skipBox">
-                    <button class="skipButton" onclick="skip()">건너뛰기</button>
+                    <button class="skipButton" onclick="skip()"> 건너뛰기
+                    </button>
                 </div>
                 <div class="connectBox">
-                    <button type="submit" class="connectButton">연결하기</button>
+                    <button class="connectButton" onclick="sendConnectionData()">연결하기</button>
                 </div>
             </div>
         </form>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        
         <div class="popup" id="popUp">
             <p class="popupContent">지금 건너뛰기 할 경우 <br>계정 연결이 진행되지 않습니다.</p>
             <div class="confirmBox">
-                <button class="confirmButton" onclick="closePopup()">확인</button>
+                <a href="{% url 'accounts:birth_info' %}" class="confirmButton">확인</a>
             </div>
         </div>
     </div>
 
+
     <script src="/static/javascript/accountConnection.js"></script>
     <script src="/static/javascript/main.js"></script>
-</body>
 
+  </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // 선택하면 색 변경
+    $("#relationship2").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    $("#relationship1").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    
+    function sendConnectionData() {
+        var formData = new FormData(); // FormData 객체 생성
+    
+        // 모든 connectBox의 데이터를 FormData에 추가
+        var connectBoxes = document.querySelectorAll('.connectBox');
+        connectBoxes.forEach(function (connectBox) {
+            var toUserInput = connectBox.querySelector('.famIdField');
+            var relationship1Select = connectBox.querySelector('.hello2');
+            var relationship2Select = connectBox.querySelector('.hello');
+    
+            formData.append(toUserInput.name, toUserInput.value);
+            formData.append(relationship1Select.name, relationship1Select.value);
+            formData.append(relationship2Select.name, relationship2Select.value);
+        });
+        console.log(formData)
+
+        // AJAX를 이용하여 서버에 데이터 전송
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'accounts:connection' %}',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'text', // JSON 데이터가 아닌 일반 텍스트로 처리
+            success: function(responseData) {
+                // 여기서 responseData는 JSON 문자열이므로 필요한 경우 JSON.parse()로 객체로 변환 후 처리
+                handleResponse(JSON.parse(responseData)); // 서버 응답 처리
+            },
+            error: function() {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    };
+
+    // 서버로부터 받은 JSON 응답을 기반으로 모달 창 조작
+    function handleResponse(response) {
+        console.log("하")
+        if (response.success) {
+            // success 값이 true일 경우 모달 창 표시
+            var popupContent = document.querySelector(".popupContent");
+            popupContent.textContent = "성공적으로 계정 연결했습니다." // 올바른 방식으로 변경
+            var modal = document.getElementById("popUp");
+            modal.style.display = "block";
+        } else if (response.error_message) {
+            // 에러 메시지가 있는 경우에는 alert 등으로 사용자에게 알림 처리 가능
+            alert(response.error_message);
+        }
+    }
+</script>
