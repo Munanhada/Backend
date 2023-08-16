@@ -10,6 +10,7 @@ import json
 from django.http import JsonResponse
 from django.utils import timezone
 from datetime import timedelta
+from users.models import UserMedication, UserNutrition
 
 def home_view(request):
     if not request.user.is_authenticated:
@@ -42,12 +43,18 @@ def home_view(request):
     
     # 추천 문안인사 선택지 
     recommendContent_choices = Message.RECOMMENDCONTENT_CHOICES
-    
+
+    # 사용자가 복용하는 약 및 영양제 목록 불러오기
+    user_medications = UserMedication.objects.filter(user=request.user)
+    user_nutritions = UserNutrition.objects.filter(user=request.user)
+
     context = {
         'user': user,
         'received_messages' : received_messages,
         'recommendContent_choices': recommendContent_choices,
         'connected_users': connected_users_with_relationship,
+        'user_medications': user_medications,
+        'user_nutritions': user_nutritions,
     }
 
     return render(request, 'home.html', context)
@@ -223,6 +230,38 @@ def alarm_view(request):
     }
     return render(request, 'alarm.html', context)
 
+# 약/영양제 먹었는지, 운동했는지 상태 업데이트
+def daily_status(request):
+    user = request.user
+    if request.method == 'POST':
+        status_type = request.POST.get("actionType")
+        status_value = request.POST.get("status")
+
+        if status_type == 'medication':
+            user.has_medication_or_nutrition = (status_value == 'true')
+        elif status_type == 'exercise':
+            user.has_exercised = (status_value == 'true')
+        
+        user.save()
+                
+        return JsonResponse({'status': 'success'})
+        
+    return JsonResponse({'status': 'error', 'message': '요청 실패'})
+
+
+# 약/영양제 먹었는지, 운동했는지 상태 초기화
+def reset_daily_status(request):
+    user = request.user
+    if request.method == 'POST':
+        user.has_medication_or_nutrition = False
+        user.has_exercised = False
+        user.save()
+        
+        # 로컬 스토리지 데이터도 초기화
+        response_data = {'status': 'success'}
+        return JsonResponse(response_data)
+    
+    return JsonResponse({'status': 'error'}, status=400)
 
 def locker_view(request):
     if not request.user.is_authenticated:

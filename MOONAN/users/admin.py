@@ -37,3 +37,5 @@ class ConnectionAdmin(admin.ModelAdmin):
 class ConnectionRequestAdmin(admin.ModelAdmin):
     list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
     list_filter = ('is_accepted',)
+
+

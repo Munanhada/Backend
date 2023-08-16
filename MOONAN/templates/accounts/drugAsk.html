@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/static/css/mainFrame.css" />
     <link rel="stylesheet" href="/static/css/accountBirth.css" />
     <link rel="stylesheet" href="/static/css/drugAsk.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
-
   <body>
     <div class="mainFrame">
       <form method="POST">
@@ -30,18 +30,13 @@
           <div class="drug-ask-box-yes">
             <input type="radio" id="drug-yes" name="med_or_nutr_status" value="True" />
             <label for="drug-yes">
-
-
               <div class="drug-content-wrapper">
                 <span>복용중인 약 및 영양제가 있어요.</span>
                 <img src="/static/image/Ellipse 82 gray.svg" alt="원형 이미지" />
                 <img src="/static/image/Done.svg" alt="체크 이미지" />
             </div>
-
-
             </label>
           </div>
-
           <div class="drug-ask-box-no">
             <input type="radio" id="drug-no" name="med_or_nutr_status" value="False" />
             <label for="drug-no">
@@ -53,15 +48,12 @@
             </label>
           </div>
         </div>
-
-
         <div class="step-box">
-          <button class="before-step">이전 단계</button>
-          <button class="next-step">다음 단계</button>
+          <button class="before-step"><a href="{% url 'accounts:birth_info' %}">이전 단계</a></button>
+          <button type="submit" class="next-step">다음 단계</button>
         </div>
       </form>
     </div>
-
     <script src="/static/javascript/accountConnectDetailDrug.js"></script>
     <script src="/static/javascript/drugAsk.js"></script>
   </body>
