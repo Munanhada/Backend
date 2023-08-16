@@ -218,12 +218,22 @@ def drug_ask_view(request):
 
 @login_required
 def drug_info_view(request):
+
+    context = {
+        'medication_choices': Medication.MEDICATION_CHOICES,
+        'nutrition_choices': Nutrition.NUTRITION_CHOICES,
+    }
+
+    return render(request, 'accounts/drugYes.html', context)
+
+def med_nutr_data(request):
     user = request.user
     if request.method =='POST': 
+        print("Received POST request:", request.POST)
         med_or_nutr_status_str = request.POST.get("med_or_nutr_status") 
         med_or_nutr_status = (med_or_nutr_status_str == 'True')
-        medications = request.POST.getlist("medication")
-        nutritions = request.POST.getlist("nutrition")
+        medications = request.POST.getlist("medication[]")
+        nutritions = request.POST.getlist("nutrition[]")
 
         print(f"med_or_nutr_status_str: {med_or_nutr_status_str}")
         print(f"medications: {medications}")
@@ -231,7 +241,7 @@ def drug_info_view(request):
 
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
-
+        
         # 기존에 연결된 데이터를 제거하고 사용자가 선택한 약과 영양제 정보를 저장
         UserMedication.objects.filter(user=user).delete()
         UserNutrition.objects.filter(user=user).delete()
@@ -252,14 +262,11 @@ def drug_info_view(request):
                 user.nutritions.add("nutrition")
             user_nutrition.save()
 
-        return redirect('home')
-
-    context = {
-        'medication_choices': Medication.MEDICATION_CHOICES,
-        'nutrition_choices': Nutrition.NUTRITION_CHOICES,
-    }
-
-    return render(request, 'accounts/drugYes.html', context)
+        response_data = {
+        'message': '약과 영양제 정보가 저장되었습니다.',
+        }
+        
+        return JsonResponse(response_data)
 
 # 사용자가 직접 복용하는 약 추가
 @transaction.atomic
