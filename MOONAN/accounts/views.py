@@ -11,6 +11,7 @@ from users.models import Medication, Nutrition, UserMedication, UserNutrition
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.db.models import Q
+from django.http import JsonResponse, HttpResponse
 
 User = get_user_model()
 
@@ -101,36 +102,45 @@ def login_view(request):
 def send_connection_request(request):
     if request.method =='POST':
         from_user = request.user
-        to_user = request.POST.get('to_user')
-        relationship1 = request.POST.get('relationship1')
-        relationship2 = request.POST.get('relationship2')
-        print(from_user,to_user, relationship1, relationship2 )
-        try:
-            to_user = get_user_model().objects.get(name=to_user)
-        except get_user_model().DoesNotExist:
-            # 사용자를 찾을 수 없는 경우에 대한 처리
-            error_message = '연결 계정을 다시 한번 확인해주세요.'
-            return render(request, 'accounts/accountConnection.html', {'error_message': error_message})
-        else:
-            # 중복 신청 검사
-            existing_connection = ConnectionRequest.objects.filter(
-            Q(from_user=from_user, to_user=to_user) | Q(from_user=to_user, to_user=from_user)
-            )
-            if existing_connection.exists():
-                error_message = '이미 연결 신청을 하셨습니다.'
-                return render(request, 'accounts/accountConnection.html', {'error_message': error_message})
+        response_data = {'success': False, 'error_message': None}
+
+        for i in range(1, 4):  # number_of_fields는 필드 개수
+            to_user = request.POST.get(f'to_user{i}')
+            relationship1 = request.POST.get(f'relationship1_{i}')
+            relationship2 = request.POST.get(f'relationship2_{i}')
+            if relationship1 is None and relationship2 is None:
+                continue  # to_user, relationship1, relationship2 값이 모두 없으면 다음 필드로 넘어감
+
             
-            connection_request = ConnectionRequest.objects.create(
-                from_user=from_user,
-                to_user=to_user,
-                relationship1=relationship1,
-                relationship2=relationship2,
-            )
-            # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
-            return redirect('account:birth_info')  # 또는 적절한 리다이렉트 경로 설정
+            print(to_user, relationship1, relationship2)
+            try:
+                to_user_instance = get_user_model().objects.get(name=to_user)
+            except get_user_model().DoesNotExist:
+                # 사용자를 찾을 수 없는 경우에 대한 처리
+                response_data['error_message'] = '연결 계정을 다시 한번 확인해주세요.'
+                return JsonResponse(response_data)
+            else:
+                existing_connection = ConnectionRequest.objects.filter(
+                    Q(from_user=from_user, to_user=to_user_instance) | Q(from_user=to_user_instance, to_user=from_user)
+                )
+                if existing_connection.exists():
+                    response_data['error_message'] = '이미 상대방이나 ' + from_user.name + '님이 연결 신청을 하셨습니다.'
+                    return JsonResponse(response_data)
+        
+                ConnectionRequest.objects.create(
+                    from_user=from_user,
+                    to_user=to_user_instance,
+                    relationship1=relationship1,
+                    relationship2=relationship2,
+                )
+        response_data['success'] = True
+
+        return JsonResponse(response_data)
     else:
         return render(request, 'accounts/accountConnection.html')
+
     
+
 @login_required
 def birth_info_view(request):
     user = request.user

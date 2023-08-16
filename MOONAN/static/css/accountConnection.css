@@ -85,7 +85,7 @@ header>p {
     line-height: normal;
     margin: 0;
 }
-.hello{
+.hello, .hello2{
     width: 30%;
     height: 60px;
     flex-shrink: 0;
@@ -112,7 +112,7 @@ header>p {
     margin-right: 2%;
 }
 
-.hello > option{
+.hello > option, .hello2>option{
     width: 30%;
     height: 60px;
     flex-shrink: 0;
