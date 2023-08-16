@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문안하다 계정 연결하기</title>
+    <link rel="stylesheet" href="/static/css/join.css">
+    <link rel="stylesheet" href="/static/css/accountConnection.css">
+</head>
+
+<body>
+    <div class="mainFrame">
+        <header>
+            <h1 class="welcomeText">계정을 추가합니다.</h1>
+            <p class="toConnectText">소중한 분과의 계정을 연결해주세요.</p>
+        </header>
+        <form action="" class="join" method="POST">
+            {% csrf_token %}
+            <div class="connectBox">
+                <div class="connectIdBox">
+                    <div class="numberAndImgBox">
+                        <p class="connectIdText">연결 계정 <span class="connectionNumber">1</span> </p>
+                        <img src="/static/image/Clear.svg" alt="삭제 이미지" class="clearImg">
+                    </div>
+                    <div class="selectBox">
+                        <input type="text" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
+                        <p class="selectBoxText">는 소중한 나의</p>
+                        <div id="famRelationship">
+                            <p class="selectText">선택</p>
+                            <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown(this)">
+                            <div class="dropdownBox">
+                                <ul class="dropdownMenu">
+                                    <li class="dropdownOption">엄마</li>
+                                    <li class="dropdownOption">아빠</li>
+                                    <li class="dropdownOption">할머니</li>
+                                    <li class="dropdownOption">할아버지</li>
+                                    <li class="dropdownOption">딸</li>
+                                    <li class="dropdownOption">아들</li>
+                                    <li class="dropdownOption">손녀</li>
+                                    <li class="dropdownOption">손자</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="selectBox2">
+                        <p class="selectBoxText">나는</p>
+                        <input type="text" placeholder="연결할 아이디" class="famIdField2">
+                        <p class="selectBoxText">의</p>
+                        <div id="famRelationship">
+                            <p class="selectText2">선택</p>
+                            <img src="/static/image/Navigate before.svg" alt="드랍다운 이미지" class="dropdownImg" onclick="showDropdown2(this)">
+                            <div class="dropdownBox2">
+                                <ul class="dropdownMenu">
+                                    <li class="dropdownOption2">엄마</li>
+                                    <li class="dropdownOption2">아빠</li>
+                                    <li class="dropdownOption2">할머니</li>
+                                    <li class="dropdownOption2">할아버지</li>
+                                    <li class="dropdownOption2">딸</li>
+                                    <li class="dropdownOption2">아들</li>
+                                    <li class="dropdownOption2">손녀</li>
+                                    <li class="dropdownOption2">손자</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="beAdded"></div>
+            <div class="addBox">
+                <img src="/static/image/addButton.svg" alt="추가 버튼 이미지" class="addImg" onclick="addId()">
+                <p class="addText" onclick="addId()">소중한 사람 추가하기</p>
+            </div>
+            <div class="optionBox">
+                <div class="skipBox">
+                    <button class="skipButton" onclick="skip()">건너뛰기</button>
+                </div>
+                <div class="connectBox">
+                    <button type="submit" class="connectButton">연결하기</button>
+                </div>
+            </div>
+        </form>
+        <div class="popup" id="popUp">
+            <p class="popupContent">지금 건너뛰기 할 경우 <br>계정 연결이 진행되지 않습니다.</p>
+            <div class="confirmBox">
+                <button class="confirmButton" onclick="closePopup()">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/javascript/accountConnection.js"></script>
+    <script src="/static/javascript/main.js"></script>
+</body>
+
+</html>

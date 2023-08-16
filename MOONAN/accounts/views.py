@@ -97,7 +97,8 @@ def login_view(request):
     # GET 요청할 경우, 로그인 HTML 응답
     return render(request, 'accounts/login.html')
 
-# 연결 요청
+# 초기 계정 연결
+
 @login_required
 def send_connection_request(request):
     if request.method =='POST':
@@ -132,13 +133,51 @@ def send_connection_request(request):
                     to_user=to_user_instance,
                     relationship1=relationship1,
                     relationship2=relationship2,
-                )
-        response_data['success'] = True
 
-        return JsonResponse(response_data)
+                # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
+                return redirect('account:birth_info')  # 또는 적절한 리다이렉트 경로 설정
+
     else:
         return render(request, 'accounts/accountConnection.html')
 
+    
+
+
+# 계정 추가 연결
+@login_required
+def add_connection_request(request):
+    if request.method =='POST':
+        from_user = request.user
+        to_user = request.POST.get('to_user')
+        relationship1 = request.POST.get('relationship1')
+        relationship2 = request.POST.get('relationship2')
+        
+        try:
+            to_user = get_user_model().objects.get(name=to_user)
+        except get_user_model().DoesNotExist:
+            # 사용자를 찾을 수 없는 경우에 대한 처리
+            error_message = '연결 계정을 다시 한번 확인해주세요.'
+            return render(request, 'accounts/addAccountConnection.html', {'error_message': error_message})
+        else:
+                # 중복 신청 검사
+                existing_connection = ConnectionRequest.objects.filter(
+                Q(from_user=from_user, to_user=to_user) | Q(from_user=to_user, to_user=from_user)
+                )
+                if existing_connection.exists():
+                    error_message = '이미 연결 신청을 하셨습니다.'
+                    return render(request, 'accounts/accountConnection.html', {'error_message': error_message})
+                
+                connection_request = ConnectionRequest.objects.create(
+                    from_user=from_user,
+                    to_user=to_user,
+                    relationship1=relationship1,
+                    relationship2=relationship2,
+                )
+                # 필요한 후속 처리 (예: 연결 완료 메시지 표시)
+                return redirect('home')  # 계정 추가 후 홈으로 이동
+                
+    else:
+        return render(request, 'accounts/addAccountConnection.html')
     
 
 @login_required
@@ -186,26 +225,32 @@ def drug_info_view(request):
         medications = request.POST.getlist("medication")
         nutritions = request.POST.getlist("nutrition")
 
+        print(f"med_or_nutr_status_str: {med_or_nutr_status_str}")
+        print(f"medications: {medications}")
+        print(f"nutritions: {nutritions}")
+
         user.med_or_nutr_status = med_or_nutr_status
         user.save()
 
         # 기존에 연결된 데이터를 제거하고 사용자가 선택한 약과 영양제 정보를 저장
-        user.medications.clear()
-        user.nutritions.clear()
-
+        UserMedication.objects.filter(user=user).delete()
+        UserNutrition.objects.filter(user=user).delete()
+        
         # 사용자가 선택한 약 정보를 추가
         for medication_name in medications:
-            medication, _ = Medication.objects.get_or_create(medication_name=medication_name) # medication_name을 Medication 모델에서 약을 찾거나 없으면 생성
-            # 앞에서 찾거나 생성된 medication을 UserMedication 모델에서 또 다시 찾거나 없으면 생성
-            user_medication, created = UserMedication.objects.get_or_create(user=user, medication=medication) 
+            medication, _ = Medication.objects.get_or_create(medication_name=medication_name)
+            user_medication, created = UserMedication.objects.get_or_create(user=user, medication=medication)
             if created:
-                user.medications.add(medication)  # Medication 인스턴스를 추가, UserMedication 인스턴스를 추가하지 않도록 주의
+                user.medications.add(medication)
+            user_medication.save()
 
+        # 사용자가 선택한 영양제 정보를 추가
         for nutrition_name in nutritions:
-            nutrition, _ = Nutrition.objects.get_or_create(nutrition_name=nutrition_name) 
+            nutrition, _ = Nutrition.objects.get_or_create(nutrition_name=nutrition_name)
             user_nutrition, created = UserNutrition.objects.get_or_create(user=user, nutrition=nutrition)
             if created:
-                user.nutritions.add(nutrition)
+                user.nutritions.add("nutrition")
+            user_nutrition.save()
 
         return redirect('home')
 

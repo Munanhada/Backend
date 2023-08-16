@@ -1,88 +1,3 @@
-// $(document).ready(function () {
-//     $('.expressionImg').click(function () {
-//         var expression = $(this).attr('id'); // 클릭된 이미지의 id 값
-//         $.ajax({
-//             type: 'POST',
-//             url: '/home/record/', // 뷰 함수의 URL 경로
-//             data: { 'expression': expression },
-//             headers: { "X-CSRFToken": "{{ csrf_token }}" },
-//             success: function (response) {
-//                 // 성공적으로 처리된 경우의 동작
-//                 let faceElements = document.querySelectorAll(".Face");
-                
-//                 faceElements.forEach((face) => {
-//                     face.style.border = "none";
-//                 });
-
-//                 $(this).css("border", "3px solid var(--unnamed, #FF003A)");
-//             },
-//             error: function () {
-//                 // 에러가 발생한 경우의 동작
-//             }
-//         });
-//     });
-
-//     // 선택한 표정 테두리 생기게 하기
-//     let faceElements = document.querySelectorAll(".Face");
-
-//     faceElements.forEach((face) => {
-//         face.addEventListener('click', () => {
-//             face.style.border = "3px solid var(--unnamed, #FF003A)";
-
-//             faceElements.forEach((otherFace) => {
-//                 if(otherFace !== face) {
-//                     otherFace.style.border = "none";
-//                 }
-//             });
-//         });
-//     });
-    
-// });
-
-// // 마이크 이미지 알림 
-// function mikeImgAlert() {
-//     alert("앱에서 확인해주세요.");
-// }
-
-// // 드랍다운 보기 
-// let reasonMenuBox = document.querySelector(".reasonMenu");
-// function showdropdown(showImg) {
-//     let dropdownMenuBox = showImg.nextElementSibling;
-
-//     if(dropdownMenuBox.style.display === "none") {
-//         dropdownMenuBox.style.display = "block";
-//     }
-//     else {
-//         dropdownMenuBox.style.display = "none";
-//     }
-// }
-
-// // 선택한 표정에 따라 selectReasonBox 숨기기/보이기
-// $(document).ready(function () {
-//     // 기본적으로 페이지 로딩 시 reasonBox 숨기기
-//     $('.reasonBox').hide();
-
-//     // 선택한 표정에 따라 해당 reasonBox 보이기
-//     $('.expressionImg').each(function () {
-//         var expression = $(this).attr('id');
-//         // '그럭저럭', '안좋아요', '나빠요' 선택 시 selectReasonBox 보이기
-//         if (expression === 'sosoImg' || expression === 'badImg' || expression === 'worseImg') {
-//             $(this).siblings('.reasonBox').show();
-//         }
-//     });
-
-//     // '최고예요', '무난해요' 선택 시 selectReasonBox 숨기기
-//     $('.expressionImg').click(function () {
-//         $('.reasonBox').hide();
-
-//         var expression = $(this).attr('id');
-//         if (expression === 'sosoImg' || expression === 'badImg' || expression === 'worseImg') {
-//             $(this).siblings('.reasonBox').show();
-//         }
-//     });
-// });
-
-
 // 선택한 표정 테두리 생기게 하기
 let faceElements = document.querySelectorAll(".Face");
 
@@ -103,8 +18,7 @@ function mikeImgAlert() {
     alert("앱에서 확인해주세요.");
 }
 
-// 드랍다운 보기 
-let reasonMenuBox = document.querySelector(".reasonMenu");
+// let reasonOptionBox = document.querySelector(".reasonOptionBox");
 function showdropdown(showImg) {
     let dropdownMenuBox = showImg.nextElementSibling;
 
@@ -127,6 +41,7 @@ document.querySelectorAll('.reasonMenuOption li').forEach((item) => {
         
         // reasonMenuText에 선택한 텍스트 내용 반영하기
         reasonMenuTextElement.textContent = selectedText;
+        reasonMenuTextElement.style.color = "#FF003A";
     });
 });
 
@@ -209,4 +124,38 @@ $(document).ready(function() {
             });
         }
     });
+});
+
+
+// 완료 버튼 눌렀을 때 팝업
+let savePopUp = document.getElementById("savePopUp");
+savePopUp.style.display = "none";
+function showSavePopUp() {
+    if(savePopUp.style.display === "none") {
+        event.preventDefault();
+        savePopUp.style.display = "flex";
+    }
+}
+
+function closeSavePopUp() {
+    savePopUp.style.display = "none";
+}
+
+// 페이스 선택화면 숨기거나 보이기 
+let selectFace = document.querySelector(".selectReasonBox");
+selectFace.style.display = "none";
+function showReasonBox(emotion) {
+    if(emotion === "sosoBox" || emotion === "badBox" || emotion === "worseBox") {
+        selectFace.style.display = "flex";
+    }
+    else if (emotion === "goodBox" || emotion === "okayBox") {
+        selectFace.style.display = 'none';
+    }
+} 
+
+// 직접 입력 텍스트 변경
+document.getElementById("directText").addEventListener("input", function() {
+    const directTextValue = this.value;
+    const titleDirectTextElement = document.getElementById("titleDirectText");
+    titleDirectTextElement.textContent = directTextValue;
 });
