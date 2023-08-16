@@ -130,7 +130,7 @@
                             약,영양제 챙겨먹기
                         </p>
                         <button class="eat-drug-btn" type="button" id="medButton">
-                            <img src="/static/image/아직이에요미체크.svg" alt="체크 이미지" />
+                            <img src="/static/image/Group 2461 no.svg" alt="체크 이미지" />
                         </button>
                     </div>
                     <div class="eat-drug-list">
@@ -150,7 +150,7 @@
                            운동하기
                         </p>
                         <button class="excer-btn" type="button" id="exerciseButton">
-                            <img src="/static/image/아직이에요미체크.svg" alt="체크 이미지" />
+                            <img src="/static/image/Group 2461 no.svg" alt="체크 이미지" />
                         </button>
                     </div>
                     <div class="user-excer-list">
@@ -282,10 +282,10 @@
             // 초기 버튼 상태 설정
             if (isMedTaken) {
                 takeMedButton.classList.add('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/아직이에요체크.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group 2461 yes.svg');
             } else {
                 takeMedButton.classList.remove('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/아직이에요미체크.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group 2461 no.svg');
             }
 
             takeMedButton.addEventListener('click', function () {
@@ -313,10 +313,10 @@
             // 초기 버튼 상태 설정
             if (isExerciseTaken) {
                 takeExerciseButton.classList.add('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/아직이에요체크.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group 2461 yes.svg');
             } else {
                 takeExerciseButton.classList.remove('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/아직이에요미체크.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group 2461 no.svg');
             }
 
             takeExerciseButton.addEventListener('click', function () {
