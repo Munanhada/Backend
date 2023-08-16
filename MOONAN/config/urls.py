@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from config.views import (home_view, accept_connection_request, reject_connection_request, alarm_view, 
-                          send_message, daily_status, reset_daily_status, locker_view)
+from config.views import (home_view, accept_connection_request, reject_connection_request, alarm_view, send_message, locker_view,
+                          send_message, daily_status, reset_daily_status, get_selectDay)
 from django.views.generic import RedirectView
 from accounts.views import get_updated_data
 
@@ -30,6 +30,7 @@ urlpatterns = [
     path('home/alarm/', alarm_view, name='alarm'),
     path('home/record/', include('record.urls', namespace='record')),
     path('home/locker/', locker_view, name='locker'),
+    path('home/get_selectDay/', get_selectDay, name='get_selectDay'),
     path('send_message', send_message, name='send_message'),
     path('accept_connection_request/', accept_connection_request, name='accept_connection_request'),
     path('reject_connection_request/', reject_connection_request, name='reject_connection_request'),

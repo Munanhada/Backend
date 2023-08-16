@@ -119,6 +119,7 @@ function showReasonBox(emotion) {
     }
 } 
 
+// 직접 입력 텍스트 변경
 document.getElementById("directText").addEventListener("input", function() {
     const directTextValue = this.value;
     const titleDirectTextElement = document.getElementById("titleDirectText");
