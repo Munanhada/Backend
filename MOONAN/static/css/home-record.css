@@ -1,3 +1,7 @@
+.subFrame {
+    padding: 5%;
+}
+
 .recordTextBox>p {
     margin: 0;
 }
@@ -47,12 +51,12 @@
 
 .selectFaceImgBox {
     display: flex;
-    gap: 20px;
+    gap: 3%;
     margin-top: 20px;
 }
 
 .Face {
-    width: 9vw;
+    width: 8vw;
     height: 220px;
     flex-shrink: 0;
     border-radius: 100px;
@@ -213,6 +217,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 #directText {
@@ -234,4 +239,65 @@
     position: absolute;
     top: 5%;
     left: 2%;
+}
+
+/* 팝업 박스 */
+.savePopUp {
+    width: 80%;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+}
+
+.savePopUpContent {
+    color: var(--unnamed, #17181A);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 166.667% */
+}
+
+.saveConfirmBox {
+    padding: 4px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;
+    background: var(--unnamed, #FF003A);
+    cursor: pointer;
+}
+
+.saveConfirmButton {
+    color: var(--unnamed, #F2F6FF);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 200% */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
 }

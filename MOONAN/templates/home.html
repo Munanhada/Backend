@@ -74,7 +74,7 @@
                       <img src="/static/image/icon-back.svg" alt="기본 이미지" />
                       <img src="/static/image/add.svg" alt="추가 이미지" />
                     </button>
-                    <p id="plus"><a href="{% url 'accounts:connection' %}">계정 추가</a></p>
+                    <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
                 <div class="click-munan">
@@ -86,18 +86,20 @@
                     <div class="munan-menu-list">
                       <ul class="munan-menu-list-detail">
                         {% for choice in recommendContent_choices %}
-                            <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
+                          <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                         {% endfor %}
-                            <li value="custom">직접입력하세요
-                            <div id="customInputContainer" style="display: none;">
-                                <input type="text" id="customContentInput" placeholder="직접 입력하세요">
-                            </div>
+                          <li id="user-text" >
+                              <button type="button" onclick="addList()">
+                                  <img src="/static/image/plus-gray.svg" alt="추가 이미지">
+                              </button>
+                              <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
+                          </li>
                       </ul>
                     </div>
                   </div>
 
                   <div class="sand-box">
-                    <button  type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
+                    <button type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
                     <div id="myModal" class="modal" style="display: none;">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -121,42 +123,40 @@
                 </div>
               </div>
               <div class="daily_health">
+                <p>간단하게 표시하는 나의 건강한 일상</p>
                 <div class="eat-drug-box">
-                  <div class="eat-drug-button">
-                    <div class="eat-drug-text">약, 영양제 챙겨먹기</div>
-                    <div class="eat-drug-not-yet">
-                      <button type="button" id="medButton">
-                        <img src="/static/image/아직이에요미체크.svg" alt="체크 이미지" />
-                      </button>
+                    <div class="eat-drug-contents">
+                        <p id="eat-info">
+                            약,영양제 챙겨먹기
+                        </p>
+                        <button class="eat-drug-btn" type="button" id="medButton">
+                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                        </button>
                     </div>
-                  </div>
-
-                  <div class="eat-drug-list">
-                    <button>당뇨약</button>
-                    {% for user_medication in user_medications %}
-                        <button value="{{ user_medication.medication }}">{{ user_medication }}</p>
-                    {% endfor %}
-                    {% for user_nutrition in user_nutritions %}
-                        <button value="{{ user_nutrition.nutrition }}">{{ user_nutrition }}</p>
-                    {% endfor %}
-                  </div>
+                    <div class="user-drug-list">
+                        {% for user_medication in user_medications %}
+                            <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
+                        {% endfor %}
+                        {% for user_nutrition in user_nutritions %}
+                            <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <div class="excer-box">
-                  <div class="excer-button">
-                    <div class="excer-text">운동하기</div>
-                    <div class="excer-not-yet">
-                      <button type="button" id="exerciseButton">
-                        <img src="/static/image/아직이에요미체크.svg" alt="체크 이미지" />
-                      </button>
+                    <div class="excer-contents">
+                        <p id="excer-info">
+                           운동하기
+                        </p>
+                        <button type="button" class="excer-btn" id="exerciseButton">
+                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                        </button>
                     </div>
-                  </div>
-
-                  <div class="excer-list">
-                    <button>산책하기</button>
-                    <button>외출하기</button>
-                    <button>스트레칭</button>
-                  </div>
+                    <div class="user-excer-list">
+                        <button><p id="detail-excer">산책하기</p></button>
+                        <button><p id="detail-excer">외출하기</p></button>
+                        <button><p id="detail-excer">스트레칭</p></button>
+                    </div>
                 </div>
               </div>
             </div>
@@ -181,9 +181,7 @@
       </footer>
     </div>
 
-
-
-
+    <script src="/static/javascript/home-record.js"></script>
     <script src="/static/javascript/home.js"></script>
     <script>
         // 사용자 클릭 이벤트 핸들러 함수
@@ -283,10 +281,10 @@
             // 초기 버튼 상태 설정
             if (isMedTaken) {
                 takeMedButton.classList.add('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/아직이에요체크.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
             } else {
                 takeMedButton.classList.remove('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/아직이에요미체크.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_no.svg');
             }
 
             takeMedButton.addEventListener('click', function () {
@@ -297,9 +295,9 @@
                 // 이미지 변경
                 var image = $(this).find('img');
                 if (isMedTaken) {
-                    image.attr('src', '/static/image/아직이에요체크.svg');
+                    image.attr('src', '/static/image/Group2461_yes.svg');
                 } else {
-                    image.attr('src', '/static/image/아직이에요미체크.svg');
+                    image.attr('src', '/static/image/Group2461_no.svg');
                 }
 
                 // 로컬 스토리지에 상태 저장
@@ -314,10 +312,10 @@
             // 초기 버튼 상태 설정
             if (isExerciseTaken) {
                 takeExerciseButton.classList.add('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/아직이에요체크.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
             } else {
                 takeExerciseButton.classList.remove('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/아직이에요미체크.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_no.svg');
             }
 
             takeExerciseButton.addEventListener('click', function () {
@@ -328,9 +326,9 @@
                 // 이미지 변경
                 var image = $(this).find('img');
                 if (isExerciseTaken) {
-                    image.attr('src', '/static/image/아직이에요체크.svg');
+                    image.attr('src', '/static/image/Group2461_yes.svg');
                 } else {
-                    image.attr('src', '/static/image/아직이에요미체크.svg');
+                    image.attr('src', '/static/image/Group2461_no.svg');
                 }
 
                 // 로컬 스토리지에 상태 저장
@@ -420,7 +418,7 @@
                                 button.classList.toggle('taken', status);
                                 const image = button.querySelector('img');
                                 if (image) {
-                                    const imageUrl = status ? '/static/image/아직이에요체크.svg' : '/static/image/아직이에요미체크.svg';
+                                    const imageUrl = status ? '/static/image/Group2461_yes.svg' : '/static/image/Group2461_no.svg';
                                     image.setAttribute('src', imageUrl);
                                 }
                             }

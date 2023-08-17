@@ -62,6 +62,8 @@ function skip() {
 function closePopup() {
     let popup = document.getElementById("popUp");
     popup.style.display = "none";
+
+    window.location.href = "/accounts/accountBirth";
 }
 
 // 선택된 요소 색 변경 
@@ -103,101 +105,101 @@ function closePopup() {
 // });
 
 // 드랍다운 표시 
-let dropdown = document.querySelector(".dropdownBox");
-dropdown.style.display = "none";
-function showDropdown(dropdownImg) {
-    let dropdownBox = dropdownImg.nextElementSibling; 
+// let dropdown = document.querySelector(".dropdownBox");
+// dropdown.style.display = "none";
+// function showDropdown(dropdownImg) {
+//     let dropdownBox = dropdownImg.nextElementSibling; 
 
-    if (dropdownBox.style.display === "none") {
-        dropdownBox.style.display = "block";
-    } else {
-        dropdownBox.style.display = "none";
-    }
+//     if (dropdownBox.style.display === "none") {
+//         dropdownBox.style.display = "block";
+//     } else {
+//         dropdownBox.style.display = "none";
+//     }
     
-    let dropdownOptions = document.querySelectorAll(".dropdownOption");
-    let selectedText = dropdownImg.parentElement.querySelector(".selectText"); // 수정된 부분
-    dropdownOptions.forEach(option => {
-        option.addEventListener('click', function () {
-            if (!option.classList.contains("selected")) {
-                let parentBox = option.closest(".connectBox"); // 수정된 부분
-                let parentSelectedText = parentBox.querySelector(".selectText"); // 수정된 부분
+//     let dropdownOptions = document.querySelectorAll(".dropdownOption");
+//     let selectedText = dropdownImg.parentElement.querySelector(".selectText"); // 수정된 부분
+//     dropdownOptions.forEach(option => {
+//         option.addEventListener('click', function () {
+//             if (!option.classList.contains("selected")) {
+//                 let parentBox = option.closest(".connectBox"); // 수정된 부분
+//                 let parentSelectedText = parentBox.querySelector(".selectText"); // 수정된 부분
 
-                dropdownOptions.forEach(otherOption => {
-                    otherOption.classList.remove("selected");
-                    otherOption.style.color = "var(--unnamed, #17181A)";
-                });
+//                 dropdownOptions.forEach(otherOption => {
+//                     otherOption.classList.remove("selected");
+//                     otherOption.style.color = "var(--unnamed, #17181A)";
+//                 });
 
-                option.classList.add("selected");
-                option.style.color = "#FF003A";
-                selectedText.textContent = option.textContent;
-                selectedText.style.color = "#17181A";
+//                 option.classList.add("selected");
+//                 option.style.color = "#FF003A";
+//                 selectedText.textContent = option.textContent;
+//                 selectedText.style.color = "#17181A";
                 
-                parentSelectedText.textContent = option.textContent; // 수정된 부분
-                parentSelectedText.style.color = "#17181A"; // 수정된 부분
-            }
-        });
-    });
+//                 parentSelectedText.textContent = option.textContent; // 수정된 부분
+//                 parentSelectedText.style.color = "#17181A"; // 수정된 부분
+//             }
+//         });
+//     });
 
-    for (let i = 0; i<addedDivs.length; i++) {
-        let cloneSelctedTextDiv = addedDivs[i];
-        let cloneSelctedText = cloneSelctedTextDiv.querySelector(".selectText");
-        let cloneDropdownOption = cloneSelctedTextDiv.querySelectorAll(".dropdownOption");
-        cloneDropdownOption.forEach(menu => {
-            menu.addEventListener('click', function () {
-                cloneSelctedText.textContent = menu.textContent;
-                cloneSelctedText.style.color = "#17181A";
-            })
-        })
-    }
-}
+//     for (let i = 0; i<addedDivs.length; i++) {
+//         let cloneSelctedTextDiv = addedDivs[i];
+//         let cloneSelctedText = cloneSelctedTextDiv.querySelector(".selectText");
+//         let cloneDropdownOption = cloneSelctedTextDiv.querySelectorAll(".dropdownOption");
+//         cloneDropdownOption.forEach(menu => {
+//             menu.addEventListener('click', function () {
+//                 cloneSelctedText.textContent = menu.textContent;
+//                 cloneSelctedText.style.color = "#17181A";
+//             })
+//         })
+//     }
+// }
 
-let dropdown2 = document.querySelector(".dropdownBox2");
-dropdown2.style.display = "none";
-function showDropdown2(dropdownImg2) {
-    let dropdownBox = dropdownImg2.nextElementSibling;
+// let dropdown2 = document.querySelector(".dropdownBox2");
+// dropdown2.style.display = "none";
+// function showDropdown2(dropdownImg2) {
+//     let dropdownBox = dropdownImg2.nextElementSibling;
 
-    if (dropdownBox.style.display === "none") {
-        dropdownBox.style.display = "block";
-    }
-    else {
-        dropdownBox.style.display = "none";
-    }
-    let dropdownOptions2 = document.querySelectorAll(".dropdownOption2");
-    let selectedText2 = dropdownImg2.parentElement.querySelector(".selectText2"); // 수정된 부분
-    dropdownOptions2.forEach(option2 => {
-        option2.addEventListener('click', function () {
-            if (!option2.classList.contains("selected")) {
-                let parentBox = option2.closest(".connectBox"); // 수정된 부분
-                let parentSelectedText = parentBox.querySelector(".selectText2"); // 수정된 부분
+//     if (dropdownBox.style.display === "none") {
+//         dropdownBox.style.display = "block";
+//     }
+//     else {
+//         dropdownBox.style.display = "none";
+//     }
+//     let dropdownOptions2 = document.querySelectorAll(".dropdownOption2");
+//     let selectedText2 = dropdownImg2.parentElement.querySelector(".selectText2"); // 수정된 부분
+//     dropdownOptions2.forEach(option2 => {
+//         option2.addEventListener('click', function () {
+//             if (!option2.classList.contains("selected")) {
+//                 let parentBox = option2.closest(".connectBox"); // 수정된 부분
+//                 let parentSelectedText = parentBox.querySelector(".selectText2"); // 수정된 부분
 
-                dropdownOptions2.forEach(otherOption2 => {
-                    otherOption2.classList.remove("selected");
-                    otherOption2.style.color = "var(--unnamed, #17181A)";
-                });
+//                 dropdownOptions2.forEach(otherOption2 => {
+//                     otherOption2.classList.remove("selected");
+//                     otherOption2.style.color = "var(--unnamed, #17181A)";
+//                 });
 
-                option2.classList.add("selected");
-                option2.style.color = "#FF003A";
-                selectedText2.textContent = option2.textContent;
-                selectedText2.style.color = "#17181A";
+//                 option2.classList.add("selected");
+//                 option2.style.color = "#FF003A";
+//                 selectedText2.textContent = option2.textContent;
+//                 selectedText2.style.color = "#17181A";
                 
-                parentSelectedText.textContent = option2.textContent; // 수정된 부분
-                parentSelectedText.style.color = "#17181A"; // 수정된 부분
-            }
-        });
-    });
+//                 parentSelectedText.textContent = option2.textContent; // 수정된 부분
+//                 parentSelectedText.style.color = "#17181A"; // 수정된 부분
+//             }
+//         });
+//     });
 
-    for (let i = 0; i<addedDivs.length; i++) {
-        let cloneSelctedTextDiv2 = addedDivs[i];
-        let cloneSelctedText2 = cloneSelctedTextDiv2.querySelector(".selectText2");
-        let cloneDropdownOption2 = cloneSelctedTextDiv2.querySelectorAll(".dropdownOption2");
-        cloneDropdownOption2.forEach(menu => {
-            menu.addEventListener('click', function () {
-                cloneSelctedText2.textContent = menu.textContent;
-                cloneSelctedText2.style.color = "#17181A";
-            })
-        })
-    }
-}
+//     for (let i = 0; i<addedDivs.length; i++) {
+//         let cloneSelctedTextDiv2 = addedDivs[i];
+//         let cloneSelctedText2 = cloneSelctedTextDiv2.querySelector(".selectText2");
+//         let cloneDropdownOption2 = cloneSelctedTextDiv2.querySelectorAll(".dropdownOption2");
+//         cloneDropdownOption2.forEach(menu => {
+//             menu.addEventListener('click', function () {
+//                 cloneSelctedText2.textContent = menu.textContent;
+//                 cloneSelctedText2.style.color = "#17181A";
+//             })
+//         })
+//     }
+// }
 
 // 연결할 아이디 받아오기
 function cloneFamId(inputField) {
@@ -211,3 +213,4 @@ function cloneFamId(inputField) {
         cloneFamId2.value = cloneFamId;
     }
 }
+

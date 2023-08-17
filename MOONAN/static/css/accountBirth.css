@@ -194,3 +194,12 @@ select {
     background: var(--unnamed, #17181A);
     color: var(--unnamed, #F2F6FF);
 }
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}

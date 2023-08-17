@@ -7,60 +7,62 @@
     <title>문안하다 답변하기</title>
     <link rel="stylesheet" href="/static/css/mainFrame.css">
     <link rel="stylesheet" href="/static/css/home-record.css">
+    <link rel="stylesheet" href="/static/css/base.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="mainFrame">
-        <!-- <footer>
-            <div class="logoBox">
-                <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1">
-                <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2">
+        <header class="logoBox">
+            <div class="logoImgBox">
+              <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1"/>
+              <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2"/>
             </div>
-        </footer> -->
-        <div class="recordTextBox">
-            <p class="recordText">행복한 하루를 보내셨나요?</p>
-            <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
-        </div>
-        <form action="" class="recordEmotion" method="POST">
+        </header>
+        <div class="subFrame">
+            <div class="recordTextBox">
+                <p class="recordText">행복한 하루를 보내셨나요?</p>
+                <p class="recordSubText"><span class="mainUserId">{{user.name}}</span>님의 사소한 일상이 궁금해요!</p>
+            </div>
+        <form action="" class="recordEmotion" id="expressionForm" method="POST">
             {% csrf_token %}
             <div class="selectFaceBox">
                 <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
                 <div class="selectFaceImgBox">
-                    <div class="Face goodBox">
+                    <div class="Face goodBox" onclick="showReasonBox('goodBox')">
                         <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
                         <p class="goodText">최고예요</p>
                     </div>
-                    <div class="Face okayBox">
+                    <div class="Face okayBox" onclick="showReasonBox('okayBox')">
                         <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
                         <p class="okayText">무난해요</p>
                     </div>
-                    <div class="Face sosoBox">
+                    <div class="Face sosoBox" onclick="showReasonBox('sosoBox')">
                         <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
                         <p class="sosoText">그럭저럭</p>
                     </div>
-                    <div class="Face badBox">
+                    <div class="Face badBox" onclick="showReasonBox('badBox')">
                         <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
                         <p class="badText">안좋아요</p>
                     </div>
-                    <div class="Face worseBox">
+                    <div class="Face worseBox" onclick="showReasonBox('worseBox')">
                         <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
                         <p class="worseText">나빠요</p>
                     </div>
                 </div>
 
                 <!-- 선택 박스 -->
-                <div calss="reasonBox">
+                <div class="selectReasonBox">
                     <p class="reasonText">무난하지 않았던 이유를 선택해주세요.</p>
-                    <div class="selectReasonBox">
                         <div class="reasonOptionBox">
-                            <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg">
+                            <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg" id="mealImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">식사</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="eating">식사</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for eating_choice in eating_choices %}
-                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        <li data-category="eating">{{ eating_choice.1|safe}}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -69,12 +71,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/health.svg" alt="건강 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">건강</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="health">건강</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
-                                        {% for eating_choice in eating_choices %}
-                                        <li data-category="eating">{{ eating_choice.1 }}</button>
+                                        {% for health_choice in health_choices %}
+                                        <li data-category="health">{{ health_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -83,12 +86,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/sleep.svg" alt="수면 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">수면</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="sleep">수면</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for sleep_choice in sleep_choices %}
-                                        <li data-category="sleep">{{ sleep_choice.1 }}</button>
+                                        <li data-category="sleep">{{ sleep_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -97,12 +101,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/기분.svg" alt="기분 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">기분</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="mood">기분</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for mood_choice in mood_choices %}
-                                        <li data-category="mood">{{ mood_choice.1 }}</button>
+                                        <li data-category="mood">{{ mood_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -111,12 +116,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/accident.svg" alt="사고 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">사고</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="accident">사고</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
                                     <ul class="reasonMenuOption">
                                         {% for accidents_choice in accidents_choices %}
-                                        <li data-category="accident">{{ accidents_choice.1 }}</button>
+                                        <li data-category="accident">{{ accidents_choice.1|safe }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -125,36 +131,133 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/직접 입력.svg" alt="직집입력 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText">직접 입력</p>
-                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg" onclick="showdropdown(this)">
+                                <p class="reasonMenuText" id="titleDirectText">직접 입력</p>
+                                <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
+                                    onclick="showdropdown(this)">
                                 <div class="reasonMenu">
-                                    <textarea name="" id="directText" cols="30" rows="10" placeholder="이유를 직접 적어주세요."></textarea>
+                                    <textarea name="" id="directText" cols="30" rows="10"
+                                        placeholder="이유를 직접 적어주세요."></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>        
+
+                    <div class="emotionBox">
+                        <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
+                        <div class="emotionTextBox">
+                            <textarea name="" id="receiveEmotionText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
+                            <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg"
+                                onclick="mikeImgAlert()">
+                        </div>
+                    </div>   
                 </div>
 
-                <div class="emotionBox">
-                    <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
-                    <div class="emotionTextBox">
-                        <textarea name="" id="receiveEmotionText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
-                        <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg" onclick="mikeImgAlert()">
-                    </div>
+                <div class="inputCompletedBox">
+                    <button type="button" class="inputCompletedButton" onclick="showSavePopUp()">입력완료</button>
                 </div>
-            </div>
-
-            <div class="inputCompletedBox">
-                <button class="inputCompletedButton">입력완료</button>
-            </div>
         </form>
-
+            <div class="savePopUp" id="savePopUp">
+                <p class="savePopUpContent">문안 기록이<br>성공적으로 저장되었습니다!</p>
+                <div class="saveConfirmBox">
+                    <button class="saveConfirmButton" onclick="closeSavePopUp()">확인</button>
+                </div>
+            </div>    
+        </div>
+        <footer class="main-footer">
+            <div class="footer-box">
+              <button class="home-button">
+                <img src="/static/image/homeLogo.svg" />
+                <p id="red"><a href="{% url 'home' %}">홈</a></p>
+              </button>
+              <button class="save-button">
+                <img src="/static/image/saveLogo.svg" />
+                <p id="gray"><a href="{% url 'locker' %}">보관함</a></p>
+              </button>
+              <button class="alarm-button">
+                <img src="/static/image/alarmLogo.svg" />
+                <p id="gray"><a href="{% url 'alarm' %}">알림</a></p>
+              </button>
+            </div>
+        </footer>
     </div>
 
     <script src="/static/javascript/home-record.js"></script>
     <script>
         // CSRF 토큰을 자바스크립트 변수에 저장
         const csrfToken = "{{ csrf_token }}";
+
+        // 클릭 이벤트에 따른 선택된 데이터를 저장할 객체 초기화
+        const selectedData = {};
+
+        document.querySelectorAll('.reasonMenuOption li').forEach((item) => {
+            item.addEventListener('click', function () {
+                // 클릭한 항목의 텍스트 내용 가져오기
+                const selectedText = this.textContent;
+                
+                // 해당하는 reasonMenuText 엘리먼트 찾기
+                const reasonMenuTextElement = this.closest('.reasonOptionBox').querySelector('.reasonMenuText');
+                
+                // reasonMenuText에 선택한 텍스트 내용 반영하기
+                reasonMenuTextElement.textContent = selectedText;
+                reasonMenuTextElement.style.color = "#FF003A";
+
+                // 선택된 항목에 selected 클래스 부여하기
+                document.querySelectorAll('.reasonMenuText').forEach((textElement) => {
+                    textElement.classList.remove('selected'); // 다른 항목의 selected 클래스 제거
+                });
+                reasonMenuTextElement.classList.add('selected'); // 선택한 항목에 selected 클래스 부여
+
+                // 선택된 카테고리 가져오기
+                const selectedCategory = reasonMenuTextElement.getAttribute('id');
+                
+                // 객체에 선택된 카테고리와 이유 저장
+                selectedData[selectedCategory] = selectedText;
+
+                // 저장된 데이터 출력 
+                console.log("선택한 이유:" ,selectedData);
+            });
+        });
+
+        $(document).ready(function() {
+            // 선택한 표정 테두리 생기게 하기
+            $('.Face').click(function() {
+                $('.Face').css('border', 'none'); // 모든 표정의 테두리 초기화
+                $(this).css('border', '3px solid var(--unnamed, #FF003A)'); // 선택한 표정의 테두리 설정
+            });
+
+            // 폼 제출 이벤트 핸들러
+            $('#expressionForm').submit(function(event) {
+                event.preventDefault();  // 기본 폼 제출 동작 막기
+                
+                const expression = $('.Face').filter(function() {
+                    return $(this).css('border') === '3px solid rgb(255, 0, 58)';
+                }).find('.expressionImg').attr('id');
+
+                const directReason = $('#directText').val();
+
+                // 선택된 데이터를 JSON 형식으로 변환
+                const jsonData = JSON.stringify(selectedData);
+                console.log('직접 쓴 이유:', directReason);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/home/record/submit_data/',  
+                    data: {
+                        expression: expression,
+                        selectedData: jsonData,
+                        customReason: directReason,
+                        csrfmiddlewaretoken: csrfToken
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('데이터 제출 성공:', response);
+                    },
+                    error: function(error) {
+                        console.error('데이터 제출 오류:', error);
+                    }
+                });
+            });
+        });
     </script>
     
 </body>

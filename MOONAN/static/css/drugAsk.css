@@ -127,3 +127,12 @@ progress {
     background-color: #FF003A;
     z-index: 0;
 }
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}

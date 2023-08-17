@@ -163,4 +163,15 @@
     border: none;
 }
 
+<<<<<<< HEAD
 
+=======
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}
+>>>>>>> e0a6921ba2f80cf37c353e72c47b0c4dcfc3cb50

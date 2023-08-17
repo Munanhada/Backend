@@ -2,7 +2,7 @@ header>h1 {
     margin: 0;
 }
 
- header .welcomeText {
+header .welcomeText {
     font-size: 36px;
 }
 
@@ -85,6 +85,54 @@ header>p {
     line-height: normal;
     margin: 0;
 }
+.hello, .hello2{
+    width: 30%;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: var(--unnamed, #F2F6FF);
+    border: none;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    position: relative;
+    /* 폰트설정 */
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 18px;
+    /* 기본 스타일 제거 */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 커스텀 스타일 적용 */
+    background-image: url('../image/Navigate\ before.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 5%; /* 아이콘 간격 조정 */
+    margin-right: 2%;
+}
+
+.hello > option, .hello2>option{
+    width: 30%;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background-color: var(--unnamed, #F2F6FF);
+    border: none;
+    display: flex;
+
+    padding-left: 0;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    list-style: none;
+    margin-top: 10px;
+    cursor: pointer;
+    color: var(--unnamed, #17181A);
+}   
 
 #famRelationship {
     width: 30%;
@@ -221,6 +269,11 @@ header>p {
     cursor: pointer;
 }
 
+.skipButton > a{
+    text-decoration: none; /* 밑줄 제거 */
+    color: white; /* 글꼴 색상 변경 */
+}
+
 .connectButton {
     width: 20vw;
     height: 60px;
@@ -316,4 +369,9 @@ header>p {
     background: rgba(23, 24, 26, 0.20);
     backdrop-filter: blur(4px);
     z-index: 1;
+}
+
+/* select 글씨 색 */
+select option:checked {
+    color: #17181A;
 }
