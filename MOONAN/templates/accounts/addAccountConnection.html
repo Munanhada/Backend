@@ -4,6 +4,12 @@
     <h1 class="welcomeText">계정을 추가합니다.</h1>
 {% endblock %}
 
-{% block content %}
-<a href="{% url 'home' %}" class="confirmButton">확인</a>
+{% block content1 %}
+    <button class="skipButton"> 
+        <a href="{% url 'home' %}">뒤로가기</a>
+    </button>
+{% endblock %}
+
+{% block content2 %}
+    <a href="{% url 'accounts:birth_info' %}" class="confirmButton">확인</a>
 {% endblock %}

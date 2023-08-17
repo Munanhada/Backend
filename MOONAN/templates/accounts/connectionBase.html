@@ -67,8 +67,8 @@
             </div>
             <div class="optionBox">
                 <div class="skipBox">
-                    <button class="skipButton" onclick="skip()"> 건너뛰기
-                    </button>
+                    {% block content1 %}
+                    {% endblock %}
                 </div>
                 <div class="">
                     <button class="connectButton" onclick="sendConnectionData()">연결하기</button>
@@ -79,7 +79,7 @@
         <div class="popup" id="popUp">
             <p class="popupContent">지금 건너뛰기 할 경우 <br>계정 연결이 진행되지 않습니다.</p>
             <div class="confirmBox">
-                {% block content %}
+                {% block content2 %}
                 {% endblock %}
             </div>
         </div>
