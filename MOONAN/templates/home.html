@@ -16,10 +16,14 @@
         <div class="logoImgBox">
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1"/>
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2"/>
+          <a href="{% url 'accounts:logout' %}">
+            <button class="logout">로그아웃</button>
+          </a>
         </div>
       </header>
       <div class="subFrame">
-        <form>
+        <form method="POST">
+          {% csrf_token %}
           <main>
             <div class="main-box">
 
@@ -32,10 +36,7 @@
                   <div class="user-icon">
                     <img src="/static/image/angry-white.svg" alt="안좋아요 이미지" />
                   </div>
-                <div>
-                    
-                </div>
-                {% comment %}메시지 받은 내용{% endcomment %}
+
                   <div class="user-text">
                     <div class="user-info">
                       <p id="user-name">{{ message.sender }}</p>
@@ -54,6 +55,11 @@
                   <div class="call-button">
                     <button>통화하기</button>
                   </div>
+                <div>
+                    
+                </div>
+                {% comment %}메시지 받은 내용{% endcomment %}
+                  
                 </div>
               </div>
 
@@ -62,18 +68,17 @@
                 <div class="user-account-icon">
                     <div class="account">
                     {% for account in connected_users %}
-                        <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
-                        <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</li>
+                      <button type="button" class="select-user-btn"><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
+                      <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</p>
                     {% empty %}
-                        <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
+                        <button type="button"><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
                         <p>연결된 계정이 없습니다.</p>
                     {% endfor %}
                     </div>
                   <div class="account">
-                    <button id="overlap-button">
-                      <img src="/static/image/icon-back.svg" alt="기본 이미지" />
-                      <img src="/static/image/add.svg" alt="추가 이미지" />
-                    </button>
+                    <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
+                      <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
+                    </a>
                     <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
@@ -84,15 +89,15 @@
 
                     <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="munanDropdownImg" onclick="showdropdown(this)" />
                     <div class="munan-menu-list">
-                      <ul class="munan-menu-list-detail">
+                      <ul class="munan-menu-list-detail" id="munan-menu-list-detail">
                         {% for choice in recommendContent_choices %}
                           <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                         {% endfor %}
                           <li id="user-text" >
                               <button type="button" onclick="addList()">
-                                  <img src="/static/image/plus-gray.svg" alt="추가 이미지">
+                                  <img src="/static/image/plus-gray.svg" alt="추가이미지">
                               </button>
-                              <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
+                              <input type="text" id="customContentInput" class="input-field" name="customContent" placeholder="직접 입력하기" onclick='addList()'/>
                           </li>
                       </ul>
                     </div>
@@ -126,14 +131,16 @@
                 <p>간단하게 표시하는 나의 건강한 일상</p>
                 <div class="eat-drug-box">
                     <div class="eat-drug-contents">
+                      <div class="eat-info-box">
                         <p id="eat-info">
-                            약,영양제 챙겨먹기
-                        </p>
-                        <button class="eat-drug-btn" type="button" id="medButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          약,영양제 챙겨먹기
+                      </p>
+                      </div>
+                      <button class="eat-drug-btn" type="button" id="medButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
-                    <div class="user-drug-list">
+                    <div class="user-drug-list" id="user-drug-list">
                         {% for user_medication in user_medications %}
                             <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
                         {% endfor %}
@@ -145,12 +152,14 @@
 
                 <div class="excer-box">
                     <div class="excer-contents">
+                      <div class="excer-info-box">
                         <p id="excer-info">
-                           운동하기
-                        </p>
-                        <button type="button" class="excer-btn" id="exerciseButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          운동하기
+                       </p>
+                      </div>
+                      <button type="button" class="excer-btn" id="exerciseButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
                     <div class="user-excer-list">
                         <button><p id="detail-excer">산책하기</p></button>
@@ -181,72 +190,165 @@
       </footer>
     </div>
 
-    <script src="/static/javascript/home-record.js"></script>
     <script src="/static/javascript/home.js"></script>
     <script>
-        // 사용자 클릭 이벤트 핸들러 함수
-        function handleAccountItemClick(event) {
-            const accountId = event.currentTarget.getAttribute('data-id');
-            const sendMessageButton = document.querySelector('#sendMessageButton');
+        // function handleAccountItemClick(event) {
+        //     const selectedButton = event.currentTarget;
+        //     const accountId = selectedButton.nextElementSibling.getAttribute('data-id');
+        //     const sendMessageButton = document.querySelector('#sendMessageButton');
             
-            // 기존에 활성화된 계정 아이템의 active 클래스 제거
-            const activeAccountItem = document.querySelector('.account-item.active');
-            if (activeAccountItem) {
-                activeAccountItem.classList.remove('active');
-            }
+        //     // 기존에 활성화된 계정 아이템의 active 클래스 제거
+        //     const activeAccountItem = document.querySelector('.account-item.active');
+        //     if (activeAccountItem) {
+        //         activeAccountItem.classList.remove('active');
+        //     }
             
-            // 현재 클릭한 계정 아이템에 active 클래스 추가
-            event.currentTarget.classList.add('active');
+        //     // 다른 선택된 버튼의 클래스 제거
+        //     $(".select-user-btn").removeClass("selected");
+        //     // 현재 선택된 버튼에 클래스 추가
+        //     $(selectedButton).addClass("selected");
             
-            sendMessageButton.setAttribute('data-account-id', accountId);
+        //     event.currentTarget.classList.add('active');
+            
+        //     console.log(accountId); // data-id 값을 콘솔에 출력
+            
+        //     sendMessageButton.setAttribute('data-account-id', accountId);
+        // }
+
+        // // 사용자 클릭 이벤트 핸들러 추가
+        // const accountButtons = document.querySelectorAll('.select-user-btn');
+        // accountButtons.forEach(button => {
+        //     button.addEventListener('click', handleAccountItemClick);
+        // });
+
+        // //메시지 전송 
+        // document.querySelector('#sendMessageButton').addEventListener('click', function () {
+        //     const selectedAccountId = this.getAttribute('data-account-id');
+        //     const selectedRecommendContent = document.querySelector('.munan-menu-list-detail .selected').getAttribute('value');
+        //     const customContent = document.querySelector('#customContentInput').value;
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '{% url 'message:send_message' %}',
+        //         data: {
+        //           'receiver_id' : selectedAccountId, 
+        //           'recommendContent' : selectedRecommendContent, 
+        //           'customContent' : customContent, 
+        //           'csrfmiddlewaretoken': '{{csrf_token}}'
+        //         },
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+        //             if (response.success) { 
+        //                 showModal(response.message); 
+        //             } else {
+        //                 showModal(response.message); 
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(error);
+        //         }
+        //     });
+
+        // });
+var receiver_id;
+var selectedValue;
+
+        function updateMunanText(clickedListItem) {
+            var selectedText = clickedListItem.innerText;
+            var munanTextElement = document.querySelector('.munan-list-text');
+            munanTextElement.textContent = selectedText;
+
+            munanTextElement.style.color = "#FF003A";
+            munanTextElement.style.fontWeight = "700";
+
+            selectedValue = clickedListItem.getAttribute("value");
+
+            // 선택된 값이 제대로 가져와졌는지 확인하기 위해 콘솔에 출력합니다.
+            console.log("Selected Value:", selectedValue);
         }
-    
-        // 사용자 클릭 이벤트 핸들러 추가
-        const accountItems = document.querySelectorAll('.account-item');
-        accountItems.forEach(item => {
-            item.addEventListener('click', handleAccountItemClick);
-        });
-    
-        //직접 입력
-        const recommendContentSelect = document.querySelector('.munan-menu-list-detail');
-        const customInputContainer = document.querySelector('#customInputContainer');
-        const customContentInput = document.querySelector('#customContentInput');
-    
-        recommendContentSelect.addEventListener('click', function() {
-            const selectedValue = this.value;
-            if (selectedValue === 'custom') {
-                customInputContainer.style.display = 'block';
-            } else {
-                customInputContainer.style.display = 'none';
-            }
-        });
-    
-        //메시지 전송 
-        document.querySelector('#sendMessageButton').addEventListener('click', function () {
-            const selectedAccountId = this.getAttribute('data-account-id');
-            const selectedRecommendContent = document.querySelector('#recommendContentSelect').value;
-            const customContent = document.querySelector('#customContentInput').value;
-    
-            $.ajax({
-                type: 'POST',
-                url: /send_message/,
-                data: {'receiver_id' : selectedAccountId, 'recommendContent' : selectedRecommendContent, 'customContent' : customContent, 'csrfmiddlewaretoken': '{{csrf_token}}'},
-                dataType: 'json',
-                success: function(response) {
-                    // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
-                    if (response.success) { 
-                        showModal(response.message); 
-                    }else{
-                        showModal(response.message); 
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+
+        $(document).ready(function () {
+            var csrfToken = getCookie('csrftoken');
+
+            $(".select-user-btn").click(function() {
+                var accountItem = $(this).siblings(".account-item");
+                receiver_id = accountItem.data("id");
+                $("#receiver_id").val(receiver_id);
+                console.log(receiver_id)
+
+                $(".select-user-btn").removeClass("selected");
+                $(this).addClass("selected");
             });
-        
-        });
-    
+
+            $("form").on("submit", function(event) {
+                event.preventDefault();
+
+                // selectedValue = $("#munan-menu-list-detail .selected").attr("value");
+                // // $("#recommendContent").val(selectedValue);
+                var customContent = $("#customContentInput").val();
+                console.log(selectedValue);
+                console.log(receiver_id);
+                console.log(customContent);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'message:send_message' %}",
+                    data: {
+                        receiver_id: receiver_id,
+                        recommendContent: selectedValue,
+                        customContent: customContent,
+                        csrfmiddlewaretoken: csrfToken,
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success) {
+                            showModal(response.message);
+                        } else {
+                            showModal(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+          });
+
+        // $(document).ready(function () {
+        //     var csrfToken = getCookie('csrftoken'); // 한 번만 토큰을 가져옴
+
+        //     $(".select-user-btn").click(function() {
+        //         // 클릭한 버튼의 부모 요소인 p 태그를 찾음
+        //         var accountItem = $(this).siblings(".account-item");
+
+        //         // data-id 값을 가져와서 receiver_id 폼 필드에 설정
+        //         var receiver_id = accountItem.data("id");
+        //         $("#receiver_id").val(receiver_id);
+        //         console.log(receiver_id)
+
+        //         // 선택된 버튼의 스타일 변경 
+        //         $(".select-user-btn").removeClass("selected");
+        //         $(this).addClass("selected");
+        //     });
+
+        //     $("form").on("submit", function(event) {
+        //         event.preventDefault();
+
+        //         // 선택된 값
+        //         var selectedValue = $("#munan-menu-list-detail .selected").attr("value");
+        //         $("#recommendContent").val(selectedValue);
+
+        //         var receiver_id = $("#receiver_id").val();
+
+        //         console.log(selectedValue);
+        //         console.log(receiver_id);
+
+        //         // 폼 제출
+        //         $(this).unbind("submit").submit();
+        //     });
+        // });
+
         function showModal(message) {
             // 모달창
             var modal = document.getElementById("myModal");
@@ -269,9 +371,6 @@
                 }
             }
         }
-
-        $(document).ready(function () {
-            var csrfToken = getCookie('csrftoken'); // 한 번만 토큰을 가져옴
             
             // 약/영양제 먹었는지 버튼
             var takeMedButton = document.getElementById('medButton');
@@ -429,9 +528,7 @@
                     }
                 });
             }
-        });
     </script>
   </body>
 </html>
-
-
+                
