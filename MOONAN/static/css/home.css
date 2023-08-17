@@ -368,7 +368,7 @@ button {
 
 .today-question {
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2.5rem; 
     font-weight: 700;
     margin-top: 20px;
 }
@@ -391,9 +391,20 @@ button {
     font-weight: 700;
 }
 
+
 .feel-icon {
     display: flex;
-    gap: 31.42px;
+    align-items: center;
+    gap: 10px; /* 이미지 사이의 간격 조정 */
+    margin-top: 20px;
+    overflow-x: auto; /* 가로 스크롤 생성 */
+    white-space: nowrap; /* 줄 바꿈 방지 */
+}
+
+.expressionImg {
+    width: auto; /* 이미지 너비 설정 */
+    height: auto; /* 이미지 높이 설정 */
+    flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
 }
 
 /*간단하게 표시하는 나의 건강한 일상*/
