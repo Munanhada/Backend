@@ -21,9 +21,9 @@ function addList() {
         updateMunanText(this);
     });
 
-        // 추가한 내용을 customContent에 할당
-        const customContentInput = document.getElementById('customContentInput');
-        customContentInput.value = addValue;
+    // 추가한 내용을 customContent에 할당
+    const customContentInput = document.getElementById('customContentInput');
+    customContentInput.value = addValue;
 }
 
 // 드롭다운 메뉴 보이기/숨기기 함수
