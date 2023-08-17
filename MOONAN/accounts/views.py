@@ -121,7 +121,7 @@ def send_connection_request(request):
                 continue  # to_user, relationship1, relationship2 값이 모두 없으면 다음 필드로 넘어감
 
             try:
-                to_user_instance = get_user_model().objects.get(name=to_user)
+                to_user_instance = get_user_model().objects.get(user_id=to_user)
             except get_user_model().DoesNotExist:
                 # 사용자를 찾을 수 없는 경우에 대한 처리
                 response_data['error_message'] = '연결 계정을 다시 한번 확인해주세요.'

@@ -263,6 +263,7 @@ def reset_daily_status(request):
     
     return JsonResponse({'status': 'error'}, status=400)
 
+# 보관함 계정 연결중인 계정, 관계 정보 전송
 def locker_view(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
@@ -294,6 +295,7 @@ def locker_view(request):
 
     return render(request,'locker.html', context)
 
+# 달력에서 요청하는 데이터 갖다줌
 def get_selectDay(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
