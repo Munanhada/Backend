@@ -174,33 +174,7 @@ function getCookie(name) {
     }
 }
 
-// 데이터를 업데이트하는 함수
-function updateData() {
-    $.get("/get_updated_data/", function(data) {
-        // 서버에서 받은 데이터를 이용하여 화면 업데이트
-        $(".user-drug-list").empty(); // 기존 버튼들 제거
-        console.log(data.user_medication)
-        console.log(data.user_nutrition)
-
-        // 약 데이터 업데이트
-        data.user_medications.forEach(function(um) {
-            var button = $('<button type="button" class="user-medication"></button>');
-            button.append($('<p class="detail-drug"></p>').text(um.medication));
-            $(".user-drug-list").append(button);
-        });
-
-        // 영양제 데이터 업데이트
-        data.user_nutritions.forEach(function(un) {
-            var button = $('<button type="button" class="user-nutrition"></button>');
-            button.append($('<p class="detail-drug"></p>').text(un.nutrition));
-            $(".user-drug-list").append(button);
-        });
-    });
-}
-
 $(document).ready(function() {
-    updateData();
-    setInterval(updateData, 5000);
     $(".user-drug-button").click(function() {
         const medication = $(this).data("medication");
         if (!medications.includes(medication)) {
@@ -238,12 +212,14 @@ $(document).ready(function() {
     });
 
     $("form").on("submit", function(event) {
+        event.preventDefault(); // 폼 제출 기본 동작 막기
+    
         let med_or_nutr_status = $("input[name='med_or_nutr_status']:checked").val() === "True" ? "True" : "False";
-
+    
         console.log("med_or_nutr_status:", med_or_nutr_status);
         console.log("medications:", medications);
         console.log("nutritions:", nutritions);
-
+    
         // 폼 데이터를 제출하고 서버 응답 처리
         $.post("/accounts/med_nutr_data/", {
             med_or_nutr_status: med_or_nutr_status,
@@ -252,14 +228,15 @@ $(document).ready(function() {
             csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
         })
         .done(function(data) {
-            // 서버 응답 처리 코드
             console.log("Server Response:", data); // 서버 응답 출력
-            // 가져온 데이터를 사용하여 화면 업데이트
-            window.location.href = "/home"; // home으로 리디렉션
+
+            // 리디렉션
+            if (data.redirect_to) {
+                window.location.href = data.redirect_to; // home으로 리디렉션
+            }
         })
         .fail(function(error) {
-            // 실패 시 처리 코드
             console.error("Error:", error);
         });
-    });
+    });    
 });

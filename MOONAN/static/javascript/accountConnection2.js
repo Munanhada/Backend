@@ -35,10 +35,20 @@ function addId() {
     addedDivs.push(clone);
 
     
-    if(currentConnectionNumber ==3){
+    if(currentConnectionNumber == 3){
         let addId = document.querySelector(".addBox");
         addId.style.display = 'none';
     }
+
+    // 삭제 버튼
+    let deleteButton = clone.querySelector(".clearImg");
+    deleteButton.addEventListener("click", function() {
+        let listItem = deleteButton.closest(".connectBox");
+        listItem.remove();
+        currentConnectionNumber--;
+        let addId = document.querySelector(".addBox");
+        addId.style.display = 'flex';
+    });
 }
 
 
@@ -72,3 +82,20 @@ function cloneFamId(inputField) {
     }
 }
 
+// select 색 변격
+function changeColor(selectElement, otherSelectId) {
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var otherSelect = document.getElementById(otherSelectId);
+
+    // 변경된 select의 색상을 빨간색으로 변경
+    selectElement.style.color = '#17181A';
+
+    // 다른 select의 색상을 원래대로 변경
+    otherSelect.style.color = '';
+
+    // 선택된 옵션을 다른 select에 복사
+    var otherSelectOption = otherSelect.querySelector('option[value="' + selectedOption.value + '"]');
+    if (otherSelectOption) {
+        otherSelectOption.selected = true;
+    }
+}

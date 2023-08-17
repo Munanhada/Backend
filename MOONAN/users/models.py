@@ -117,7 +117,8 @@ class ConnectionRequest(models.Model):
     relationship1 = models.CharField(null=True, blank=True, max_length=100, choices=RELATIONSHIP_CHOICES, verbose_name='관계1')
     relationship2 = models.CharField(null=True, blank=True, max_length=100, choices=RELATIONSHIP_CHOICES, verbose_name='관계2')
     is_accepted = models.BooleanField(default=False)
-    
+    timestamp = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection_request')

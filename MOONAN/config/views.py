@@ -60,46 +60,46 @@ def home_view(request):
     return render(request, 'home.html', context)
 
 # 문안인사 메시지 보내기
-@login_required
-def send_message(request):
-    if request.method == 'POST':
-        receiver_id = request.POST.get('receiver_id')
-        recommendContent = request.POST.get('recommendContent')
-        customContent = request.POST.get('customContent')
+# @login_required
+# def send_message(request):
+#     if request.method == 'POST':
+#         receiver_id = request.POST.get('receiver_id')
+#         recommendContent = request.POST.get('recommendContent')
+#         customContent = request.POST.get('customContent')
         
-        # 오류 처리 
-        if not receiver_id:
-            response_data = {
-                'success': False,
-                'message': '수신자를 선택해주세요.',
-            }
-            return JsonResponse(response_data, status=400)
-        if not recommendContent and not customContent:
-            response_data = {
-                'success': False,
-                'message': '메시지 내용을 입력해주세요.',
-            }
-            return JsonResponse(response_data, status=400)
-        try:
-            receiver = User.objects.get(id=receiver_id)
-            sender = request.user
-            Message.objects.create(
-                sender=sender,
-                receiver=receiver,
-                recommendContent=recommendContent,
-                customContent=customContent,
-            )
-            response_data = {
-                'success': True,
-                'message': '문안인사가 성공적으로 전송되었습니다!',
-            }
-            return JsonResponse(response_data)
-        except User.DoesNotExist:
-            response_data = {
-                'success': False,
-                'message': '수신자를 찾을 수 없습니다.',
-            }
-            return JsonResponse(response_data, status=400)
+#         # 오류 처리 
+#         if not receiver_id:
+#             response_data = {
+#                 'success': False,
+#                 'message': '수신자를 선택해주세요.',
+#             }
+#             return JsonResponse(response_data, status=400)
+#         if not recommendContent and not customContent:
+#             response_data = {
+#                 'success': False,
+#                 'message': '메시지 내용을 입력해주세요.',
+#             }
+#             return JsonResponse(response_data, status=400)
+#         try:
+#             receiver = User.objects.get(id=receiver_id)
+#             sender = request.user
+#             Message.objects.create(
+#                 sender=sender,
+#                 receiver=receiver,
+#                 recommendContent=recommendContent,
+#                 customContent=customContent,
+#             )
+#             response_data = {
+#                 'success': True,
+#                 'message': '문안인사가 성공적으로 전송되었습니다!',
+#             }
+#             return JsonResponse(response_data)
+#         except User.DoesNotExist:
+#             response_data = {
+#                 'success': False,
+#                 'message': '수신자를 찾을 수 없습니다.',
+#             }
+#             return JsonResponse(response_data, status=400)
     
 
 # 연결 요청 수락 - ConnetionRequest.is_accepted true, Connection 생성, json 형식으로 전달
@@ -213,13 +213,46 @@ def alarm_view(request):
     
     # 오늘 받은 메시지 
     received_todayMessages = Message.objects.filter(receiver=request.user, timestamp__date=today)
-    
+    for message in received_todayMessages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+            
     # 이번주 중 오늘을 제외한 메시지
     received_last_week_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_week_start, today - timedelta(days=1)))
-
-    # 이번달 중 오늘을 제외한 메시지
-    received_last_month_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_month_start, today - timedelta(days=1)))
-
+    for message in received_last_week_messages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+        
+    # 이번달 중 이번주를 제외한 나머지 날짜 추출
+    received_last_month_messages = Message.objects.filter(
+        receiver=request.user,
+        timestamp__date__range=(last_month_start, today - timedelta(days=1)),
+    ).exclude(
+        Q(timestamp__date__range=(last_week_start, today - timedelta(days=1)))
+    )
+    for message in received_last_month_messages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+            
+    
     context = {
         'user': user,
         'connection_requests' : connection_requests,
@@ -263,12 +296,50 @@ def reset_daily_status(request):
     
     return JsonResponse({'status': 'error'}, status=400)
 
+# 보관함 계정 연결중인 계정, 관계 정보 전송
 def locker_view(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션
 
     user = request.user
     
+    if request.method == 'POST':
+        account_id = request.POST.get('account_id')
+        user = User.objects.get(id=account_id)
+        user_name = user.name  # 유저의 이름
+        print(user_name)
+        current_year = int(request.POST.get('current_year'))
+        current_month = int(request.POST.get('current_month'))
+        # 이번 달의 레코드 데이터를 가져오는 로직 작성
+        # 해당 ID와 년/월에 해당하는 레코드들을 가져옴
+        record_data = Record.objects.filter(user=account_id,
+                                            created_date__year=current_year,
+                                            created_date__month=current_month)
+        
+        # 필요한 데이터를 추출하여 리스트로 저장
+        extracted_data = []
+        for record in record_data:
+            extracted_data.append({
+                'date': record.created_date.day,  # 날짜 추출
+                'expression': record.expression,
+                'eating': record.eating,
+                'health': record.health,
+                'sleep': record.sleep,
+                'mood': record.mood,
+                'accident': record.accident,
+                'customContent': record.customContent,  # 관련된 이유들 추출
+                'happyorsad': record.happyorsad,
+            })
+        # 가져온 레코드 데이터를 Json 형식으로 응답
+        response_data = {
+            'success': True,  # 성공 여부를 나타내는 키 추가
+            'username': user_name,
+            'record_data': extracted_data,
+        }
+        # print(response_data)
+        return JsonResponse(response_data)
+    
+    #GET 일때,
     # 연결 중인 계정과 관계 정보
     connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
     connected_users_with_relationship = []
@@ -286,7 +357,7 @@ def locker_view(request):
             'other_user': other_user,
             'relationship': relationship,  
     })
-        
+    
     context = {
         'user': user,
         'connected_users': connected_users_with_relationship,
@@ -294,6 +365,7 @@ def locker_view(request):
 
     return render(request,'locker.html', context)
 
+# 달력에서 요청하는 데이터 갖다줌
 def get_selectDay(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')  # 로그인 페이지로 리디렉션

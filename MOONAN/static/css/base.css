@@ -8,20 +8,37 @@
     text-align: center;
     top: 0%;
     position: relative;
+
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 5%; /* 원하는 패딩 값을 적용합니다 */
+}
+
+.logoImgBox {
+    flex: 1; /* 로고 이미지 박스가 가능한 넓은 영역을 차지하도록 설정합니다 */
+    display: flex;
+    align-items: center; /* 로고 이미지 수직 가운데 정렬 */
 }
 
 .logoImg1 {
-    margin-top: 39px;
-    position: absolute;
-    left: 45%;
+    max-height: 100px; /* 이미지의 최대 높이 설정 */
+    margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
-.logoImg2 {
-    margin-top: 39px;
+.logout {
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    /* 208.333% */
+    border: none;
     position: absolute;
-    left: 50%;
+    right: 5%;
+    background: none;
+    cursor: pointer;
 }
-
 /*footer*/
 .main-footer {
     bottom: 0%;
@@ -31,16 +48,26 @@
     border-radius: 0px 0px 20px 20px;
     background: var(--unnamed, #F2F6FF);
     box-shadow: 0px -10px 20px 0px rgba(8, 4, 78, 0.05);
+    padding-left:10%;
+    padding-right:10%;
 }
 
 .footer-box {
     display: flex;
-    align-items: center;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between; /* 버튼들을 가로로 동일한 간격으로 정렬 */
+}
+.footer-box button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     display: flex;
+    flex-direction: column;
     align-items: center;
+}
+
+.footer-box button img {
+    max-width: 40px; /* 이미지의 최대 너비 설정 */
+
 }
 
 .footer-box #red {
@@ -65,12 +92,3 @@
     letter-spacing: -0.5px;
 }
 
-.main-footer button {
-    border: none;
-    background: none;
-}
-
-.home-button,
-.save-button {
-    margin-right: 30%;
-}

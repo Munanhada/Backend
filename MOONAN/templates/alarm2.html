@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림</title>
+</head>
+<body>
+    <h1>알림</h1>
+    <h2>팔로우 요청</h2>
+    {% comment %}요청 중{% endcomment %}
+    <ul>
+        {% for request in connection_requests %}
+            <li>
+                {{ request.to_user.name }} (관계: {{ request.relationship1 }}-{{ request.relationship2 }}) 요청 완료
+            </li>
+        {% endfor %}
+    </ul>
+    {% comment %}요청 받음{% endcomment %}
+    <ul>
+        {% for request in connection_requests_received %}
+            <li id="request_{{ request.id }}">
+                {{ request.from_user.name }} (관계: {{ request.relationship1 }})
+                <div class="button-container">
+                    <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                    <input type="submit" class="reject-btn" name="{{request.id}}" value="거절">                
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>오늘 온 문안 <h2>
+        <ul>
+            {% for message in received_todayMessages %}
+                <li>{{ message.sender }} : 
+                    {% if message.recommendContent and message.recommendContent != 'custom' %}
+                        {{ message.get_recommendContent_display }}
+                    {% elif message.customContent %}
+                        {{ message.customContent }}
+                    {% endif %}
+                </li>
+            {%empty%}
+                <p>비었습니다.</p>
+            {% endfor %}
+        </ul>
+    <h2>이번주 온 문안 <h2>
+        <ul>
+            {% for message in received_last_week_messages %}
+                <li>{{ message.sender }} : 
+                    {% if message.recommendContent and message.recommendContent != 'custom' %}
+                        {{ message.get_recommendContent_display }}
+                    {% elif message.customContent %}
+                        {{ message.customContent }}
+                    {% endif %}
+                </li>
+            {%empty%}
+                <p>비었습니다.</p>
+            {% endfor %}
+        </ul>
+    <h2>이번달 온 문안 <h2>
+        <ul>
+            {% for message in received_last_month_messages %}
+                <li>{{ message.sender }} : 
+                    {% if message.recommendContent and message.recommendContent != 'custom' %}
+                        {{ message.get_recommendContent_display }}
+                    {% elif message.customContent %}
+                        {{ message.customContent }}
+                    {% endif %}
+                </li>
+            {%empty%}
+                <p>비었습니다.</p>
+            {% endfor %}
+        </ul>
+
+    <br>
+    <a href="{% url 'home' %}">홈</a>
+    <a href="{% url 'locker' %}">보관함</a>
+    <a href="{% url 'alarm' %}">알림</a>
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //수락 
+    $(".accept-btn").click(function(){
+        var request_id = $(this).attr('name')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'accept_connection_request' %}',
+            data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) {
+                    // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                    // 예시 코드:
+                    alert("요청을 수락하셨습니다!")
+                    $('#request_' + request_id).remove(); // 해당 요소 삭제
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    
+    }) 
+
+    //거절
+    $(".reject-btn").click(function(){
+        var request_id = $(this).attr('name');
+        console.log(request_id);
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'reject_connection_request' %}',
+            data: {'request_id' : request_id, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            dataType: 'json',
+            success: function(response) {
+                // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+                if (response.success) {
+                    // 예를 들어, 연결된 계정 목록을 업데이트하는 등의 작업을 수행할 수 있습니다.
+                    // 예시 코드:
+                    $('#request_' + request_id).remove(); // 해당 요소 삭제
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }) 
+
+
+</script>
