@@ -1,10 +1,11 @@
 {% load static %}
+{% load tz %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>문안하다 알림</title>
 
     <link rel="stylesheet" href="/static/css/home.css" />
@@ -28,53 +29,123 @@
                 <div class="box-title">
                     팔로우 요청
                 </div>
+                {% for request in connection_requests %}
+                    <div class="followRequest" id="followRequest">
+                        <div class="request-icon">
+                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
+                        </div>
+                        <div class="request-user">
+                            <div class="user-nickname">{{ request.to_user.name }}({{request.relationship2}})</div>
+                            <div class="user-time">{{ request.timestamp|date:"n월 j일 A g:i" }}</div>
+                        </div>
+                        <div class="complete-button">
+                            <button>연결요청</button>
+                        </div>
+                    </div>
+                {% endfor %}
 
-                <div class="followRequest">
-                    <div class="request-icon">
-                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
+                {% for request in connection_requests_received %}
+                    <div class="followRequest" id="request_{{ request.id }}">
+                        <div class="request-icon">
+                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
+                        </div>
+                        <div class="request-user">
+                            <div class="user-nickname">{{ request.from_user.name }}({{ request.relationship1 }})</div>
+                            <div class="user-time">{{ request.timestamp|date:"n월 j일 A g:i" }}</div>
+                        </div>
+                        <div class="button-container">
+                            <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                            <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
+                        </div>
                     </div>
-                    <div class="request-user">
-                        <div id="user-nickname">중앙부기(아들)</div>
-                        <div id="user-time">2시간 전</div>
-                    </div>
-                    <div class="complete-button">
-                        <button>연결완료</button>
-                    </div>
-                </div>
-
-                <div class="receivedRequest">
-                    <div class="request-icon">
-                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                    </div>
-                    <div class="request-user">
-                        <p id="user-nickname">중앙부기(아들)</p>
-                        <p id="user-time">2시간 전</p>
-                    </div>
-                    <div class="button-container">
-                        <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
-                        <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
+
             <hr>
+            
+            {% if received_todayMessages %}
             <div class="todayMessage-box">
                 <div class="box-title">
                     오늘 온 문안
                 </div>
+                {% for message in received_todayMessages %}
+                    <div class="messagebox">
+                        <div class="request-icon">
+                            <img src="{% static 'image/expression/soso white.png'%}" />
+                        </div>
+                        <div class="request-message">
+                            <div class="request-timebox">
+                                <div class="user-nickname">{{ message.sender }}({{message.sender_relation}})</div>
+                                <div class="messagetime">{{ message.timestamp|date:"A g:i" }} </div>
+                            </div>
+                            <div class="receive-message">
+                                {% if message.recommendContent and message.recommendContent != 'custom' %}
+                                    {{ message.get_recommendContent_display }}
+                                {% elif message.customContent %}
+                                    {{ message.customContent }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+            {% endif %}
+            {% if received_last_week_messages %}
             <div class="weekMessage-box">
                 <div class="box-title">
                     이번주 온 문안
                 </div>
+                {% for message in received_last_week_messages %}
+                    <div class="messagebox">
+                        <div class="request-icon">
+                            <img src="{% static 'image/expression/soso white.png'%}" />
+                        </div>
+                        <div class="request-message">
+                            <div class="request-timebox">
+                                <div class="user-nickname">{{ message.sender }}({{message.sender_relation}})</div>
+                                <div class="messagetime">{{ message.timestamp|date:"n월 j일 A g:i" }}</div>
+                            </div>
+                            <div class="receive-message">
+                                {% if message.recommendContent and message.recommendContent != 'custom' %}
+                                    {{ message.get_recommendContent_display }}
+                                {% elif message.customContent %}
+                                    {{ message.customContent }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+            {% endif %}
+
+            {% if received_last_month_messages %}
             <div class="monthMessage-box">
                 <div class="box-title">
                     이번달 온 문안
                 </div>
+                {% for message in received_last_month_messages %}
+                <div class="messagebox">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/soso white.png'%}" />
+                    </div>
+                    <div class="request-message">
+                        <div class="request-timebox">
+                            <div class="user-nickname">{{ message.sender }}({{message.sender_relation}})</div>
+                            <div class="messagetime">{{ message.timestamp|date:"n월 j일 A g:i" }}</div>
+                        </div>
+                        <div class="receive-message">
+                            {% if message.recommendContent and message.recommendContent != 'custom' %}
+                                {{ message.get_recommendContent_display }}
+                            {% elif message.customContent %}
+                                {{ message.customContent }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-
-      </div>
+            {% endif %}
+        </div>
         <footer class="main-footer">
             <div class="footer-box">
             <button class="home-button">

@@ -213,13 +213,46 @@ def alarm_view(request):
     
     # 오늘 받은 메시지 
     received_todayMessages = Message.objects.filter(receiver=request.user, timestamp__date=today)
-    
+    for message in received_todayMessages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+            
     # 이번주 중 오늘을 제외한 메시지
     received_last_week_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_week_start, today - timedelta(days=1)))
-
-    # 이번달 중 오늘을 제외한 메시지
-    received_last_month_messages = Message.objects.filter(receiver=request.user, timestamp__date__range=(last_month_start, today - timedelta(days=1)))
-
+    for message in received_last_week_messages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+        
+    # 이번달 중 이번주를 제외한 나머지 날짜 추출
+    received_last_month_messages = Message.objects.filter(
+        receiver=request.user,
+        timestamp__date__range=(last_month_start, today - timedelta(days=1)),
+    ).exclude(
+        Q(timestamp__date__range=(last_week_start, today - timedelta(days=1)))
+    )
+    for message in received_last_month_messages:
+        connection = Connection.objects.filter(
+            (Q(user1=message.sender, user2=request.user) | Q(user1=request.user, user2=message.sender))
+        ).first()
+        
+        if connection:
+            message.sender_relation = connection.relationship1 if connection.user1 == message.sender else connection.relationship2
+        else:
+            message.sender_relation = None
+            
+    
     context = {
         'user': user,
         'connection_requests' : connection_requests,
