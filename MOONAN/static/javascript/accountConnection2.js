@@ -35,10 +35,20 @@ function addId() {
     addedDivs.push(clone);
 
     
-    if(currentConnectionNumber ==3){
+    if(currentConnectionNumber == 3){
         let addId = document.querySelector(".addBox");
         addId.style.display = 'none';
     }
+
+    // 삭제 버튼
+    let deleteButton = clone.querySelector(".clearImg");
+    deleteButton.addEventListener("click", function() {
+        let listItem = deleteButton.closest(".connectBox");
+        listItem.remove();
+        currentConnectionNumber--;
+        let addId = document.querySelector(".addBox");
+        addId.style.display = 'flex';
+    });
 }
 
 
