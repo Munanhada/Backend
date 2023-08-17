@@ -102,10 +102,22 @@ class User(AbstractUser):
 class ConnectionRequest(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='connection_requests_sent')
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='connection_requests_received')
-    relationship1 = models.CharField(max_length=50)
-    relationship2 = models.CharField(max_length=50)
-    is_accepted = models.BooleanField(default=False)
 
+    RELATIONSHIP_CHOICES = [
+        ('엄마', '엄마'),
+        ('아빠', '아빠'),
+        ('할머니', '할머니'),
+        ('할아버지', '할아버지'),
+        ('딸', '딸'),
+        ('아들', '아들'),
+        ('손자', '손자'),
+        ('손녀', '손녀'),
+
+    ]
+    relationship1 = models.CharField(null=True, blank=True, max_length=100, choices=RELATIONSHIP_CHOICES, verbose_name='관계1')
+    relationship2 = models.CharField(null=True, blank=True, max_length=100, choices=RELATIONSHIP_CHOICES, verbose_name='관계2')
+    is_accepted = models.BooleanField(default=False)
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['from_user', 'to_user'], name='unique_connection_request')
