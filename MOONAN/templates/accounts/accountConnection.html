@@ -27,7 +27,7 @@
                     <div class="selectBox">
                         <input type="text" id="to_user1" name="to_user1" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
                         <p class="selectBoxText">는 소중한 나의</p>
-                        <select name="relationship2_1" id="relationship2_1" class="hello">
+                        <select name="relationship2_1" id="relationship2_1" class="hello" onchange="changeColor(this, 'relationship')">
                             <option value="" disabled selected hidden>선택</option>
                             <option value="아빠">아빠</option>
                             <option value="엄마">엄마</option>
@@ -59,7 +59,7 @@
                         <p class="selectBoxText">나는</p>
                         <input type="text" placeholder="연결할 아이디" class="famIdField2">
                         <p class="selectBoxText">의</p>
-                        <select name="relationship1_1" id="relationship1_1" class="hello2">
+                        <select name="relationship1_1" id="relationship1_1" class="hello2" onchange="changeColor(this, 'relationship')">
                             <option value="" disabled selected hidden>선택</option>
                             <option value="아빠">아빠</option>
                             <option value="엄마">엄마</option>
