@@ -287,6 +287,7 @@ button {
     font-size: 24px;
     font-weight: 400;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .munan-menu-list-detail li:hover,
