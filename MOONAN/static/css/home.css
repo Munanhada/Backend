@@ -49,7 +49,9 @@ button {
 /*main 시작*/
 /*오늘 000님에게 온 문안 메세지*/
 .munan_title {
-    display: flex;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
 }
 
 .munan_title #today_message {
@@ -61,6 +63,8 @@ button {
 }
 
 .munan_title #message_count {
+    width: 55px; /* 원하는 너비 값으로 조정 */
+    height: 34px; /* 원하는 높이 값으로 조정 */
     display: inline-flex;
     padding: 5px 16px;
     justify-content: center;
@@ -282,18 +286,32 @@ button {
     color: var(--unnamed, #17181A);
     font-size: 24px;
     font-weight: 400;
-    transition: color 0.3s; /* 텍스트 색상 변경에 트랜지션 효과를 추가합니다. */
+    transition: color 0.3s;
 }
 
 .munan-menu-list-detail li:hover,
 .munan-menu-list-detail li:focus {
-    color:#FF003A; 
-    font-weight : 700;
+    color: #FF003A;
+    font-weight: 700;
 }
 
 .munan-menu-list-detail #user-text {
     color: var(--1, #959AA4);
-    font-weight : 400;
+    font-weight: 400;
+}
+
+#addValue {
+    background: var(--2, #E3E9F6);
+    border: none;
+    width: 140px;
+    height: 34px;
+}
+
+#addValue::placeholder {
+    color: var(--1, #959AA4);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 34px;
 }
 
 /*전송하기 버튼*/
@@ -365,45 +383,41 @@ button {
 
 .daily_health p {
     color: var(--unnamed, #FF003A);
-    font-family: Pretendard;
     font-size: 36px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    margin: 0;
 }
 
 .eat-drug-box {
-    margin-top: 20px;
     width: 100%;
     height: 80px;
     flex-shrink: 0;
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);
+    margin-top: 20px;
 }
 
-.eat-drug-button {
+.eat-drug-contents {
     display: flex;
 }
 
-.eat-drug-text {
+.eat-drug-contents #eat-info {
     color: #000;
     font-size: 24px;
     font-weight: 700;
-    margin-top: 26px;
     margin-left: 19px;
+    margin-top: 26px;
 }
 
-.eat-drug-not-yet {
-    margin-left: 212px;
+.eat-drug-btn {
+    margin-left: 55%;
     margin-top: 15px;
 }
 
-.eat-drug-not-yet button {
+.eat-drug-btn  {
     width: 179px;
     height: 50px;
     flex-shrink: 0;
-    background: none;
-    border: none;
     border-radius: 30px;
     background: var(--1, #959AA4);
     display: flex;
@@ -411,77 +425,68 @@ button {
     justify-content: center;
 }
 
-.eat-drug-not-yet #text-not-yet {
+.eat-drug-btn #text-not-yet {
     color: var(--unnamed, #F2F6FF);
-    font-family: Pretendard;
     font-size: 20px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
 }
 
-.eat-drug-list {
-    padding-top: 20px;
+.user-drug-list {
+    margin-top: 30px;
     display: flex;
-    padding: 14px;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
-
-    background-color: red;
+    gap: 20px;
 }
 
-.eat-drug-list button {
-    border: none;
-    background: none;
+.user-drug-list button{
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-family: Pretendard;
     font-size: 20px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    gap: 14px;
+}
+
+.user-drug-list #detail-drug{
+    border-radius: 30px;
+    background: var(--2, #E3E9F6);
+    color: var(--unnamed, #17181A);
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px; /* 버튼 주위 여백 */
 }
 
 /*운동하기*/
-
 .excer-box {
-    margin-top: 40px;
     width: 100%;
     height: 80px;
     flex-shrink: 0;
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);
+    margin-top: 112px;
+    margin-bottom: 60px;
 }
 
-.excer-button {
+.excer-contents {
     display: flex;
 }
 
-.excer-text {
+.excer-contents #excer-info {
     color: #000;
-    font-family: Pretendard;
     font-size: 24px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    margin-top: 26px;
     margin-left: 19px;
+    margin-top: 26px;
 }
 
-.excer-not-yet {
-    margin-left: 212px;
+.excer-btn {
+    margin-left: 66%;
     margin-top: 15px;
 }
 
-.excer-not-yet button {
+.excer-btn  {
     width: 179px;
     height: 50px;
     flex-shrink: 0;
-    background: none;
-    border: none;
     border-radius: 30px;
     background: var(--1, #959AA4);
     display: flex;
@@ -489,41 +494,44 @@ button {
     justify-content: center;
 }
 
-.excer-not-yet #text-not-yet {
-
+.excer-btn #text-not-yet {
     color: var(--unnamed, #F2F6FF);
-    font-family: Pretendard;
     font-size: 20px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
 }
 
-.excer-list {
-    margin-top: 20px;
+.user-excer-list {
+    margin-top: 30px;
     display: flex;
-    padding: 14px;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
-
-    background-color: red;
+    gap: 20px;
 }
 
-.excer-list button {
-    border: none;
-    background: none;
+.user-excer-list button{
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-family: Pretendard;
     font-size: 20px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    gap: 14px;
 }
 
+.user-excer-list #detail-excer{
+    border-radius: 30px;
+    background: var(--2, #E3E9F6);
+    color: var(--unnamed, #17181A);
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px; /* 버튼 주위 여백 */
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+    color: inherit;
+}
 /*main 끝*/
 
 /*임시 영역 표시용*/
