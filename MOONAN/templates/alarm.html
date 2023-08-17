@@ -28,26 +28,51 @@
                     팔로우 요청
                 </div>
 
-                <div class="followRequest">
+                <div class="followRequest" id="followRequest">
                     <div class="request-icon">
                         <img src="{% static 'image/expression/bad-skyblue.png'%}" />
                     </div>
                     <div class="request-user">
-                        <div id="user-nickname">중앙부기(아들)</div>
-                        <div id="user-time">2시간 전</div>
+                        <div class="user-nickname">중앙부기(아들)</div>
+                        <div class="user-time">2시간 전</div>
+                    </div>
+                    <div class="complete-button">
+                        <button>연결완료</button>
+                    </div>
+                </div>
+                <div class="followRequest" id="followRequest">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
+                    </div>
+                    <div class="request-user">
+                        <div class="user-nickname">중앙부기(아들)</div>
+                        <div class="user-time">2시간 전</div>
                     </div>
                     <div class="complete-button">
                         <button>연결완료</button>
                     </div>
                 </div>
 
-                <div class="receivedRequest">
+                <div class="followRequest" id="receivedRequest">
                     <div class="request-icon">
                         <img src="{% static 'image/expression/bad-skyblue.png'%}" />
                     </div>
                     <div class="request-user">
-                        <p id="user-nickname">중앙부기(아들)</p>
-                        <p id="user-time">2시간 전</p>
+                        <div class="user-nickname">중앙부기(아들)</div>
+                        <div class="user-time">2시간 전</div>
+                    </div>
+                    <div class="button-container">
+                        <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                        <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
+                    </div>
+                </div>
+                <div class="followRequest" id="receivedRequest">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
+                    </div>
+                    <div class="request-user">
+                        <div class="user-nickname">중앙부기(아들)</div>
+                        <div class="user-time">2시간 전</div>
                     </div>
                     <div class="button-container">
                         <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
@@ -57,19 +82,58 @@
 
             </div>
             <hr>
+
             <div class="todayMessage-box">
                 <div class="box-title">
                     오늘 온 문안
                 </div>
+                <div class="messagebox">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/soso white.png'%}" />
+                    </div>
+                    <div class="request-message">
+                        <div class="request-timebox">
+                            <div class="user-nickname">효도르(딸)</div>
+                            <div class="messagetime"> 오후 18:02 </div>
+                        </div>
+                        <div class="receive-message">엄마 오늘 상사한테 혼났어 ㅠ</div>
+                    </div>
+                </div>
             </div>
+
             <div class="weekMessage-box">
                 <div class="box-title">
                     이번주 온 문안
                 </div>
+                <div class="messagebox">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/soso white.png'%}" />
+                    </div>
+                    <div class="request-message">
+                        <div class="request-timebox">
+                            <div class="user-nickname">효도르(딸)</div>
+                            <div class="messagetime"> 오후 18:02 </div>
+                        </div>
+                        <div class="receive-message">엄마 오늘 상사한테 혼났어 ㅠ</div>
+                    </div>
+                </div>
+                
             </div>
             <div class="monthMessage-box">
                 <div class="box-title">
                     이번달 온 문안
+                </div>
+                <div class="messagebox">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/soso white.png'%}" />
+                    </div>
+                    <div class="request-message">
+                        <div class="request-timebox">
+                            <div class="user-nickname">효도르(딸)</div>
+                            <div class="messagetime"> 오후 18:02 </div>
+                        </div>
+                        <div class="receive-message">엄마 오늘 상사한테 혼났어 ㅠ</div>
+                    </div>
                 </div>
             </div>
 

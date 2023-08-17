@@ -22,14 +22,15 @@
     display: flex; /* 가로로 정렬하기 위해 Flexbox를 사용합니다 */
     align-items: center; /* 세로 중앙 정렬을 위해 아이템들을 세로 방향으로 중앙으로 정렬합니다 */
     justify-content: space-between; /* 왼쪽과 오른쪽에 여유 공간을 두어 요소들을 정렬합니다 */
-
+    margin-bottom: 2%;
 }
 .request-user {
     display: flex; /* 세로로 정렬하기 위해 Flexbox를 사용합니다 */
     flex-direction: column; /* 아이템들을 세로로 배치합니다 */
     align-items: flex-start; /* 아이템들을 좌측으로 정렬합니다 */
     flex: 1; /* 남은 공간을 균등하게 나눠서 크기 조절 */
-    margin: 1%;
+    margin: 2%;
+    
 }
 .user-nickname{
     color: var(--unnamed, #17181A);
@@ -56,7 +57,58 @@
 .complete-button {
     margin-left: auto;
 }
+.button-container {
+    margin-left: auto;
+}
 
+.complete-button button {
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    color: var(--1, #959AA4);
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 30px;
+    background: var(--unnamed, #F2F6FF);
+    cursor: pointer;
+}
+
+.accept-btn{
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 30px;
+    background: var(--unnamed, #FF003A);
+    border:none;
+}
+
+.reject-btn{
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--unnamed, #F2F6FF);
+    font-family: Pretendard;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 30px;
+    background: var(--1, #959AA4);
+    border:none;
+}
 
 hr{
     display: block;
@@ -64,4 +116,46 @@ hr{
     background: #E3E9F6; /* 원하는 배경색 지정 */
     height: 0.1875rem;
     margin: 1rem 0; /* 위 아래 여백 추가 */
+}
+
+.messagebox{
+    display: flex; /* 가로로 정렬하기 위해 Flexbox를 사용합니다 */
+    align-items: center; /* 세로 중앙 정렬을 위해 아이템들을 세로 방향으로 중앙으로 정렬합니다 */
+    justify-content: space-between; /* 왼쪽과 오른쪽에 여유 공간을 두어 요소들을 정렬합니다 */
+    margin-bottom: 2%;
+}
+
+.request-message{
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding:2%;
+}
+
+.request-timebox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+.messagetime{
+    margin-left:1%;
+}
+
+.messagetime{
+    color: var(--1, #959AA4);
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.request-message .receive-message{
+    color: var(--unnamed, #17181A);
+    font-family: Pretendard;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
 }
