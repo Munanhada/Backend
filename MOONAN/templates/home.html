@@ -28,14 +28,11 @@
                   <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
                   <button id="message_count">+1</button>
                 </div>
+
                 <div class="munan_contents">
                   <div class="user-icon">
                     <img src="/static/image/angry-white.svg" alt="안좋아요 이미지" />
                   </div>
-                <div>
-                    
-                </div>
-                {% comment %}메시지 받은 내용{% endcomment %}
                   <div class="user-text">
                     <div class="user-info">
                       <p id="user-name">{{ message.sender }}</p>
@@ -54,6 +51,11 @@
                   <div class="call-button">
                     <button>통화하기</button>
                   </div>
+                <div>
+                    
+                </div>
+                {% comment %}메시지 받은 내용{% endcomment %}
+                  
                 </div>
               </div>
 
@@ -70,10 +72,9 @@
                     {% endfor %}
                     </div>
                   <div class="account">
-                    <button id="overlap-button">
-                      <img src="/static/image/icon-back.svg" alt="기본 이미지" />
-                      <img src="/static/image/add.svg" alt="추가 이미지" />
-                    </button>
+                    <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
+                      <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
+                    </a>
                     <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
@@ -90,7 +91,7 @@
                         {% endfor %}
                           <li id="user-text" >
                               <button type="button" onclick="addList()">
-                                  <img src="/static/image/plus-gray.svg" alt="추가 이미지">
+                                  <img src="/static/image/plus-gray.svg" alt="추가이미지">
                               </button>
                               <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
                           </li>
@@ -126,12 +127,14 @@
                 <p>간단하게 표시하는 나의 건강한 일상</p>
                 <div class="eat-drug-box">
                     <div class="eat-drug-contents">
+                      <div class="eat-info-box">
                         <p id="eat-info">
-                            약,영양제 챙겨먹기
-                        </p>
-                        <button class="eat-drug-btn" type="button" id="medButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          약,영양제 챙겨먹기
+                      </p>
+                      </div>
+                      <button class="eat-drug-btn" type="button" id="medButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
                     <div class="user-drug-list" id="user-drug-list">
                         {% for user_medication in user_medications %}
@@ -145,12 +148,14 @@
 
                 <div class="excer-box">
                     <div class="excer-contents">
+                      <div class="excer-info-box">
                         <p id="excer-info">
-                           운동하기
-                        </p>
-                        <button type="button" class="excer-btn" id="exerciseButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          운동하기
+                       </p>
+                      </div>
+                      <button type="button" class="excer-btn" id="exerciseButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
                     <div class="user-excer-list">
                         <button><p id="detail-excer">산책하기</p></button>

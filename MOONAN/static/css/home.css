@@ -1,4 +1,4 @@
-/*전체 Frame 시작*/
+/*전체 Frame 시작!*/
 * {
     box-sizing: border-box;
 }
@@ -133,7 +133,9 @@ button {
 
 /*통화하가*/
 .call-button {
-    margin-left: 45%;
+    margin-left: 50%;
+
+    background-color: violet;
 }
 
 .call-button button {
@@ -214,9 +216,9 @@ button {
     /* 이미지 겹치기 설정 */
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: -50%;
 }
+
 
 /*클릭 한번으로 보내는 오늘의 문안인사*/
 .click-munan {
@@ -400,18 +402,24 @@ button {
 
 .eat-drug-contents {
     display: flex;
+    align-items: center;
 }
 
 .eat-drug-contents #eat-info {
     color: #000;
     font-size: 24px;
     font-weight: 700;
+    margin:0;
+}
+
+.eat-info-box{ 
+    margin-top: 16px;
     margin-left: 19px;
-    margin-top: 26px;
+    width: 189.762px;
 }
 
 .eat-drug-btn {
-    margin-left: 55%;
+    margin-left: 212px;
     margin-top: 15px;
 }
 
@@ -463,24 +471,29 @@ button {
     flex-shrink: 0;
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);
-    margin-top: 112px;
-    margin-bottom: 60px;
+    margin-top: 20px;
 }
 
 .excer-contents {
     display: flex;
+    align-items: center;
 }
 
 .excer-contents #excer-info {
     color: #000;
     font-size: 24px;
     font-weight: 700;
+    margin:0;
+}
+
+.excer-info-box{ 
+    margin-top: 16px;
     margin-left: 19px;
-    margin-top: 26px;
+    width: 189.762px;
 }
 
 .excer-btn {
-    margin-left: 66%;
+    margin-left: 212px;
     margin-top: 15px;
 }
 
@@ -524,6 +537,7 @@ button {
     font-weight: 400;
     margin: 5px; /* 버튼 주위 여백 */
 }
+
 
 a {
     text-decoration: none;

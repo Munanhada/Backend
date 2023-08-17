@@ -1,8 +1,4 @@
-var overlapButton = document.getElementById("overlap-button");
-overlapButton.addEventListener("click", function (event) {
-    event.preventDefault(); // 기본 동작 중지
-    window.location.href = "/accountConnection.html"; // 페이지 이동
-});
+
 
 function updateMunanText(clickedListItem) {
     var selectedText = clickedListItem.innerText;
