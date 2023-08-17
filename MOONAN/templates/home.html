@@ -13,8 +13,8 @@
     <div class="mainFrame">
       <header class="logoBox">
         <div class="logoImgBox">
-          <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1"/>
-          <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2"/>
+          <img src="/static/image/headerfooter/munanhadalogo.png" alt="로고 이미지" class="logoImg1"/>
+          <button class="logout">로그아웃</button>
         </div>
       </header>
       <div class="subFrame">
@@ -171,21 +171,27 @@
         </form>
       </div>
       <footer class="main-footer">
-        <div class="footer-box">
-          <button class="home-button">
-            <img src="/static/image/homeLogo.svg" />
-            <p id="red"><a href="{% url 'home' %}">홈</a></p>
-          </button>
-          <button class="save-button">
-            <img src="/static/image/saveLogo.svg" />
-            <p id="gray"><a href="{% url 'locker' %}">보관함</a></p>
-          </button>
-          <button class="alarm-button">
-            <img src="/static/image/alarmLogo.svg" />
-            <p id="gray"><a href="{% url 'alarm' %}">알림</a></p>
-          </button>
+        <a href="{% url 'home' %}">
+            <div class="footer-box">
+            <button class="home-button">
+                <img src="/static/image/homeLogo.svg" />
+                <p id="red">홈</p>
+            </button>
+        </a>
+        <a href="{% url 'locker' %}">
+            <button class="save-button">
+                <img src="/static/image/saveLogo.svg" />
+                <p id="gray">보관함</p>
+            </button>
+        </a>
+        <a href="{% url 'alarm' %}">
+            <button class="alarm-button">
+                <img src="/static/image/alarmLogo.svg" />
+                <p id="gray">알림</p>
+            </button>
+        </a>
         </div>
-      </footer>
+    </footer>
     </div>
   </body>
 </html>
