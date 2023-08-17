@@ -28,21 +28,20 @@
                   <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
                   <button id="message_count">+1</button>
                 </div>
-                
-                {% comment %}메시지 받은 내용{% endcomment %}
-                {% for message in received_messages %}
                 <div class="munan_contents">
                   <div class="user-icon">
                     <img src="/static/image/angry-white.svg" alt="안좋아요 이미지" />
                   </div>
-                </div>
+                <div>
                     
                 </div>
-=                  <div class="user-text">
+                {% comment %}메시지 받은 내용{% endcomment %}
+                  <div class="user-text">
                     <div class="user-info">
                       <p id="user-name">{{ message.sender }}</p>
                       <p id="day">2023.08.10</p>
                     </div>
+                    {% for message in received_messages %}
                     <div class="user-message">
                         {% if message.recommendContent and message.recommendContent != 'custom' %}
                             {{ message.get_recommendContent_display }}
@@ -50,13 +49,12 @@
                             {{ message.customContent }}
                         {% endif %}
                     </div>
+                    {% endfor %}
                   </div>
                   <div class="call-button">
                     <button>통화하기</button>
                   </div>
                 </div>
-                {% endfor %}
-
               </div>
 
               <div class="who_message">
@@ -88,20 +86,20 @@
                     <div class="munan-menu-list">
                       <ul class="munan-menu-list-detail">
                         {% for choice in recommendContent_choices %}
-                            <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
+                          <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                         {% endfor %}
-                            <li id="user-text" >
-                                <button type="button" onclick="addList()">
-                                    <img src="/static/image/plus-gray.svg" alt="추가 이미지">
-                                </button>
-                                <input type="text" id="customContentInput" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
-                            </li>
+                          <li id="user-text" >
+                              <button type="button" onclick="addList()">
+                                  <img src="/static/image/plus-gray.svg" alt="추가 이미지">
+                              </button>
+                              <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
+                          </li>
                       </ul>
                     </div>
                   </div>
 
                   <div class="sand-box">
-                    <button  type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
+                    <button type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
                     <div id="myModal" class="modal" style="display: none;">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -132,16 +130,15 @@
                             약,영양제 챙겨먹기
                         </p>
                         <button class="eat-drug-btn" type="button" id="medButton">
-                            <img src="/static/image/Group 2461 no.svg" alt="체크 이미지" />
+                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                         </button>
                     </div>
-                    <div class="eat-drug-list">
+                    <div class="user-drug-list">
                         {% for user_medication in user_medications %}
-                            <button><p id="detail-drug">당뇨약</p></button>
-                            <button value="{{ user_medication.medication }}"><p id="detail-drug">{{ user_medication }}</p></button>
+                            <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
                         {% endfor %}
                         {% for user_nutrition in user_nutritions %}
-                            <button value="{{ user_nutrition.nutrition }}"><p id="detail-drug">{{ user_nutrition }}</p></button>
+                            <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
                         {% endfor %}
                     </div>
                 </div>
@@ -151,8 +148,8 @@
                         <p id="excer-info">
                            운동하기
                         </p>
-                        <button class="excer-btn" type="button" id="exerciseButton">
-                            <img src="/static/image/Group 2461 no.svg" alt="체크 이미지" />
+                        <button type="button" class="excer-btn" id="exerciseButton">
+                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                         </button>
                     </div>
                     <div class="user-excer-list">
@@ -284,10 +281,10 @@
             // 초기 버튼 상태 설정
             if (isMedTaken) {
                 takeMedButton.classList.add('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/Group 2461 yes.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
             } else {
                 takeMedButton.classList.remove('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/Group 2461 no.svg');
+                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_no.svg');
             }
 
             takeMedButton.addEventListener('click', function () {
@@ -298,9 +295,9 @@
                 // 이미지 변경
                 var image = $(this).find('img');
                 if (isMedTaken) {
-                    image.attr('src', '/static/image/아직이에요체크.svg');
+                    image.attr('src', '/static/image/Group2461_yes.svg');
                 } else {
-                    image.attr('src', '/static/image/아직이에요미체크.svg');
+                    image.attr('src', '/static/image/Group2461_no.svg');
                 }
 
                 // 로컬 스토리지에 상태 저장
@@ -315,10 +312,10 @@
             // 초기 버튼 상태 설정
             if (isExerciseTaken) {
                 takeExerciseButton.classList.add('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/Group 2461 yes.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
             } else {
                 takeExerciseButton.classList.remove('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/Group 2461 no.svg');
+                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_no.svg');
             }
 
             takeExerciseButton.addEventListener('click', function () {
@@ -329,9 +326,9 @@
                 // 이미지 변경
                 var image = $(this).find('img');
                 if (isExerciseTaken) {
-                    image.attr('src', '/static/image/아직이에요체크.svg');
+                    image.attr('src', '/static/image/Group2461_yes.svg');
                 } else {
-                    image.attr('src', '/static/image/아직이에요미체크.svg');
+                    image.attr('src', '/static/image/Group2461_no.svg');
                 }
 
                 // 로컬 스토리지에 상태 저장
@@ -421,7 +418,7 @@
                                 button.classList.toggle('taken', status);
                                 const image = button.querySelector('img');
                                 if (image) {
-                                    const imageUrl = status ? '/static/image/아직이에요체크.svg' : '/static/image/아직이에요미체크.svg';
+                                    const imageUrl = status ? '/static/image/Group2461_yes.svg' : '/static/image/Group2461_no.svg';
                                     image.setAttribute('src', imageUrl);
                                 }
                             }
@@ -436,8 +433,6 @@
     </script>
   </body>
 </html>
-
-
 
 
 
