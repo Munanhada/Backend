@@ -371,3 +371,7 @@ header>p {
     z-index: 1;
 }
 
+/* select 글씨 색 */
+.hello:focus, .hello2:focus {
+    color: #17181A;
+}
