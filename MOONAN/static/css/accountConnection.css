@@ -40,6 +40,7 @@ header>p {
     background: var(--1, #959AA4);
     position: absolute;
     right: 1%;
+    cursor: pointer;
 }
 
 .selectBox {
