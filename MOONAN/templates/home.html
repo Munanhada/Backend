@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,21 +15,21 @@
         <div class="logoImgBox">
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1"/>
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2"/>
-          <a href="{% url 'accounts:logout' %}">
-            <button class="logout">로그아웃</button>
-          </a>
         </div>
       </header>
       <div class="subFrame">
         <form>
           <main>
             <div class="main-box">
-
               <div class="munan_message">
+
                 <div class="munan_title">
-                  <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
-                  <button id="message_count">+1</button>
-                </div>
+                  <div class="title_content">
+                      <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
+                      <button id="message_count">+1</button>
+                  </div>
+              </div>
+              
 
                 <div class="munan_contents">
                   <div class="user-icon">
@@ -43,37 +42,33 @@
                     </div>
                     {% for message in received_messages %}
                     <div class="user-message">
-                        {% if message.recommendContent and message.recommendContent != 'custom' %}
-                            {{ message.get_recommendContent_display }}
-                        {% elif message.customContent %}
-                            {{ message.customContent }}
-                        {% endif %}
+                      {% if message.recommendContent and message.recommendContent != 'custom' %}
+                      {{ message.get_recommendContent_display }}
+                      {% elif message.customContent %}
+                      {{ message.customContent }}
+                      {% endif %}
                     </div>
                     {% endfor %}
+                    </div>
+                    <div class="call-button">
+                      <button>통화하기</button>
+                    </div>
                   </div>
-                  <div class="call-button">
-                    <button>통화하기</button>
-                  </div>
-                <div>
-                    
                 </div>
-                {% comment %}메시지 받은 내용{% endcomment %}
-                  
-                </div>
-              </div>
-
+              
               <div class="who_message">
                 <p id="today_message">누구에게 문안인사를 해볼까요?</p>
+                
                 <div class="user-account-icon">
-                    <div class="account">
+                  <div class="account">
                     {% for account in connected_users %}
-                        <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
-                        <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</li>
+                    <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
+                    <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</p>
                     {% empty %}
-                        <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
-                        <p>연결된 계정이 없습니다.</p>
+                    <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
+                    <p>연결된 계정이 없습니다.</p>
                     {% endfor %}
-                    </div>
+                  </div>
                   <div class="account">
                     <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
                       <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
@@ -81,38 +76,38 @@
                     <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
+
                 <div class="click-munan">
                   <p id="click-munan-title">클릭 한번으로 보내는 오늘의 문안인사!</p>
                   <div class="munan-list">
                     <div class="munan-list-text">문안하다가 추천하는 오늘의 문안 인사 질문들. 질문이 어려운 당신에게 추천해줘요</div>
-
                     <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="munanDropdownImg" onclick="showdropdown(this)" />
                     <div class="munan-menu-list">
                       <ul class="munan-menu-list-detail">
                         {% for choice in recommendContent_choices %}
-                          <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
+                        <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                         {% endfor %}
-                          <li id="user-text" >
-                              <button type="button" onclick="addList()">
-                                  <img src="/static/image/plus-gray.svg" alt="추가이미지">
-                              </button>
-                              <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()'/>
-                          </li>
+                        <li id="user-text">
+                          <button type="button" onclick="addList()">
+                            <img src="/static/image/plus-gray.svg" alt="추가이미지">
+                          </button>
+                          <input type="text" id="addValue" class="input-field" placeholder="직접 입력하기" onclick='addList()' />
+                        </li>
                       </ul>
                     </div>
                   </div>
-
                   <div class="sand-box">
                     <button type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
                     <div id="myModal" class="modal" style="display: none;">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <p>문안인사가 성공적으로 전송되었습니다!</p>
-                        </div>
+                      <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>문안인사가 성공적으로 전송되었습니다!</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
               <div class="today_munan">
                 <div class="feel-icon">
                   <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="goodImg" />
@@ -126,47 +121,51 @@
                   <button><a href="{% url 'record:home' %}">나의 하루 체크하러 가기</a></button>
                 </div>
               </div>
+              
               <div class="daily_health">
                 <p>간단하게 표시하는 나의 건강한 일상</p>
                 <div class="eat-drug-box">
-                    <div class="eat-drug-contents">
-                      <div class="eat-info-box">
-                        <p id="eat-info">
-                          약,영양제 챙겨먹기
-                      </p>
-                      </div>
-                      <button class="eat-drug-btn" type="button" id="medButton">
-                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                  <div class="eat-drug-contents">
+                    <div class="eat-info-box">
+                      <p id="eat-info">약,영양제 챙겨먹기</p>
+                    </div>
+                    <button class="eat-drug-btn" type="button" id="medButton">
+                      <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                     </button>
-                    </div>
-                    <div class="user-drug-list" id="user-drug-list">
-                        {% for user_medication in user_medications %}
-                            <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
-                        {% endfor %}
-                        {% for user_nutrition in user_nutritions %}
-                            <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
-                        {% endfor %}
-                    </div>
+                  </div>
+                  
                 </div>
 
-                <div class="excer-box">
-                    <div class="excer-contents">
-                      <div class="excer-info-box">
-                        <p id="excer-info">
-                          운동하기
-                       </p>
-                      </div>
-                      <button type="button" class="excer-btn" id="exerciseButton">
-                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                    </button>
-                    </div>
-                    <div class="user-excer-list">
-                        <button><p id="detail-excer">산책하기</p></button>
-                        <button><p id="detail-excer">외출하기</p></button>
-                        <button><p id="detail-excer">스트레칭</p></button>
-                    </div>
+                <div class="user-drug-list" id="user-drug-list">
+                  {% for user_medication in user_medications %}
+                    <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
+                  {% endfor %}
+                  {% for user_nutrition in user_nutritions %}
+                    <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
+                  {% endfor %}
                 </div>
+
+              
+                <div class="excer-box">
+                  <div class="excer-contents">
+                    <div class="excer-info-box">
+                      <p id="excer-info">운동하기</p>
+                    </div>
+                    <button type="button" class="excer-btn" id="exerciseButton">
+                      <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
+                  </div>
+               
+                </div>
+
+                <div class="user-excer-list">
+                  <button><p id="detail-excer">산책하기</p></button>
+                  <button><p id="detail-excer">외출하기</p></button>
+                  <button><p id="detail-excer">스트레칭</p></button>
+                </div>
+                
               </div>
+              
             </div>
           </main>
         </form>
@@ -188,258 +187,256 @@
         </div>
       </footer>
     </div>
-
-    <script src="/static/javascript/home-record.js"></script>
-    <script src="/static/javascript/home.js"></script>
-    <script>
-        // 사용자 클릭 이벤트 핸들러 함수
-        function handleAccountItemClick(event) {
-            const accountId = event.currentTarget.getAttribute('data-id');
-            const sendMessageButton = document.querySelector('#sendMessageButton');
-            
-            // 기존에 활성화된 계정 아이템의 active 클래스 제거
-            const activeAccountItem = document.querySelector('.account-item.active');
-            if (activeAccountItem) {
-                activeAccountItem.classList.remove('active');
-            }
-            
-            // 현재 클릭한 계정 아이템에 active 클래스 추가
-            event.currentTarget.classList.add('active');
-            
-            sendMessageButton.setAttribute('data-account-id', accountId);
-        }
-    
-        // 사용자 클릭 이벤트 핸들러 추가
-        const accountItems = document.querySelectorAll('.account-item');
-        accountItems.forEach(item => {
-            item.addEventListener('click', handleAccountItemClick);
-        });
-    
-        //직접 입력
-        const recommendContentSelect = document.querySelector('.munan-menu-list-detail');
-        const customInputContainer = document.querySelector('#customInputContainer');
-        const customContentInput = document.querySelector('#customContentInput');
-    
-        recommendContentSelect.addEventListener('click', function() {
-            const selectedValue = this.value;
-            if (selectedValue === 'custom') {
-                customInputContainer.style.display = 'block';
-            } else {
-                customInputContainer.style.display = 'none';
-            }
-        });
-    
-        //메시지 전송 
-        document.querySelector('#sendMessageButton').addEventListener('click', function () {
-            const selectedAccountId = this.getAttribute('data-account-id');
-            const selectedRecommendContent = document.querySelector('#recommendContentSelect').value;
-            const customContent = document.querySelector('#customContentInput').value;
-    
-            $.ajax({
-                type: 'POST',
-                url: '{% url 'message:send_message' %}',
-                data: {'receiver_id' : selectedAccountId, 'recommendContent' : selectedRecommendContent, 'customContent' : customContent, 'csrfmiddlewaretoken': '{{csrf_token}}'},
-                dataType: 'json',
-                success: function(response) {
-                    // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
-                    if (response.success) { 
-                        showModal(response.message); 
-                    }else{
-                        showModal(response.message); 
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        
-        });
-    
-        function showModal(message) {
-            // 모달창
-            var modal = document.getElementById("myModal");
-            var modalContent = modal.querySelector('.modal-content');
-            var span = modal.querySelector('.close');
-            var modalParagraph = modalContent.querySelector('p');
-            
-            modalParagraph.textContent = message;
-            modal.style.display = "block";
-        
-            // 모달 닫기
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-        
-            // 모달 이외의 영역을 클릭하면 모달 닫기
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        }
-
-        $(document).ready(function () {
-            var csrfToken = getCookie('csrftoken'); // 한 번만 토큰을 가져옴
-            
-            // 약/영양제 먹었는지 버튼
-            var takeMedButton = document.getElementById('medButton');
-            var medStorageKey = 'medButtonStatus_' + getCurrentDate(); // 날짜별 스토리지 키 생성
-            var isMedTaken = localStorage.getItem(medStorageKey) === 'true';
-
-            // 초기 버튼 상태 설정
-            if (isMedTaken) {
-                takeMedButton.classList.add('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
-            } else {
-                takeMedButton.classList.remove('taken');
-                $(takeMedButton).find('img').attr('src', '/static/image/Group2461_no.svg');
-            }
-
-            takeMedButton.addEventListener('click', function () {
-                isMedTaken = !isMedTaken; // 값을 토글
-                var actionType = 'medication'; // actionType 변수를 정의
-                updateStatus(actionType, isMedTaken, csrfToken, 'medButton');
-
-                // 이미지 변경
-                var image = $(this).find('img');
-                if (isMedTaken) {
-                    image.attr('src', '/static/image/Group2461_yes.svg');
-                } else {
-                    image.attr('src', '/static/image/Group2461_no.svg');
-                }
-
-                // 로컬 스토리지에 상태 저장
-                localStorage.setItem(medStorageKey, isMedTaken);
-            });
-
-            // 운동했는지 버튼
-            var takeExerciseButton = document.getElementById('exerciseButton');
-            var exerciseStorageKey = 'exerciseButtonStatus_' + getCurrentDate(); // 날짜별 스토리지 키 생성
-            var isExerciseTaken = localStorage.getItem(exerciseStorageKey) === 'true';
-
-            // 초기 버튼 상태 설정
-            if (isExerciseTaken) {
-                takeExerciseButton.classList.add('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
-            } else {
-                takeExerciseButton.classList.remove('taken');
-                $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_no.svg');
-            }
-
-            takeExerciseButton.addEventListener('click', function () {
-                isExerciseTaken = !isExerciseTaken; // 값을 토글
-                var actionType = 'exercise'; // actionType 변수를 정의
-                updateStatus(actionType, isExerciseTaken, csrfToken, 'exerciseButton');
-
-                // 이미지 변경
-                var image = $(this).find('img');
-                if (isExerciseTaken) {
-                    image.attr('src', '/static/image/Group2461_yes.svg');
-                } else {
-                    image.attr('src', '/static/image/Group2461_no.svg');
-                }
-
-                // 로컬 스토리지에 상태 저장
-                localStorage.setItem(exerciseStorageKey, isExerciseTaken);
-            });
-
-            // 오늘 날짜를 'YYYY-MM-DD' 형식으로 반환하는 함수
-            function getCurrentDate() {
-                var today = new Date();
-                var year = today.getFullYear();
-                var month = today.getMonth() + 1;
-                var day = today.getDate();
-                return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-            }
-
-                // 자정에 서버 데이터 초기화
-                function resetServerData() {
-                    // 서버에 요청하여 데이터 초기화
-                    $.ajax({
-                        url: '/reset_daily_status/',
-                        type: 'POST',
-                        headers: { "X-CSRFToken": csrfToken },
-                        success: function (data) {
-                            // 서버 응답 처리
-                            if (data.status === 'success') {
-                                // 로컬 스토리지의 데이터도 초기화
-                                localStorage.removeItem('medTaken');
-                                localStorage.removeItem('exerciseTaken');
-                            }
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            console.log("서버 데이터 초기화 실패")
-                        }
-                    });
-                }
-
-                // 자정에 데이터 비교 및 초기화
-                function compareAndResetData() {
-                    var now = new Date();
-                    var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // 다음 날 자정
-                    var timeUntilMidnight = midnight - now; // 자정까지 남은 시간
-
-                    setTimeout(function () {
-                        var medTaken = localStorage.getItem('medTaken');
-                        var exerciseTaken = localStorage.getItem('exerciseTaken');
-                        
-                        if (medTaken === 'true' || exerciseTaken === 'true') {
-                            resetServerData(); // 서버 데이터 초기화
-                        }
-                        
-                        // 자정에 다시 비교 및 초기화
-                        compareAndResetData();
-                    }, timeUntilMidnight);
-                }
-
-                // 초기화 및 비교 타이머 시작
-                compareAndResetData();
-
-            // getCookie 함수 정의
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = cookies[i].trim();
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-    
-            function updateStatus(actionType, status, csrfToken, buttonId) {
-                $.ajax({
-                    url: '/daily_status/',
-                    type: 'POST',
-                    data: { actionType: actionType, status: status },
-                    headers: { "X-CSRFToken": csrfToken },
-                    success: function (data) {
-                        // 서버 응답 처리
-                        if (data.status === 'success') {
-                            // 버튼 상태 업데이트
-                            const button = document.getElementById(buttonId);
-                            if (button) {
-                                button.classList.toggle('taken', status);
-                                const image = button.querySelector('img');
-                                if (image) {
-                                    const imageUrl = status ? '/static/image/Group2461_yes.svg' : '/static/image/Group2461_no.svg';
-                                    image.setAttribute('src', imageUrl);
-                                }
-                            }
-                        }
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log("상태 체크 실패")
-                    }
-                });
-            }
-        });
-    </script>
   </body>
 </html>
+<script src="/static/javascript/home-record.js"></script>
+<script src="/static/javascript/home.js"></script>
+<script>
+  // 사용자 클릭 이벤트 핸들러 함수
+  function handleAccountItemClick(event) {
+      const accountId = event.currentTarget.getAttribute('data-id');
+      const sendMessageButton = document.querySelector('#sendMessageButton');
+      
+      // 기존에 활성화된 계정 아이템의 active 클래스 제거
+      const activeAccountItem = document.querySelector('.account-item.active');
+      if (activeAccountItem) {
+          activeAccountItem.classList.remove('active');
+      }
+      
+      // 현재 클릭한 계정 아이템에 active 클래스 추가
+      event.currentTarget.classList.add('active');
+      
+      sendMessageButton.setAttribute('data-account-id', accountId);
+  }
 
+  // 사용자 클릭 이벤트 핸들러 추가
+  const accountItems = document.querySelectorAll('.account-item');
+  accountItems.forEach(item => {
+      item.addEventListener('click', handleAccountItemClick);
+  });
 
+  //직접 입력
+  const recommendContentSelect = document.querySelector('.munan-menu-list-detail');
+  const customInputContainer = document.querySelector('#customInputContainer');
+  const customContentInput = document.querySelector('#customContentInput');
+
+  recommendContentSelect.addEventListener('click', function() {
+      const selectedValue = this.value;
+      if (selectedValue === 'custom') {
+          customInputContainer.style.display = 'block';
+      } else {
+          customInputContainer.style.display = 'none';
+      }
+  });
+
+  //메시지 전송 
+  document.querySelector('#sendMessageButton').addEventListener('click', function () {
+      const selectedAccountId = this.getAttribute('data-account-id');
+      const selectedRecommendContent = document.querySelector('#recommendContentSelect').value;
+      const customContent = document.querySelector('#customContentInput').value;
+
+      $.ajax({
+          type: 'POST',
+          url: '{% url 'message:send_message' %}',
+          data: {'receiver_id' : selectedAccountId, 'recommendContent' : selectedRecommendContent, 'customContent' : customContent, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+          dataType: 'json',
+          success: function(response) {
+              // Ajax 요청이 성공하면 여기서 화면 업데이트를 수행합니다.
+              if (response.success) { 
+                  showModal(response.message); 
+              }else{
+                  showModal(response.message); 
+              }
+          },
+          error: function(xhr, status, error) {
+              console.error(error);
+          }
+      });
+  
+  });
+
+  function showModal(message) {
+      // 모달창
+      var modal = document.getElementById("myModal");
+      var modalContent = modal.querySelector('.modal-content');
+      var span = modal.querySelector('.close');
+      var modalParagraph = modalContent.querySelector('p');
+      
+      modalParagraph.textContent = message;
+      modal.style.display = "block";
+  
+      // 모달 닫기
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+  
+      // 모달 이외의 영역을 클릭하면 모달 닫기
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+  }
+
+  $(document).ready(function () {
+      var csrfToken = getCookie('csrftoken'); // 한 번만 토큰을 가져옴
+      
+      // 약/영양제 먹었는지 버튼
+      var takeMedButton = document.getElementById('medButton');
+      var medStorageKey = 'medButtonStatus_' + getCurrentDate(); // 날짜별 스토리지 키 생성
+      var isMedTaken = localStorage.getItem(medStorageKey) === 'true';
+
+      // 초기 버튼 상태 설정
+      if (isMedTaken) {
+          takeMedButton.classList.add('taken');
+          $(takeMedButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
+      } else {
+          takeMedButton.classList.remove('taken');
+          $(takeMedButton).find('img').attr('src', '/static/image/Group2461_no.svg');
+      }
+
+      takeMedButton.addEventListener('click', function () {
+          isMedTaken = !isMedTaken; // 값을 토글
+          var actionType = 'medication'; // actionType 변수를 정의
+          updateStatus(actionType, isMedTaken, csrfToken, 'medButton');
+
+          // 이미지 변경
+          var image = $(this).find('img');
+          if (isMedTaken) {
+              image.attr('src', '/static/image/Group2461_yes.svg');
+          } else {
+              image.attr('src', '/static/image/Group2461_no.svg');
+          }
+
+          // 로컬 스토리지에 상태 저장
+          localStorage.setItem(medStorageKey, isMedTaken);
+      });
+
+      // 운동했는지 버튼
+      var takeExerciseButton = document.getElementById('exerciseButton');
+      var exerciseStorageKey = 'exerciseButtonStatus_' + getCurrentDate(); // 날짜별 스토리지 키 생성
+      var isExerciseTaken = localStorage.getItem(exerciseStorageKey) === 'true';
+
+      // 초기 버튼 상태 설정
+      if (isExerciseTaken) {
+          takeExerciseButton.classList.add('taken');
+          $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
+      } else {
+          takeExerciseButton.classList.remove('taken');
+          $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_no.svg');
+      }
+
+      takeExerciseButton.addEventListener('click', function () {
+          isExerciseTaken = !isExerciseTaken; // 값을 토글
+          var actionType = 'exercise'; // actionType 변수를 정의
+          updateStatus(actionType, isExerciseTaken, csrfToken, 'exerciseButton');
+
+          // 이미지 변경
+          var image = $(this).find('img');
+          if (isExerciseTaken) {
+              image.attr('src', '/static/image/Group2461_yes.svg');
+          } else {
+              image.attr('src', '/static/image/Group2461_no.svg');
+          }
+
+          // 로컬 스토리지에 상태 저장
+          localStorage.setItem(exerciseStorageKey, isExerciseTaken);
+      });
+
+      // 오늘 날짜를 'YYYY-MM-DD' 형식으로 반환하는 함수
+      function getCurrentDate() {
+          var today = new Date();
+          var year = today.getFullYear();
+          var month = today.getMonth() + 1;
+          var day = today.getDate();
+          return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+      }
+
+          // 자정에 서버 데이터 초기화
+          function resetServerData() {
+              // 서버에 요청하여 데이터 초기화
+              $.ajax({
+                  url: '/reset_daily_status/',
+                  type: 'POST',
+                  headers: { "X-CSRFToken": csrfToken },
+                  success: function (data) {
+                      // 서버 응답 처리
+                      if (data.status === 'success') {
+                          // 로컬 스토리지의 데이터도 초기화
+                          localStorage.removeItem('medTaken');
+                          localStorage.removeItem('exerciseTaken');
+                      }
+                  },
+                  error: function (xhr, textStatus, errorThrown) {
+                      console.log("서버 데이터 초기화 실패")
+                  }
+              });
+          }
+
+          // 자정에 데이터 비교 및 초기화
+          function compareAndResetData() {
+              var now = new Date();
+              var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // 다음 날 자정
+              var timeUntilMidnight = midnight - now; // 자정까지 남은 시간
+
+              setTimeout(function () {
+                  var medTaken = localStorage.getItem('medTaken');
+                  var exerciseTaken = localStorage.getItem('exerciseTaken');
+                  
+                  if (medTaken === 'true' || exerciseTaken === 'true') {
+                      resetServerData(); // 서버 데이터 초기화
+                  }
+                  
+                  // 자정에 다시 비교 및 초기화
+                  compareAndResetData();
+              }, timeUntilMidnight);
+          }
+
+          // 초기화 및 비교 타이머 시작
+          compareAndResetData();
+
+      // getCookie 함수 정의
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+
+      function updateStatus(actionType, status, csrfToken, buttonId) {
+          $.ajax({
+              url: '/daily_status/',
+              type: 'POST',
+              data: { actionType: actionType, status: status },
+              headers: { "X-CSRFToken": csrfToken },
+              success: function (data) {
+                  // 서버 응답 처리
+                  if (data.status === 'success') {
+                      // 버튼 상태 업데이트
+                      const button = document.getElementById(buttonId);
+                      if (button) {
+                          button.classList.toggle('taken', status);
+                          const image = button.querySelector('img');
+                          if (image) {
+                              const imageUrl = status ? '/static/image/Group2461_yes.svg' : '/static/image/Group2461_no.svg';
+                              image.setAttribute('src', imageUrl);
+                          }
+                      }
+                  }
+              },
+              error: function (xhr, textStatus, errorThrown) {
+                  console.log("상태 체크 실패")
+              }
+          });
+      }
+  });
+</script>
+</html>

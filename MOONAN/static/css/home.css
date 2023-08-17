@@ -1,4 +1,4 @@
-/*전체 Frame 시작!*/
+/*전체 Frame 시작*/
 * {
     box-sizing: border-box;
 }
@@ -50,21 +50,26 @@ button {
 /*오늘 000님에게 온 문안 메세지*/
 .munan_title {
     display: flex; 
-    justify-content: center;
     align-items: center;
+}
+
+.title_content {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* 원하는 margin-right 값으로 조정 */
 }
 
 .munan_title #today_message {
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
-    margin-right: 38%;
+    margin-right: 96px; /* p와 button 간격을 주기 위해 추가 */
 }
 
 .munan_title #message_count {
-    width: 55px; /* 원하는 너비 값으로 조정 */
-    height: 34px; /* 원하는 높이 값으로 조정 */
+    width: 55px;
+    height: 34px;
     display: inline-flex;
     padding: 5px 16px;
     justify-content: center;
@@ -73,7 +78,7 @@ button {
     border-radius: 20px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 20px;
+    font-size: 1.2rem; 
     font-weight: 700;
     border: none;
 }
@@ -87,33 +92,36 @@ button {
     margin-top: 20px;
     display: flex;
     padding-top: 20px;
+    align-items: flex-start;
 }
 
 .user-icon {
     margin-left: 20px;
+    align-self: flex-start;
 }
 
-/*유저 정보 및 날짜 표기*/
 .user-text {
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .user-info {
     display: flex;
+    align-items: center;
 }
 
 .user-info #user-name {
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size: 1.2rem;
     font-weight: 700;
     margin: 0;
 }
 
 .user-info #day {
     color: var(--1, #959AA4);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     margin-left: 14px;
     margin-top: 10px;
@@ -123,48 +131,54 @@ button {
 
 .user-message {
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 400;
     line-height: 30px;
     margin-top: 8px;
     width: 208px;
-    height: 60px;
+    max-height: 60px;
+    overflow: hidden;
 }
 
-/*통화하가*/
 .call-button {
-    margin-left: 50%;
-
-    background-color: violet;
+    margin-left: auto;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: 52px; 
 }
 
 .call-button button {
-    width: 100px;
+    width: 8vw; 
     height: 60px;
     flex-shrink: 0;
     border-radius: 40px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 700;
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    overflow: hidden; /* 넘치는 부분은 숨기기 */
+    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 /*누구에게 문안인사를 해볼까요?*/
 .who_message #today_message {
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
 }
 
 .user-account-icon {
     margin-top: 20px;
-    gap: 20px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     text-align: center;
+    flex-wrap: wrap; /* 수정된 부분: 가로 줄바꿈 설정 추가 */
 }
+ 
 
 .user-account-icon button {
     background: none;
@@ -188,7 +202,7 @@ button {
 
 .account p {
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size:1.2rem;
     font-weight: 700;
     margin-top: 8px;
     width: max-content;
@@ -207,7 +221,7 @@ button {
 
 .user-account-icon p {
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size:1.2rem;
     font-weight: 700;
     margin-top: 8px;
 }
@@ -219,7 +233,6 @@ button {
     left: -50%;
 }
 
-
 /*클릭 한번으로 보내는 오늘의 문안인사*/
 .click-munan {
     margin-top: 31px;
@@ -229,7 +242,7 @@ button {
 
 .click-munan #click-munan-title {
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
 }
@@ -250,12 +263,14 @@ button {
     position: absolute;
     left: 5%;
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size: 1.5rem; 
     font-weight: 400;
     line-height: 34px;
     margin-right: 138px;
-    width: 440px;
-    height: 68px;
+    width: calc(100% - 168px); /* 수정된 부분: 텍스트의 최대 너비 설정 */
+    max-height: 68px; /* 수정된 부분: 텍스트의 최대 높이 설정 */
+    overflow: hidden; /* 텍스트 넘치는 부분은 숨기기 */
+    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
 }
 
 .munanDropdownImg {
@@ -326,13 +341,14 @@ button {
 
 .sand-box button {
     margin-top: 60px;
-    width: 420px;
+    width: 25vw;
     height: 60px;
     flex-shrink: 0;
     border-radius: 30px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 24px;
+    font-size: 1.5rem;
+    cursor: pointer; 
     font-weight: 700;
 }
 
@@ -352,7 +368,7 @@ button {
 
 .today-question {
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2.5rem; 
     font-weight: 700;
     margin-top: 20px;
 }
@@ -364,19 +380,31 @@ button {
 .check-myday button {
     background: none;
     border: none;
-    width: 420px;
+    width: 25vw;
     height: 60px;
     flex-shrink: 0;
     border-radius: 30px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
     font-size: 24px;
+    cursor: pointer; 
     font-weight: 700;
 }
 
+
 .feel-icon {
     display: flex;
-    gap: 31.42px;
+    align-items: center;
+    gap: 10px; /* 이미지 사이의 간격 조정 */
+    margin-top: 20px;
+    overflow-x: auto; /* 가로 스크롤 생성 */
+    white-space: nowrap; /* 줄 바꿈 방지 */
+}
+
+.expressionImg {
+    width: auto; /* 이미지 너비 설정 */
+    height: auto; /* 이미지 높이 설정 */
+    flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
 }
 
 /*간단하게 표시하는 나의 건강한 일상*/
@@ -386,7 +414,7 @@ button {
 
 .daily_health p {
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
 }
@@ -407,7 +435,7 @@ button {
 
 .eat-drug-contents #eat-info {
     color: #000;
-    font-size: 24px;
+    font-size:  1.5rem;
     font-weight: 700;
     margin:0;
 }
@@ -415,16 +443,12 @@ button {
 .eat-info-box{ 
     margin-top: 16px;
     margin-left: 19px;
-    width: 189.762px;
-}
-
-.eat-drug-btn {
-    margin-left: 212px;
-    margin-top: 15px;
+    flex-grow: 1;
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
 }
 
 .eat-drug-btn  {
-    width: 179px;
     height: 50px;
     flex-shrink: 0;
     border-radius: 30px;
@@ -432,6 +456,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
+    margin-right: 5%;
 }
 
 .eat-drug-btn #text-not-yet {
@@ -453,6 +479,8 @@ button {
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
+
+    white-space: nowrap; /* 줄 바꿈 방지 */
 }
 
 .user-drug-list #detail-drug{
@@ -465,7 +493,7 @@ button {
 }
 
 /*운동하기*/
-.excer-box {
+.excer-box{ 
     width: 100%;
     height: 80px;
     flex-shrink: 0;
@@ -481,7 +509,7 @@ button {
 
 .excer-contents #excer-info {
     color: #000;
-    font-size: 24px;
+    font-size:  1.5rem;
     font-weight: 700;
     margin:0;
 }
@@ -489,16 +517,12 @@ button {
 .excer-info-box{ 
     margin-top: 16px;
     margin-left: 19px;
-    width: 189.762px;
+    flex-grow: 1;
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
 }
 
 .excer-btn {
-    margin-left: 212px;
-    margin-top: 15px;
-}
-
-.excer-btn  {
-    width: 179px;
     height: 50px;
     flex-shrink: 0;
     border-radius: 30px;
@@ -506,6 +530,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
+    margin-right: 5%;
 }
 
 .excer-btn #text-not-yet {
@@ -527,6 +553,8 @@ button {
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
+
+    white-space: nowrap; /* 줄 바꿈 방지 */
 }
 
 .user-excer-list #detail-excer{
@@ -538,6 +566,15 @@ button {
     margin: 5px; /* 버튼 주위 여백 */
 }
 
+.user-excer-list button{
+    border-radius: 30px;
+    background: var(--2, #E3E9F6);
+    color: var(--unnamed, #17181A);
+    font-size: 20px;
+    font-weight: 400;
+
+    white-space: nowrap; /* 줄 바꿈 방지 */
+}
 
 a {
     text-decoration: none;
@@ -548,18 +585,3 @@ a:hover {
     color: inherit;
 }
 /*main 끝*/
-
-/*임시 영역 표시용*/
-
-.who_message {
-    background-color: cornflowerblue;
-}
-
-.subFrame {
-    background-color: pink;
-}
-
-
-.main-box {
-    background-color: lightsalmon;
-}
