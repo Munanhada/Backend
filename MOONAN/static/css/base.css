@@ -8,20 +8,37 @@
     text-align: center;
     top: 0%;
     position: relative;
+
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 5%; /* 원하는 패딩 값을 적용합니다 */
+}
+
+.logoImgBox {
+    flex: 1; /* 로고 이미지 박스가 가능한 넓은 영역을 차지하도록 설정합니다 */
+    display: flex;
+    align-items: center; /* 로고 이미지 수직 가운데 정렬 */
 }
 
 .logoImg1 {
-    margin-top: 39px;
-    position: absolute;
-    left: 45%;
+    max-height: 100px; /* 이미지의 최대 높이 설정 */
+    margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
-.logoImg2 {
-    margin-top: 39px;
+.logout {
+    color: var(--unnamed, #FF003A);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    /* 208.333% */
+    border: none;
     position: absolute;
-    left: 50%;
+    right: 5%;
+    background: none;
+    cursor: pointer;
 }
-
 /*footer*/
 .main-footer {
     bottom: 0%;
@@ -75,18 +92,3 @@
     margin-right: 30%;
 }
 
-.logout {
-    color: var(--unnamed, #FF003A);
-    font-family: Pretendard;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 50px;
-    /* 208.333% */
-    border: none;
-    position: absolute;
-    right: 5%;
-    margin-top: 35px;
-    background: none;
-    cursor: pointer;
-}
