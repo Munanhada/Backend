@@ -12,14 +12,26 @@
     display: none;
 }
 
-.drug-ask-box-yes,
-.drug-ask-box-no {
+
+.drug-ask-box-no,
+.drug-ask-box-yes {
     width: 614px;
     height: 160px;
     flex-shrink: 0;
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);
     color: var(--unnamed, #17181A);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.drug-ask-box-yes-2{
+    width: 614px;
+    height: 160px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
     font-size: 24px;
     font-weight: 700;
 }
@@ -38,6 +50,7 @@
 }
 
 .drug-ask-box-yes .drug-content-wrapper img,
+.drug-ask-box-yes-2 .drug-content-wrapper img,
 .drug-ask-box-no .drug-content-wrapper img {
     position: absolute;
     left: 0;
@@ -46,6 +59,7 @@
 }
 
 .drug-ask-box-yes .drug-content-wrapper img:last-child,
+.drug-ask-box-yes-2 .drug-content-wrapper img:last-child,
 .drug-ask-box-no .drug-content-wrapper img:last-child {
     left: 5px;
 }
