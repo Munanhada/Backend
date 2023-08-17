@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from config.views import (home_view, accept_connection_request, reject_connection_request, alarm_view, send_message, locker_view,
                           send_message, daily_status, reset_daily_status, get_selectDay)
 from django.views.generic import RedirectView
-from accounts.views import get_updated_data
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +35,5 @@ urlpatterns = [
     path('reject_connection_request/', reject_connection_request, name='reject_connection_request'),
     path('daily_status/', daily_status, name='daily_status'),
     path('reset_daily_status/', reset_daily_status, name='reset_daily_status'),
-    path('get_updated_data/', get_updated_data, name='get_updated_data'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
