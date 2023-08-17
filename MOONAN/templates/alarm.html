@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="/static/css/home.css" />
     <link rel="stylesheet" href="/static/css/base.css" />
-    <link rel="stylesheet" href="/static/css/alarm.css" />
+    <link rel="stylesheet" href="/static/css/alarm2.css" />
   </head>
   <body>
     <div class="mainFrame">
@@ -20,256 +20,59 @@
         </div>
       </header>
       <div class="subFrame">
-        <form>
-          <main>
-            <div class="main-box">
-             {% comment %}팔로우 요청 박스{% endcomment %}
-              <div class="munan-alarm-box">
-                    <p id="alarm-title">알림</p>
-                <div class="follow-request-box">
-                    <p id="follow-request-title">팔로우 요청</p>
-                  <div class="request-list">
-                    <div class="request-complete-1">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="complete-button">
-                            <button>연결완료</button>
-                        </div>
-                    </div>
-                    <div class="request-complete-2">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="complete-button">
-                            <button>연결완료</button>
-                        </div>
-                    </div>
-                    <div class="request-surak-1">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="button-container">
-                            <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
-                    <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
-
-
-                        </div>
-                    </div>
-                    <div class="request-surak-2">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="button-container">
-                            <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
-                    <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
-
-
-                        </div>
-                    </div>
-                    <div class="request-reject-1">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="button-container">
-                            <input type="submit" class="accept-btn-2" name="{{request.id}}" value="수락">                
-                    <input type="submit" class="reject-btn-2" name="{{request.id}}" value="거절"> 
-
-
-                        </div>
-                    </div>
-                    <div class="request-reject-2">
-                        <div class="request-icon">
-                            <img src="{% static 'image/expression/bad-skyblue.png'%}" />
-                        </div>
-                        <div class="request-user">
-                            <p id="user-nickname">중앙부기(아들)</p>
-                            <p id="user-time">2시간 전</p>
-                        </div>
-                        <div class="button-container">
-                            <input type="submit" class="accept-btn-2" name="{{request.id}}" value="수락">                
-                    <input type="submit" class="reject-btn-2" name="{{request.id}}" value="거절"> 
-
-
-                        </div>
-                    </div>
-                  </div>
-                <div>
-                </div> <!-- 이 부분을 닫아줘야 합니다 -->
+            <div class="alarmTitle">
+                알림
             </div>
-            <hr class="line">
-            {% comment %}오늘 온 문안 박스{% endcomment %}
-            <div class="today-munan-box">
-                <p id="today-munan-title">오늘 온 문안</p>
-                <div class="today-list">
-                    <div class="arrow-box">
-                        <button>
-                            <img src="{% static 'image/etc/arrow.png'%}" />
-                        </button>
+            <div class="followRequest-box">
+                <div class="box-title">
+                    팔로우 요청
+                </div>
+
+                <div class="followRequest">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
                     </div>
-                        <div class="munan-message">
-                            <div class="message-icon">
-                                <img src="{% static 'image/expression/bad white.png'%}" />
-                            </div>
-                            <div class="message-user-box">
-                                <div class="message-user-info">
-                                    <p class="user-name">효도르 (딸)</p>
-                                    <p class="message-time">오후 18:30</p>
-                                </div>
-                                <div class="message-text"> 
-                                    엄마 난 오늘 상사한테 혼났어ㅠ
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="munan-message">
-                            <div class="message-icon">
-                                <img src="{% static 'image/expression/soso white.png'%}" />
-                            </div>
-                            <div class="message-user-box">
-                                <div class="message-user-info">
-                                    <p class="user-name">상상부기(엄마)</p>
-                                    <p class="message-time">오후 18:30</p>
-                                </div>
-                                <div class="message-text"> 
-                                    힘들었겠구나,,ㅠ
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="munan-message">
-                            <div class="message-icon">
-                                <img src="{% static 'image/expression/bad white.png'%}" />
-                            </div>
-                            <div class="message-user-box">
-                                <div class="message-user-info">
-                                    <p class="user-name">효도르 (딸)</p>
-                                    <p class="message-time">오후 18:30</p>
-                                </div>
-                                <div class="message-text"> 
-                                    엄마는 무난했어??
-                                </div>
-                            </div>
-                        </div>
+                    <div class="request-user">
+                        <div id="user-nickname">중앙부기(아들)</div>
+                        <div id="user-time">2시간 전</div>
                     </div>
-            {% comment %}이번주 온 문안 박스{% endcomment %}
-            <div class="week-munan-box">
-                <p id="today-munan-title">이번주 온 문안</p>
-                <div class="week-list">
-                    <div class="arrow-box">
-                        <button>
-                            <img src="{% static 'image/etc/uparrow.png'%}" />
-                        </button>
-                    </div>
-                        <div class="munan-message">
-                            <div class="message-icon">
-                                <img src="{% static 'image/expression/bad white.png'%}" />
-                            </div>
-                            <div class="message-user-box">
-                                <div class="message-user-info">
-                                    <p class="user-name">효도르 (딸)</p>
-                                    <p class="message-time">오후 18:30</p>
-                                </div>
-                                <div class="message-text"> 
-                                    엄마 난 오늘 상사한테 혼났어ㅠ
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="week-list">
-                        <div class="arrow-box">
-                            <button>
-                                <img src="{% static 'image/etc/uparrow.png'%}" />
-                            </button>
-                        </div>
-                            <div class="munan-message">
-                                <div class="message-icon">
-                                    <img src="{% static 'image/expression/soso white.png'%}" />
-                                </div>
-                                <div class="message-user-box">
-                                    <div class="message-user-info">
-                                        <p class="user-name">상상부기(엄마)</p>
-                                        <p class="message-time">오후 18:30</p>
-                                    </div>
-                                    <div class="message-text"> 
-                                        (무난해요)
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
+                    <div class="complete-button">
+                        <button>연결완료</button>
                     </div>
                 </div>
 
-                 {% comment %}이번달 온 문안 박스{% endcomment %}
-
-                <div class="week-munan-box">
-                    <p id="today-munan-title">이번달 온 문안</p>
-                    <div class="week-list">
-                        <div class="arrow-box">
-                            <button>
-                                <img src="{% static 'image/etc/uparrow.png'%}" />
-                            </button>
-                        </div>
-                            <div class="munan-message">
-                                <div class="message-icon">
-                                    <img src="{% static 'image/expression/soso white.png'%}" />
-                                </div>
-                                <div class="message-user-box">
-                                    <div class="message-user-info">
-                                        <p class="user-name">상상부기(엄마)</p>
-                                        <p class="message-time">오후 18:30</p>
-                                    </div>
-                                    <div class="message-text"> 
-                                        (무난해요)
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                         <div class="week-list">
-                            <div class="arrow-box">
-                                <button>
-                                    <img src="{% static 'image/etc/uparrow.png'%}" />
-                                </button>
-                            </div>
-                                <div class="munan-message">
-                                    <div class="message-icon">
-                                        <img src="{% static 'image/expression/bad white.png'%}" />
-                                    </div>
-                                    <div class="message-user-box">
-                                        <div class="message-user-info">
-                                            <p class="user-name">무난해요(딸)</p>
-                                            <p class="message-time">오후 18:30</p>
-                                        </div>
-                                        <div class="message-text"> 
-                                            (무난해요)
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
+                <div class="receivedRequest">
+                    <div class="request-icon">
+                        <img src="{% static 'image/expression/bad-skyblue.png'%}" />
                     </div>
+                    <div class="request-user">
+                        <p id="user-nickname">중앙부기(아들)</p>
+                        <p id="user-time">2시간 전</p>
+                    </div>
+                    <div class="button-container">
+                        <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                        <input type="submit" class="reject-btn" name="{{request.id}}" value="거절"> 
+                    </div>
+                </div>
 
-        </form>
+            </div>
+            <hr>
+            <div class="todayMessage-box">
+                <div class="box-title">
+                    오늘 온 문안
+                </div>
+            </div>
+            <div class="weekMessage-box">
+                <div class="box-title">
+                    이번주 온 문안
+                </div>
+            </div>
+            <div class="monthMessage-box">
+                <div class="box-title">
+                    이번달 온 문안
+                </div>
+            </div>
+
       </div>
         <footer class="main-footer">
             <div class="footer-box">

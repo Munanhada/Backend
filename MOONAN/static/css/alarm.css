@@ -1,7 +1,4 @@
 /*팔로우 요청*/
-.munan-alarm-box {
-    margin-top: 53px;
-}
 
 .follow-request-box{ 
     margin-top: 40px;
@@ -11,13 +8,13 @@
     /*알림 폰트*/
     margin: 0;
     color: var(--unnamed, #FF003A);
-    font-size: 36px;
+    font-size: 2rem;
     font-weight: 700;
 }
 
 .follow-request-box #follow-request-title {
     color: var(--unnamed, #17181A);
-    font-size: 32px;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 0; 
 }
