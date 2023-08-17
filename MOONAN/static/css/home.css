@@ -585,13 +585,3 @@ a:hover {
     color: inherit;
 }
 /*main 끝*/
-
-/*임시 영역 표시용*/
-.subFrame {
-    background-color: pink;
-}
-
-
-.main-box {
-    background-color: lightsalmon;
-}

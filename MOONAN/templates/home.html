@@ -15,9 +15,6 @@
         <div class="logoImgBox">
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg1"/>
           <img src="/static/image/문안하다 로고.png" alt="로고 이미지" class="logoImg2"/>
-          <a href="{% url 'accounts:logout' %}">
-            <button class="logout">로그아웃</button>
-          </a>
         </div>
       </header>
       <div class="subFrame">
@@ -136,15 +133,18 @@
                       <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                     </button>
                   </div>
-                  <div class="user-drug-list" id="user-drug-list">
-                    {% for user_medication in user_medications %}
-                      <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
-                    {% endfor %}
-                    {% for user_nutrition in user_nutritions %}
-                      <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
-                    {% endfor %}
-                  </div>
+                  
                 </div>
+
+                <div class="user-drug-list" id="user-drug-list">
+                  {% for user_medication in user_medications %}
+                    <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
+                  {% endfor %}
+                  {% for user_nutrition in user_nutritions %}
+                    <button type="button"><p id="detail-drug">{{ user_nutrition.nutrition }}</p></button>
+                  {% endfor %}
+                </div>
+
               
                 <div class="excer-box">
                   <div class="excer-contents">
@@ -155,12 +155,15 @@
                       <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                     </button>
                   </div>
-                  <div class="user-excer-list">
-                    <button><p id="detail-excer">산책하기</p></button>
-                    <button><p id="detail-excer">외출하기</p></button>
-                    <button><p id="detail-excer">스트레칭</p></button>
-                  </div>
+               
                 </div>
+
+                <div class="user-excer-list">
+                  <button><p id="detail-excer">산책하기</p></button>
+                  <button><p id="detail-excer">외출하기</p></button>
+                  <button><p id="detail-excer">스트레칭</p></button>
+                </div>
+                
               </div>
               
             </div>
