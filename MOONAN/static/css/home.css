@@ -49,7 +49,9 @@ button {
 /*main 시작*/
 /*오늘 000님에게 온 문안 메세지*/
 .munan_title {
-    display: flex;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
 }
 
 .munan_title #today_message {
@@ -61,6 +63,8 @@ button {
 }
 
 .munan_title #message_count {
+    width: 55px; /* 원하는 너비 값으로 조정 */
+    height: 34px; /* 원하는 높이 값으로 조정 */
     display: inline-flex;
     padding: 5px 16px;
     justify-content: center;
@@ -529,3 +533,18 @@ a:hover {
     color: inherit;
 }
 /*main 끝*/
+
+/*임시 영역 표시용*/
+
+.who_message {
+    background-color: cornflowerblue;
+}
+
+.subFrame {
+    background-color: pink;
+}
+
+
+.main-box {
+    background-color: lightsalmon;
+}

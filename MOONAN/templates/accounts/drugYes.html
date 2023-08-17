@@ -27,18 +27,18 @@
           <p class="gray-text">매일 적절한 복용 시간대에 알림을 드릴게요.</p>
         </div>
         <div class="drug-ask-box">
-          <div class="drug-ask-box-yes">
+          <div class="drug-ask-box-yes-2">
             <input type="radio" id="drug-yes" name="med_or_nutr_status" value="True" />
             <label for="drug-yes">
               <div class="drug-content-wrapper">
                 <span>복용중인 약 및 영양제가 있어요.</span>
-                <img src="/static/image/Ellipse 82 gray.svg" alt="원형 이미지" />
-                <img src="/static/image/Done.svg" alt="체크 이미지" />
+                <img src="/static/image/Ellipse 82.svg" alt="원형 이미지" />
+                <img src="/static/image/Done red.svg" alt="체크 이미지" />
               </div>
             </label>
           </div>
           <div class="drug-ask-box-no">
-            <input type="radio" id="drug-no" name="med_or_nutr_status" value="False" />
+            <input type="radio" id="drug-no" name="med_or_nutr_status" value="False" disabled />
             <label for="drug-no">
               <div class="drug-content-wrapper">
                 <span>복용중인 약 및 영양제가 없어요.</span>
@@ -47,7 +47,7 @@
               </div>
             </label>
           </div>
-        </div>
+        </div>        
         <div class="three-circle-box">
           <img src="/static/image/Group 2088.svg" alt="threeCircle" />
         </div>
@@ -85,10 +85,16 @@
           <button type="submit" class="next-step">선택 완료</button>
         </div>
     </div>
+<<<<<<< HEAD
+
+    <script src="/static/javascript/accountConnectDetailDrug.js"></script>
+    <!-- <script src="/static/javascript/drugAsk.js"></script>-->
+=======
     <form action="{% url 'home' %}" method="POST">
       {% csrf_token %}
     </form>
     <script src="/static/javascript/drugAsk.js"></script>
+>>>>>>> e0a6921ba2f80cf37c353e72c47b0c4dcfc3cb50
     <script src="/static/javascript/drugYes.js"></script>
   </body>
 </html>
