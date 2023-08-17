@@ -33,9 +33,6 @@
                   <div class="user-icon">
                     <img src="/static/image/angry-white.svg" alt="안좋아요 이미지" />
                   </div>
-
-
-
                   <div class="user-text">
                     <div class="user-info">
                       <p id="user-name">{{ message.sender }}</p>
@@ -54,9 +51,6 @@
                   <div class="call-button">
                     <button>통화하기</button>
                   </div>
-
-
-                  
                 <div>
                     
                 </div>
@@ -133,12 +127,14 @@
                 <p>간단하게 표시하는 나의 건강한 일상</p>
                 <div class="eat-drug-box">
                     <div class="eat-drug-contents">
+                      <div class="eat-info-box">
                         <p id="eat-info">
-                            약,영양제 챙겨먹기
-                        </p>
-                        <button class="eat-drug-btn" type="button" id="medButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          약,영양제 챙겨먹기
+                      </p>
+                      </div>
+                      <button class="eat-drug-btn" type="button" id="medButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
                     <div class="user-drug-list" id="user-drug-list">
                         {% for user_medication in user_medications %}
@@ -152,12 +148,14 @@
 
                 <div class="excer-box">
                     <div class="excer-contents">
+                      <div class="excer-info-box">
                         <p id="excer-info">
-                           운동하기
-                        </p>
-                        <button type="button" class="excer-btn" id="exerciseButton">
-                            <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
-                        </button>
+                          운동하기
+                       </p>
+                      </div>
+                      <button type="button" class="excer-btn" id="exerciseButton">
+                        <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    </button>
                     </div>
                     <div class="user-excer-list">
                         <button><p id="detail-excer">산책하기</p></button>
