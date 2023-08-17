@@ -214,9 +214,9 @@ button {
     /* 이미지 겹치기 설정 */
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: -50%;
 }
+
 
 /*클릭 한번으로 보내는 오늘의 문안인사*/
 .click-munan {
