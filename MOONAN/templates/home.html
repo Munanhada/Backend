@@ -25,10 +25,15 @@
           <main>
             <div class="main-box">
               <div class="munan_message">
+
                 <div class="munan_title">
-                  <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
-                  <button id="message_count">+1</button>
-                </div>
+                  <div class="title_content">
+                      <p id="today_message">오늘 {{user.name}}님에게 온 문안 메세지</p>
+                      <button id="message_count">+1</button>
+                  </div>
+              </div>
+              
+
                 <div class="munan_contents">
                   <div class="user-icon">
                     <img src="/static/image/angry-white.svg" alt="안좋아요 이미지" />
@@ -47,12 +52,12 @@
                       {% endif %}
                     </div>
                     {% endfor %}
-                  </div>
-                  <div class="call-button">
-                    <button>통화하기</button>
+                    </div>
+                    <div class="call-button">
+                      <button>통화하기</button>
+                    </div>
                   </div>
                 </div>
-              </div>
               
               <div class="who_message">
                 <p id="today_message">누구에게 문안인사를 해볼까요?</p>

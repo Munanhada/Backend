@@ -50,8 +50,13 @@ button {
 /*오늘 000님에게 온 문안 메세지*/
 .munan_title {
     display: flex; 
-    justify-content: center;
     align-items: center;
+}
+
+.title_content {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* 원하는 margin-right 값으로 조정 */
 }
 
 .munan_title #today_message {
@@ -59,12 +64,12 @@ button {
     font-size: 36px;
     font-weight: 700;
     margin: 0;
-    margin-right: 38%;
+    margin-right: 96px; /* p와 button 간격을 주기 위해 추가 */
 }
 
 .munan_title #message_count {
-    width: 55px; /* 원하는 너비 값으로 조정 */
-    height: 34px; /* 원하는 높이 값으로 조정 */
+    width: 55px;
+    height: 34px;
     display: inline-flex;
     padding: 5px 16px;
     justify-content: center;
@@ -73,7 +78,7 @@ button {
     border-radius: 20px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 20px;
+    font-size: 1.2rem; 
     font-weight: 700;
     border: none;
 }
@@ -87,33 +92,36 @@ button {
     margin-top: 20px;
     display: flex;
     padding-top: 20px;
+    align-items: flex-start;
 }
 
 .user-icon {
     margin-left: 20px;
+    align-self: flex-start;
 }
 
-/*유저 정보 및 날짜 표기*/
 .user-text {
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .user-info {
     display: flex;
+    align-items: center;
 }
 
 .user-info #user-name {
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size: 1.2rem;
     font-weight: 700;
     margin: 0;
 }
 
 .user-info #day {
     color: var(--1, #959AA4);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     margin-left: 14px;
     margin-top: 10px;
@@ -123,30 +131,35 @@ button {
 
 .user-message {
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 400;
     line-height: 30px;
     margin-top: 8px;
     width: 208px;
-    height: 60px;
+    max-height: 60px;
+    overflow: hidden;
 }
 
-/*통화하가*/
 .call-button {
-    margin-left: 50%;
-
-    background-color: violet;
+    margin-left: auto;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: 52px; 
 }
 
 .call-button button {
-    width: 100px;
+    width: 8vw; 
     height: 60px;
     flex-shrink: 0;
     border-radius: 40px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 700;
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    overflow: hidden; /* 넘치는 부분은 숨기기 */
+    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 /*누구에게 문안인사를 해볼까요?*/
