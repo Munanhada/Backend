@@ -133,7 +133,7 @@
                             <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                         </button>
                     </div>
-                    <div class="user-drug-list">
+                    <div class="user-drug-list" id="user-drug-list">
                         {% for user_medication in user_medications %}
                             <button type="button"><p id="detail-drug">{{ user_medication.medication }}</p></button>
                         {% endfor %}

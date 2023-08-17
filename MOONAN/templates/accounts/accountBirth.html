@@ -31,7 +31,7 @@
               <option value="birthYear">2023년</option>
             </select>
           <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-          <select id="birthMonth" name="birthMonth">
+          <select id="birthMonth" name="birthMonth" required>
             <option value="01">1월</option>
             <option value="02">2월</option>
             <option value="03">3월</option>
@@ -46,7 +46,7 @@
             <option value="12">12월</option>
           </select>
           <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-          <select id="birthDay" name="birthDay">
+          <select id="birthDay" name="birthDay" required>
             <option value="1">1일</option>
             <option value="2">2일</option>
             <option value="3">3일</option>
@@ -85,9 +85,9 @@
           <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 성별을 알려주세요.</span>
         </div>
         <div class="user-gender-box">
-          <input type="radio" id="male" name="gender" value="male" />
+          <input type="radio" id="male" name="gender" value="male" required />
           <label for="male"><span>남성</span></label>
-          <input type="radio" id="female" name="gender" value="female" />
+          <input type="radio" id="female" name="gender" value="female" required />
           <label for="female"><span>여성</span></label>
         </div>
         <div class="step-box">

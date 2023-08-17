@@ -268,7 +268,10 @@ def med_nutr_data(request):
             user_nutrition.save()
 
         response_data = {
-        'message': '약과 영양제 정보가 저장되었습니다.',
+            'message': '약과 영양제 정보가 저장되었습니다.',
+            "user_medications": [medication.medication_name for medication in user.medications.all()],
+            "user_nutritions": [nutrition.nutrition_name for nutrition in user.nutritions.all()],
+            "redirect_to": "/home"  # 홈 페이지 경로를 리디렉션 경로로 설정
         }
         
         return JsonResponse(response_data)
@@ -314,20 +317,18 @@ def add_nutrition(request):
     return JsonResponse(response_data)
 
 
-# 홈으로 리디렉션할 때 데이터 업데이트를 위한 목적
-def get_updated_data(request):
-    # 데이터 가져오는 로직
-    user_medications = UserMedication.objects.filter(user=request.user)
-    user_nutritions = UserNutrition.objects.filter(user=request.user)
+# # 홈으로 리디렉션할 때 데이터 업데이트를 위한 목적
+# def get_updated_data(request):
+#     # 데이터 가져오는 로직
+#     user_medications = UserMedication.objects.filter(user=request.user)
+#     user_nutritions = UserNutrition.objects.filter(user=request.user)
     
-    data = {
-        'user_medications': [{'medication': um.medication.medication_name} for um in user_medications],
-        'user_nutritions': [{'nutrition': un.nutrition.nutrition_name} for un in user_nutritions],
-    }
+#     data = {
+#         'user_medications': [{'medication': um.medication.medication_name} for um in user_medications],
+#         'user_nutritions': [{'nutrition': un.nutrition.nutrition_name} for un in user_nutritions],
+#     }
     
-    return JsonResponse(data)
-
-
+#     return JsonResponse(data)
     
 def logout_view(request):
     # 로그인일 때 데이터 유효성 검사
