@@ -133,7 +133,9 @@ button {
 
 /*통화하가*/
 .call-button {
-    margin-left: 45%;
+    margin-left: 172px;
+
+    background-color: violet;
 }
 
 .call-button button {
