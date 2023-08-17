@@ -38,7 +38,7 @@
                   <div class="user-text">
                     <div class="user-info">
                       <p id="user-name">{{ message.sender }}</p>
-                      <p id="day">2023.08.10</p>
+                      <p id="day">{{ message.timestamp|date:"Y.m.d" }}</p>
                     </div>
                     {% for message in received_messages %}
                     <div class="user-message">
