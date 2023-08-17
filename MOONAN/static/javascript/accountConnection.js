@@ -63,11 +63,7 @@ function closePopup() {
     let popup = document.getElementById("popUp");
     popup.style.display = "none";
 
-    // 원하는 URL을 입력하세요.
-    let redirectUrl = "http://127.0.0.1:8000/home";
-
-    // 해당 URL로 페이지를 이동합니다.
-    window.location.href = redirectUrl;
+    window.location.href = "/accounts/accountBirth";
 }
 
 // 선택된 요소 색 변경 

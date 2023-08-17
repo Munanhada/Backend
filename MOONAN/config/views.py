@@ -269,46 +269,6 @@ def locker_view(request):
 
     user = request.user
     
-    if request.method == 'POST':
-        account_id = request.POST.get('account_id')
-        user = User.objects.get(id=account_id)
-        user_name = user.name  # 유저의 이름
-
-        print(user_name)
-        current_year = int(request.POST.get('current_year'))
-        current_month = int(request.POST.get('current_month'))
-
-        # 이번 달의 레코드 데이터를 가져오는 로직 작성
-        # 해당 ID와 년/월에 해당하는 레코드들을 가져옴
-        record_data = Record.objects.filter(user=account_id,
-                                            created_date__year=current_year,
-                                            created_date__month=current_month)
-        
-        # 필요한 데이터를 추출하여 리스트로 저장
-        extracted_data = []
-        for record in record_data:
-            extracted_data.append({
-                'date': record.created_date.day,  # 날짜 추출
-                'expression': record.expression,
-                'eating': record.eating,
-                'health': record.health,
-                'sleep': record.sleep,
-                'mood': record.mood,
-                'accident': record.accident,
-                'customContent': record.customContent,  # 관련된 이유들 추출
-                'happyorsad': record.happyorsad,
-            })
-
-        # 가져온 레코드 데이터를 Json 형식으로 응답
-        response_data = {
-            'success': True,  # 성공 여부를 나타내는 키 추가
-            'username': user_name,
-            'record_data': extracted_data,
-        }
-        # print(response_data)
-        return JsonResponse(response_data)
-
-    
     # 연결 중인 계정과 관계 정보
     connected_users = Connection.objects.filter(Q(user1=user) | Q(user2=user))
     connected_users_with_relationship = []

@@ -370,3 +370,8 @@ header>p {
     backdrop-filter: blur(4px);
     z-index: 1;
 }
+
+/* select 글씨 색 */
+select option:checked {
+    color: #17181A;
+}
