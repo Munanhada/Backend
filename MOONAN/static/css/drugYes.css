@@ -170,8 +170,6 @@ a {
 
 a:hover {
     color: inherit;
-<<<<<<< Updated upstream
-=======
 }
 
 .user-drug-button.selected {
@@ -182,5 +180,9 @@ a:hover {
 .user-nutri-button.selected {
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
->>>>>>> Stashed changes
+}
+
+.selected.selected {
+    background: var(--unnamed, #FF003A);
+    color: var(--unnamed, #F2F6FF);
 }
