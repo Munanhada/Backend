@@ -29,14 +29,14 @@
                         <p class="selectBoxText">는 소중한 나의</p>
                         <select name="relationship2_1" id="relationship2_1" class="hello">
                             <option value="" disabled selected hidden>선택</option>
-                            <option value="father">아빠</option>
-                            <option value="mother">엄마</option>
-                            <option value="daughter">딸</option>
-                            <option value="son">아들</option>
-                            <option value="grandmother">할머니</option>
-                            <option value="grandfather">할아버지</option>
-                            <option value="grandson">손자</option>
-                            <option value="granddaughter">손녀</option>
+                            <option value="아빠">아빠</option>
+                            <option value="엄마">엄마</option>
+                            <option value="딸">딸</option>
+                            <option value="아들">아들</option>
+                            <option value="할머니">할머니</option>
+                            <option value="할아버지">할아버지</option>
+                            <option value="손자">손자</option>
+                            <option value="손녀">손녀</option>
                         </select>
                         {% comment %} <div id="famRelationship">
                             <p class="selectText" name="relationship2" id="relationship2" >선택</p>
@@ -61,14 +61,14 @@
                         <p class="selectBoxText">의</p>
                         <select name="relationship1_1" id="relationship1_1" class="hello2">
                             <option value="" disabled selected hidden>선택</option>
-                            <option value="father">아빠</option>
-                            <option value="mother">엄마</option>
-                            <option value="daughter">딸</option>
-                            <option value="son">아들</option>
-                            <option value="grandmother">할머니</option>
-                            <option value="grandfather">할아버지</option>
-                            <option value="grandson">손자</option>
-                            <option value="granddaughter">손녀</option>
+                            <option value="아빠">아빠</option>
+                            <option value="엄마">엄마</option>
+                            <option value="딸">딸</option>
+                            <option value="아들">아들</option>
+                            <option value="할머니">할머니</option>
+                            <option value="할아버지">할아버지</option>
+                            <option value="손자">손자</option>
+                            <option value="손녀">손녀</option>
                         </select>
                         {% comment %} <div id="famRelationship">
                             <p class="selectText2" name="relationship1" id="relationship1" >선택</p>
@@ -155,13 +155,15 @@
         $.ajax({
             type: 'POST',
             url: '{% url 'accounts:connection' %}',
-            data: formData,
             processData: false,
             contentType: false,
-            dataType: 'text', // JSON 데이터가 아닌 일반 텍스트로 처리
+            dataType: 'json', // JSON 데이터로 처리
             success: function(responseData) {
-                // 여기서 responseData는 JSON 문자열이므로 필요한 경우 JSON.parse()로 객체로 변환 후 처리
-                handleResponse(JSON.parse(responseData)); // 서버 응답 처리
+                // responseData는 이미 객체로 파싱되어 있으므로 바로 사용 가능
+                var popupContent = document.querySelector(".popupContent");
+                popupContent.textContent = responseData.message;
+                var modal = document.getElementById("popUp");
+                modal.style.display = "block";
             },
             error: function() {
                 alert('오류가 발생했습니다.');
