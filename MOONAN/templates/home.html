@@ -61,6 +61,7 @@
               
               <div class="who_message">
                 <p id="today_message">누구에게 문안인사를 해볼까요?</p>
+                
                 <div class="user-account-icon">
                   <div class="account">
                     {% for account in connected_users %}
@@ -78,6 +79,7 @@
                     <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
+
                 <div class="click-munan">
                   <p id="click-munan-title">클릭 한번으로 보내는 오늘의 문안인사!</p>
                   <div class="munan-list">
