@@ -465,16 +465,13 @@ button {
 }
 
 /*운동하기*/
-.excer-box {
+.excer-contents {
     width: 100%;
     height: 80px;
     flex-shrink: 0;
     border-radius: 20px;
     background: var(--unnamed, #F2F6FF);
     margin-top: 20px;
-}
-
-.excer-contents {
     display: flex;
     align-items: center;
 }
@@ -487,14 +484,12 @@ button {
 }
 
 .excer-info-box{ 
-    margin-top: 16px;
     margin-left: 19px;
     width: 189.762px;
 }
 
 .excer-btn {
     margin-left: 212px;
-    margin-top: 15px;
 }
 
 .excer-btn  {
@@ -519,8 +514,6 @@ button {
     display: flex;
     align-items: center;
     gap: 20px;
-    
-    margin-bottom: 100px;
 }
 
 .user-excer-list button{
