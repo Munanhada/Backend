@@ -90,6 +90,18 @@
     position: relative;
 }
 
+#receiveEmotionText{
+    border: none; /* 테두리 없애기 */
+    outline: none; /* 포커스 아웃라인 제거 */
+    resize: none; /* 크기 조절 불가능하게 설정 */
+    padding: 0; /* 내부 여백 제거 */
+}
+#receiveEmotionText::placeholder {
+    padding: 2%; /* 원하는 간격 설정 */
+    white-space: pre-line;
+
+}
+
 /* 사용자의 글 작성 */
 #receiveEmotionText {
     width: 100%;

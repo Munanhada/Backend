@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문안하다 계정 연결하기</title>
+    <link rel="stylesheet" href="/static/css/join.css">
+    <link rel="stylesheet" href="/static/css/accountConnection.css">
+</head>
+
+<body>
+    <div class="mainFrame">
+        <header>
+            {% block header %}
+            {% endblock %}
+            <p class="toConnectText">소중한 분과의 계정을 연결해주세요.</p>
+        </header>
+        <div>
+            <div class="beAdded">
+                <div class="connectBox">
+                    <div class="connectIdBox">
+                        <div class="numberAndImgBox">
+                            <p class="connectIdText">연결 계정 <span class="connectionNumber">1</span> </p>
+                            <img src="/static/image/Clear.svg" alt="삭제 이미지" class="clearImg">
+                        </div>
+                        <div class="selectBox">
+                            <input type="text" id="to_user1" name="to_user1" placeholder="연결할 아이디" class="famIdField" oninput="cloneFamId(this)">
+                            <p class="selectBoxText">는 소중한 나의</p>
+                            <select name="relationship2_1" id="relationship2_1" class="hello">
+                                <option value="" disabled selected hidden>선택</option>
+                                <option value="아빠">아빠</option>
+                                <option value="엄마">엄마</option>
+                                <option value="딸">딸</option>
+                                <option value="아들">아들</option>
+                                <option value="할머니">할머니</option>
+                                <option value="할아버지">할아버지</option>
+                                <option value="손자">손자</option>
+                                <option value="손녀">손녀</option>
+                            </select>
+                            
+                        </div>
+                        <div class="selectBox2">
+                            <p class="selectBoxText">나는</p>
+                            <input type="text" placeholder="연결할 아이디" class="famIdField2">
+                            <p class="selectBoxText">의</p>
+                            <select name="relationship1_1" id="relationship1_1" class="hello2">
+                                <option value="" disabled selected hidden>선택</option>
+                                <option value="아빠">아빠</option>
+                                <option value="엄마">엄마</option>
+                                <option value="딸">딸</option>
+                                <option value="아들">아들</option>
+                                <option value="할머니">할머니</option>
+                                <option value="할아버지">할아버지</option>
+                                <option value="손자">손자</option>
+                                <option value="손녀">손녀</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="addBox">
+                <img src="/static/image/addButton.svg" alt="추가 버튼 이미지" class="addImg" onclick="addId()">
+                <p class="addText" onclick="addId()">소중한 사람 추가하기</p>
+            </div>
+            <div class="optionBox">
+                <div class="skipBox">
+                    {% block content1 %}
+                    {% endblock %}
+                </div>
+                <div class="">
+                    <button class="connectButton" onclick="sendConnectionData()">연결하기</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="popup" id="popUp">
+            <p class="popupContent">지금 건너뛰기 할 경우 <br>계정 연결이 진행되지 않습니다.</p>
+            <div class="confirmBox">
+                {% block content2 %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'javascript/accountConnection2.js' %}"></script>
+    {% comment %} <script src="/static/javascript/accountConnection.js"></script> {% endcomment %}
+    <script src="{% static 'javascript/main.js' %}"></script>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // 선택하면 색 변경
+    $("#relationship2").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    $("#relationship1").change(function() {
+        var selectedOption = $(this).find("option:selected");
+        $(this).css("color", selectedOption.css("color"));
+    });
+    
+    function sendConnectionData() {
+        var formData = new FormData(); // FormData 객체 생성
+    
+        // CSRF 토큰을 formData에 추가
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+        // 모든 connectBox의 데이터를 FormData에 추가
+        var connectBoxes = document.querySelectorAll('.connectBox');
+        console.log(connectBoxes);
+
+        count = 1;
+        connectBoxes.forEach(function (connectBox) {
+            var connectIdBox = connectBox.querySelector('.connectIdBox');
+            var selectBox = connectIdBox.querySelector('.selectBox');
+            var selectBox2 = connectIdBox.querySelector('.selectBox2');
+        
+            
+            var toUserInput = selectBox.querySelector('.famIdField');
+            var relationship2Select = selectBox.querySelector('.hello');
+            var relationship1Select = selectBox2.querySelector('.hello2');
+
+            console.log(toUserInput.value, relationship2Select.value,relationship1Select.value )
+            if (toUserInput && relationship2Select && relationship1Select) {
+                formData.append('to_user'+ count, toUserInput.value);  // Adjust 'fieldName' and value accordingly
+                formData.append('relationship2_' + count, relationship2Select.value);  // Adjust 'fieldName' and value accordingly
+                formData.append('relationship1_' + count, relationship1Select.value);  // Adjust 'fieldName' and value accordingly
+            }else{
+                // 입력 다 안했을 때
+                var popupContent = document.querySelector(".popupContent");
+                popupContent.textContent = "입력을 다 해주세요." // 올바른 방식으로 변경
+                var modal = document.getElementById("popUp");
+                modal.style.display = "block";
+            }
+            count++;
+        });
+        console.log(formData)
+
+        // AJAX를 이용하여 서버에 데이터 전송
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'accounts:connection' %}',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json', // JSON 데이터로 처리
+            success: function(responseData) {
+                if (responseData.success) {
+                    handleResponse()
+                } else {
+                    // 에러 메시지가 있는 경우에는 alert 등으로 사용자에게 알림 처리 가능
+                    alert(responseData.error_message);
+                }
+                
+            },
+            error: function() {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    };
+
+    // 서버로부터 받은 JSON 응답을 기반으로 모달 창 조작
+    function handleResponse() { 
+        
+        // success 값이 true일 경우 모달 창 표시
+        var popupContent = document.querySelector(".popupContent");
+        popupContent.textContent = "성공적으로 계정 연결했습니다." // 올바른 방식으로 변경
+        var modal = document.getElementById("popUp");
+        modal.style.display = "block";
+        
+    }
+</script>

@@ -172,6 +172,7 @@ a:hover {
     color: inherit;
 }
 
+
 .user-drug-button.selected {
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
