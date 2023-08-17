@@ -229,7 +229,7 @@
     
             $.ajax({
                 type: 'POST',
-                url: /send_message/,
+                url: '{% url 'message:send_message' %}',
                 data: {'receiver_id' : selectedAccountId, 'recommendContent' : selectedRecommendContent, 'customContent' : customContent, 'csrfmiddlewaretoken': '{{csrf_token}}'},
                 dataType: 'json',
                 success: function(response) {
