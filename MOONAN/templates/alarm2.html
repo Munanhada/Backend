@@ -172,6 +172,26 @@
                             </div>
                         </div>
                     </div>
+    <h1>알림</h1>
+    <h2>팔로우 요청</h2>
+    {% comment %}요청 중{% endcomment %}
+    <ul>
+        {% for request in connection_requests %}
+            <li>
+                {{ request.to_user.name }} (관계: {{ request.relationship1 }}-{{ request.relationship2 }}) 요청 완료
+            </li>
+        {% endfor %}
+    </ul>
+    {% comment %}요청 받음{% endcomment %}
+    <ul>
+        {% for request in connection_requests_received %}
+            <li id="request_{{ request.id }}">
+                {{ request.from_user.name }} (관계: {{ request.relationship1 }})
+                <div class="button-container">
+                    <input type="submit" class="accept-btn" name="{{request.id}}" value="수락">                
+                    <input type="submit" class="reject-btn" name="{{request.id}}" value="거절">                
+                </div>
+        {% endfor %}
             {% comment %}이번주 온 문안 박스{% endcomment %}
             <div class="week-munan-box">
                 <p id="today-munan-title">이번주 온 문안</p>
