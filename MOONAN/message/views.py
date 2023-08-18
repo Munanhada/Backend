@@ -44,7 +44,7 @@ def send_message(request):
                     'message': '수신자를 찾을 수 없습니다.',
                 }
                 return JsonResponse(response_data, status=400)
-        elif recommendContent:
+        if recommendContent:
             try:
                 receiver = User.objects.get(id=receiver_id)
                 sender = request.user
@@ -64,7 +64,7 @@ def send_message(request):
                     'message': '수신자를 찾을 수 없습니다.',
                 }
                 return JsonResponse(response_data, status=400)
-        elif customContent:
+        if customContent:
             try:
                 receiver = User.objects.get(id=receiver_id)
                 sender = request.user

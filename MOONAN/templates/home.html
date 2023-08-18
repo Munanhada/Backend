@@ -19,7 +19,7 @@
         </div>
       </header>
       <div class="subFrame">
-        <form method="POST">
+        <form>
           {% csrf_token %}
           <main>
             <div class="main-box">
@@ -105,16 +105,16 @@
                 </div>
                 <div class="sand-box">
                   <button type="submit" class="sendMessage-btn" id="sendMessageButton" onclick="showSavePopUp()">전송하기</button>
+        </form>
                   <div class="sendPopUp" id="savePopUp">
                     <p class="sendPopUpContent">문안 인사가<br>성공적으로 전송되었습니다!</p>
                     <div class="sendConfirmBox">
-                        <button class="sendConfirmButton" onclick="closeSavePopUp()">확인</button>
+                        <button type="button" class="sendConfirmButton" onclick="closeSavePopUp()">확인</button>
                     </div>
                   </div>   
                 </div>
               </div>
             </div>
-  </form>
 
 
 
@@ -179,7 +179,6 @@
             
           </div>
         </main>
-      </form>
     </div>
     <footer class="main-footer">
       <a href="{% url 'home' %}">
