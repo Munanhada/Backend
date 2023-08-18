@@ -63,6 +63,7 @@ header>p {
     border-radius: 4px;
     background: var(--unnamed, #F2F6FF);
     border: none;
+    font-size: 18px;
 }
 
 .connectBox .famIdField::placeholder, .connectBox .famIdField2::placeholder {
