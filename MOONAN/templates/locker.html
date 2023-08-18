@@ -332,7 +332,7 @@
                 expressionText.textContent = '안좋아요'
             } else {
                 expressionText.textContent = '나빠요'
-            }
+            } 
         
             // 이유 출력
             for (const item in currentDateData) {
@@ -382,8 +382,10 @@
                             rType = '수면';
                         } else if (item == 'mood') {
                             rType = '기분';
-                        } else {
+                        } else if (item == 'accident') {
                             rType = '사고';
+                        } else {
+                            rType = '직접 입력';
                         }
                         reasonType.textContent = rType;
         
