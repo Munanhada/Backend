@@ -1,6 +1,8 @@
 // 연결할 아이디 추가하기
 let currentConnectionNumber = 1;
 let addedDivs = [];
+// let clearImg = document.querySelector(".clearImg");
+// clearImg.style.display = "none";
 function addId() {
     let idBox = document.querySelector(".connectBox");
     let clone = idBox.cloneNode(true); // 기존 요소를 복제하여 새로운 요소 생성
@@ -29,7 +31,7 @@ function addId() {
         selectField.name = "relationship1_" + currentConnectionNumber;
     });    
 
-    let beAdded = document.querySelector(".beAdded");
+    let beAdded = document.querySelector(".totalConnectBox");
     clone.classList.add("addedConnection" + currentConnectionNumber);
     beAdded.appendChild(clone);
     addedDivs.push(clone);

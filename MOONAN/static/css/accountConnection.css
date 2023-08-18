@@ -41,6 +41,7 @@ header>p {
     position: absolute;
     right: 1%;
     cursor: pointer;
+    display: block;
 }
 
 .selectBox {
@@ -119,6 +120,7 @@ header>p {
     background-repeat: no-repeat;
     padding-right: 5%; /* 아이콘 간격 조정 */
     /* margin-right: 2%; */
+    cursor: pointer;
 }
 
 .hello > option, .hello2>option{
