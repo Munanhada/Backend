@@ -296,6 +296,7 @@ button {
     fill: var(--unnamed, #17181A);
     position: absolute;
     right: 5%;
+    cursor: pointer;
 }
 
 .munan-menu-list {
