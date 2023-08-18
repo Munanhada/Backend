@@ -135,9 +135,11 @@
                   <div class="eat-info-box">
                     <p id="eat-info">약,영양제 챙겨먹기</p>
                   </div>
+                  <div class="image-container">
                   <button class="eat-drug-btn" type="button" id="medButton">
-                    <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    <img id="default-image" src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                   </button>
+                  </div>
                 </div>
               </div>
 
@@ -155,9 +157,11 @@
                   <div class="excer-info-box">
                     <p id="excer-info">운동하기</p>
                   </div>
+                  <div class="image-container">
                   <button type="button" class="excer-btn" id="exerciseButton">
-                    <img src="/static/image/Group2461_no.svg" alt="체크 이미지" />
+                    <img id="default-image" src="/static/image/Group2461_no.svg" alt="체크 이미지" />
                   </button>
+                  </div>
                 </div>
              
               </div>
@@ -217,9 +221,9 @@
         console.log("Selected Value:", selectedValue);
     }
 
-    $(document).ready(function () {
-        var csrfToken = getCookie('csrftoken');
+var csrfToken = getCookie('csrftoken');
 
+    $(document).ready(function () {
         $(".select-user-btn").click(function() {
             var accountItem = $(this).siblings(".account-item");
             receiver_id = accountItem.data("id");
@@ -293,10 +297,10 @@
     // 초기 버튼 상태 설정
     if (isMedTaken) {
         takeMedButton.classList.add('taken');
-        $(takeMedButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
+        $(takeMedButton).find('img').attr({'src': '/static/image/Group2461_yes.svg', 'id':'new-image'});
     } else {
         takeMedButton.classList.remove('taken');
-        $(takeMedButton).find('img').attr('src', '/static/image/Group2461_no.svg');
+        $(takeMedButton).find('img').attr({'src': '/static/image/Group2461_no.svg', 'id':'default-image'});
     }
 
     takeMedButton.addEventListener('click', function () {
@@ -307,9 +311,15 @@
         // 이미지 변경
         var image = $(this).find('img');
         if (isMedTaken) {
-            image.attr('src', '/static/image/Group2461_yes.svg');
+            image.attr({
+            'src': '/static/image/Group2461_yes.svg',
+            'id': 'new-image' 
+          });
         } else {
-            image.attr('src', '/static/image/Group2461_no.svg');
+          image.attr({
+            'src': '/static/image/Group2461_no.svg',
+            'id': 'default-image' 
+            });
         }
 
         // 로컬 스토리지에 상태 저장
@@ -324,10 +334,10 @@
     // 초기 버튼 상태 설정
     if (isExerciseTaken) {
         takeExerciseButton.classList.add('taken');
-        $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_yes.svg');
+        $(takeExerciseButton).find('img').attr({'src': '/static/image/Group2461_yes.svg', 'id':'new-image'});
     } else {
         takeExerciseButton.classList.remove('taken');
-        $(takeExerciseButton).find('img').attr('src', '/static/image/Group2461_no.svg');
+        $(takeExerciseButton).find('img').attr({'src': '/static/image/Group2461_no.svg', 'id':'default-image'});
     }
 
     takeExerciseButton.addEventListener('click', function () {
@@ -338,9 +348,15 @@
         // 이미지 변경
         var image = $(this).find('img');
         if (isExerciseTaken) {
-            image.attr('src', '/static/image/Group2461_yes.svg');
+          image.attr({
+            'src': '/static/image/Group2461_yes.svg',
+            'id': 'new-image' 
+          });
         } else {
-            image.attr('src', '/static/image/Group2461_no.svg');
+            image.attr({
+            'src': '/static/image/Group2461_no.svg',
+            'id': 'default-image' 
+            });
         }
 
         // 로컬 스토리지에 상태 저장

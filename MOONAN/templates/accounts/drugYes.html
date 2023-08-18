@@ -13,7 +13,8 @@
   </head>
 
   <body>
-    <div class="mainFrame">
+    <div class="mainFrame-2">
+      <div class="subFrame">
         <div class="step-bar-drug">
           <progress id="progress" value="100" min="0" max="100"></progress>
           <div class="icon-wrapper">
@@ -84,6 +85,8 @@
           <button type="button" class="before-step"><a href="{% url 'accounts:drug_ask' %}">이전 단계</a></button>
           <button type="submit" class="next-step">선택 완료</button>
         </div>
+      </div>
+        
     </div>
 
     <script src="/static/javascript/accountConnectDetailDrug.js"></script>
