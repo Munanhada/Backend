@@ -297,6 +297,7 @@ button {
     fill: var(--unnamed, #17181A);
     position: absolute;
     right: 5%;
+    cursor: pointer;
 }
 
 .munan-menu-list {
@@ -338,8 +339,13 @@ button {
 #customContentInput {
     background: var(--2, #E3E9F6);
     border: none;
-    width: 140px;
+    width: 80%;
     height: 34px;
+    font-size: 24px;
+}
+
+.registerImg {
+    cursor: pointer;
 }
 
 #customContentInput::placeholder {

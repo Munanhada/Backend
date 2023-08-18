@@ -95,10 +95,10 @@
                       <li onclick="updateMunanText(this)" value="{{ choice.0 }}">{{ choice.1 }}</li>
                       {% endfor %}
                       <li id="user-text">
-                        <button type="button" onclick="addList()">
-                            <img src="/static/image/plus-gray.svg" alt="추가이미지">
+                        <button type="button"   onclick="addList()">
+                            <img src="/static/image/plus-gray.svg" alt="추가이미지" class="registerImg">
                         </button>
-                        <input type="text" id="customContentInput" class="input-field" name="customContent" placeholder="직접 입력하기" onclick='addList()'/>
+                        <input type="text" id="customContentInput" class="input-field" name="customContent" placeholder="직접 입력하기"/>
                       </li>
                     </ul>
                   </div>
