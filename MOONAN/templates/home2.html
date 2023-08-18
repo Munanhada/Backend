@@ -61,11 +61,6 @@
                 
                 <div class="user-account-icon">
                   <div class="account">
-<<<<<<< HEAD
-                    <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
-                      <img src="/static/image/icon-back.svg" alt="기본 이미지" />
-                      <img src="/static/image/add.svg" alt="추가 이미지" />
-=======
                     {% for account in connected_users %}
                     <button><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
                     <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</p>
@@ -75,10 +70,10 @@
                     {% endfor %}
                   </div>
                   <div class="account">
-                    <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
-                      <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
->>>>>>> 6cccd1ff779e4d538b481eabfc4402a2d6622e0c
-                    </a>
+                    <button id="overlap-button">
+                      <img src="/static/image/icon-back.svg" alt="기본 이미지" />
+                      <img src="/static/image/add.svg" alt="추가 이미지" />
+                    </button>
                     <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
                   </div>
                 </div>
