@@ -36,6 +36,16 @@ function closeSavePopUp() {
     window.location.href = "/home";
 }
 
+window.addEventListener('load', function() {
+    var elements = document.querySelectorAll('.Face[data-expression]');
+    console.log(elements);
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        var expression = element.getAttribute('data-expression');
+        showReasonBox(expression);
+    }
+});
+
 // 페이스 선택화면 숨기거나 보이기 
 let selectFace = document.querySelector(".selectReasonBox");
 if (selectFace) {

@@ -94,6 +94,22 @@
       {% csrf_token %}
     </form>
     <script src="/static/javascript/drugYes.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#medication-form').on('keydown', '#medication-input', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터 키의 기본 동작 막기
+          }
+        });
+      });
+      $(document).ready(function() {
+        $('#nutri-form').on('keydown', '#nutri-input', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터 키의 기본 동작 막기
+          }
+        });
+      });
+    </script>
   </body>
 </html>
 

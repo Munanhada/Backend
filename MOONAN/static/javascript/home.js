@@ -44,7 +44,6 @@ if (savePopUp) {
 function showSavePopUp() {
     if(savePopUp.style.display === "none") {
         savePopUp.style.display = "flex";
-        $('#expressionForm').submit();
     }
 }
 
