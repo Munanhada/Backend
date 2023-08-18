@@ -289,6 +289,15 @@ hr {
     justify-content: center;
 }
 
+.ment3 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
 .reasonbox>.reason>.reasonContent>div>.reasonment {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;

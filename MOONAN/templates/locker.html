@@ -95,7 +95,7 @@
                             </div>
                             <p class="ment2"></p>
                             <div class="todaycontent">
-                                <p>
+                                <p class="ment3">
                                 </p>
                             </div>
                         </div>
@@ -322,7 +322,17 @@
 
             // 표정 이미지와 텍스트 업데이트
             expressionImage.src = `../../static/image/expression/${currentDateData.expression}.png`;
-            expressionText.textContent = currentDateData.expression;
+            if (currentDateData.expression == 'best') {
+                expressionText.textContent = '최고예요'
+            } else if (currentDateData.expression == 'munan') {
+                expressionText.textContent = '무난해요'
+            } else if (currentDateData.expression == 'soso') {
+                expressionText.textContent = '그럭저럭'
+            } else if (currentDateData.expression == 'notgood') {
+                expressionText.textContent = '안좋아요'
+            } else {
+                expressionText.textContent = '나빠요'
+            }
         
             // 이유 출력
             for (const item in currentDateData) {
@@ -362,7 +372,20 @@
         
                         const reasonType = document.createElement('div');
                         reasonType.classList.add('reasontype');
-                        reasonType.textContent = item;
+                        let rType = ''; // let으로 변수 선언
+
+                        if (item == 'eating') {
+                            rType = '식사';
+                        } else if (item == 'health') {
+                            rType = '건강';
+                        } else if (item == 'sleep') {
+                            rType = '수면';
+                        } else if (item == 'mood') {
+                            rType = '기분';
+                        } else {
+                            rType = '사고';
+                        }
+                        reasonType.textContent = rType;
         
                         const reasonment = document.createElement('div');
                         reasonment.classList.add('reasonment');
