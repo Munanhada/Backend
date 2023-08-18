@@ -1,5 +1,3 @@
-
-
 function addList() {
     const addValue = document.getElementById('customContentInput').value;
 
