@@ -17,7 +17,7 @@
       <header class="logoBox">
         <div class="logoImgBox">
           <img src="/static/image/headerfooter/munanhadalogo.png" alt="로고 이미지" class="logoImg1"/>
-          <button class="logout">로그아웃</button>
+          <a href="{% url 'accounts:logout' %}" class="logout">로그아웃</a>
         </div>
       </header>
       <div class="subFrame">
@@ -149,8 +149,8 @@
             <a href="{% url 'home' %}">
                 <div class="footer-box">
                 <button class="home-button">
-                    <img src="/static/image/homeLogo.svg" />
-                    <p id="red">홈</p>
+                    <img src="/static/image/grayHomeLogo.svg" />
+                    <p id="gray">홈</p>
                 </button>
             </a>
             <a href="{% url 'locker' %}">
@@ -161,8 +161,8 @@
             </a>
             <a href="{% url 'alarm' %}">
                 <button class="alarm-button">
-                    <img src="/static/image/alarmLogo.svg" />
-                    <p id="gray">알림</p>
+                    <img src="/static/image/redAlarm.svg" />
+                    <p id="red">알림</p>
                 </button>
             </a>
             </div>

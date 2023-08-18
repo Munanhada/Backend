@@ -31,6 +31,10 @@ body {
     text-decoration: none;
 }
 
+.logoImgBox a:hover {
+    color: #17181A;
+}
+
 .accountbox>div {
     color: var(--unnamed, #17181A);
     text-align: center;
