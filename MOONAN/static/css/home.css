@@ -199,6 +199,12 @@ button {
     border: none;
     padding: 0;
     position: relative;
+    height: 100px;
+}
+
+.account button img{ 
+    width: 100%;
+    height: 100%;
 }
 
 .account button.selected {
@@ -206,7 +212,7 @@ button {
     border-radius: 20px;
 
     width: 100%;
-    height: 100%;
+    height: 100px;
 }
 
 .account p {
