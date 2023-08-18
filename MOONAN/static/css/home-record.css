@@ -132,10 +132,9 @@
 
 .mikeImg {
     position: absolute;
-    top: 15%;
+    top: 5%;
     right: 2%;
     z-index: 0;
-    cursor: pointer;
 }
 
 /* 입력 완료 버튼 */
