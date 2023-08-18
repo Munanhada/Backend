@@ -65,22 +65,24 @@
               <div class="who_message">
                 <p id="today_message">누구에게 문안인사를 해볼까요?</p>
                 <div class="user-account-icon">
-                    <div class="account">
                     {% for account in connected_users %}
+                    <div class="account">
                     <button type="button" class="select-user-btn"><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
                     <p class="account-item" data-id="{{ account.other_user.id }}">{{ account.other_user.name }} ({{ account.relationship }})</p>
+                    </div>
                     {% empty %}
+                    <div class="account">
                     <button type="button"><img src="/static/image/okay-white.svg" alt="무난해요 이미지" /></button>
                     <p>연결된 계정이 없습니다.</p>
+                    </div>
                     {% endfor %}
+                    <div class="account">
+                    <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
+                      <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
+                    </a>
+                    <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
+                    </div>
                 </div>
-                <div class="account">
-                  <a id="overlap-button" href="{% url 'accounts:add_connection' %}">
-                    <img src="/static/image/etc/plus one.png" alt="기본 이미지" />
-                  </a>
-                  <p id="plus"><a href="{% url 'accounts:add_connection' %}">계정 추가</a></p>
-                </div>
-              </div>
 
               <div class="click-munan">
                 <p id="click-munan-title">클릭 한번으로 보내는 오늘의 문안인사!</p>
@@ -102,16 +104,22 @@
                   </div>
                 </div>
                 <div class="sand-box">
-                  <button type="submit" class="sendMessage-btn" id="sendMessageButton">전송하기</button>
-                  <div id="myModal" class="modal" style="display: none;">
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
-                      <p>문안인사가 성공적으로 전송되었습니다!</p>
+                  <button type="submit" class="sendMessage-btn" id="sendMessageButton" onclick="showSavePopUp()">전송하기</button>
+                  <div class="savePopUp" id="savePopUp">
+                    <p class="savePopUpContent">문안 인사가<br>성공적으로 전송되었습니다!</p>
+                    <div class="saveConfirmBox">
+                        <button class="saveConfirmButton" onclick="closeSavePopUp()">확인</button>
                     </div>
-                  </div>
+                  </div>   
                 </div>
               </div>
             </div>
+
+            <div class="inputCompletedBox">
+              <button type="button" class="inputCompletedButton" onclick="showSavePopUp()">입력완료</button>
+          </div>
+  </form>
+
 
 
             <div class="today_munan">
