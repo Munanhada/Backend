@@ -48,6 +48,12 @@ def home_view(request):
     user_medications = UserMedication.objects.filter(user=request.user)
     user_nutritions = UserNutrition.objects.filter(user=request.user)
 
+    # 오늘 받은 메시지 갯수 계산
+    today = timezone.now().date()  # 오늘 날짜
+    received_todayMessages = Message.objects.filter(receiver=request.user, timestamp__date=today)
+    received_todayMessages_count = received_todayMessages.count()
+    
+    print(received_todayMessages_count)
     context = {
         'user': user,
         'received_messages' : received_messages,
@@ -55,6 +61,7 @@ def home_view(request):
         'connected_users': connected_users_with_relationship,
         'user_medications': user_medications,
         'user_nutritions': user_nutritions,
+        'received_todayMessages_count': received_todayMessages_count,
     }
 
     return render(request, 'home.html', context)
