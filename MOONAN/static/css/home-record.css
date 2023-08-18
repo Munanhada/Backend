@@ -65,6 +65,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+    .Face>p {
+        font-size: 20px;
+    }
 }
 
 .Face>img {
