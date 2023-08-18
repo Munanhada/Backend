@@ -234,8 +234,6 @@
         $("form").on("submit", function(event) {
             event.preventDefault();
 
-            // selectedValue = $("#munan-menu-list-detail .selected").attr("value");
-            // // $("#recommendContent").val(selectedValue);
             var customContent = $("#customContentInput").val();
             console.log(selectedValue);
             console.log(receiver_id);
@@ -243,7 +241,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "{% url 'send_message' %}",
+                url: "{% url 'message:send_message' %}",
                 data: {
                     receiver_id: receiver_id,
                     recommendContent: selectedValue,
