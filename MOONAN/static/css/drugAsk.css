@@ -12,6 +12,9 @@
     display: none;
 }
 
+.subFrame{ 
+    padding: 5%;
+}
 
 .drug-ask-box-no,
 .drug-ask-box-yes {
