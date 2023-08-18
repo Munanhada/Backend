@@ -40,7 +40,7 @@ function checkPassword() {
     var checkPasswordFeild = document.getElementById("passwordFeild");
     var checkText = document.querySelector(".checkTextPassword");
     var checkImg = document.querySelectorAll(".checkImg")[1];
-    if(checkPasswordFeild.value.length >= 8) {
+    if(checkPasswordFeild.value.length >= 1) {
         checkImg.src = "/static/image/redcheck.svg";
         checkText.style.color = "#FF003A";
     }
