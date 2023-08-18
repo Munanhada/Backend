@@ -8,6 +8,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 .mainFrame {
@@ -49,14 +50,15 @@ button {
 /*main 시작*/
 /*오늘 000님에게 온 문안 메세지*/
 .munan_title {
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
 .title_content {
     display: flex;
     align-items: center;
-    margin-right: 20px; /* 원하는 margin-right 값으로 조정 */
+    margin-right: 20px;
+    /* 원하는 margin-right 값으로 조정 */
 }
 
 .munan_title #today_message {
@@ -64,7 +66,8 @@ button {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
-    margin-right: 96px; /* p와 button 간격을 주기 위해 추가 */
+    margin-right: 96px;
+    /* p와 button 간격을 주기 위해 추가 */
 }
 
 .munan_title #message_count {
@@ -78,7 +81,7 @@ button {
     border-radius: 20px;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     font-weight: 700;
     border: none;
 }
@@ -144,11 +147,11 @@ button {
     margin-left: auto;
     align-self: flex-end;
     margin-right: 20px;
-    margin-bottom: 52px; 
+    margin-bottom: 52px;
 }
 
 .call-button button {
-    width: 8vw; 
+    width: 8vw;
     height: 60px;
     flex-shrink: 0;
     border-radius: 40px;
@@ -156,10 +159,14 @@ button {
     color: var(--unnamed, #F2F6FF);
     font-size: 1.2rem;
     font-weight: 700;
-    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
-    overflow: hidden; /* 넘치는 부분은 숨기기 */
-    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
-    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    white-space: nowrap;
+    /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    overflow: hidden;
+    /* 넘치는 부분은 숨기기 */
+    text-overflow: ellipsis;
+    /* 넘치면 생략 부호(...) 표시 */
+    cursor: pointer;
+    /* 마우스 커서를 포인터로 변경 */
 }
 
 /*누구에게 문안인사를 해볼까요?*/
@@ -176,9 +183,10 @@ button {
     flex-direction: row;
     align-items: flex-start;
     text-align: center;
-    flex-wrap: wrap; /* 수정된 부분: 가로 줄바꿈 설정 추가 */
+    flex-wrap: wrap;
+    /* 수정된 부분: 가로 줄바꿈 설정 추가 */
 }
- 
+
 
 .user-account-icon button {
     background: none;
@@ -202,7 +210,7 @@ button {
     height: 100px;
 }
 
-.account button img{ 
+.account button img {
     width: 100%;
     height: 100%;
 }
@@ -217,7 +225,7 @@ button {
 
 .account p {
     color: var(--unnamed, #17181A);
-    font-size:1.2rem;
+    font-size: 1.2rem;
     font-weight: 700;
     margin-top: 8px;
     width: max-content;
@@ -236,7 +244,7 @@ button {
 
 .user-account-icon p {
     color: var(--unnamed, #17181A);
-    font-size:1.2rem;
+    font-size: 1.2rem;
     font-weight: 700;
     margin-top: 8px;
 }
@@ -279,14 +287,18 @@ button {
     position: absolute;
     left: 5%;
     color: var(--unnamed, #17181A);
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     font-weight: 400;
     line-height: 34px;
     margin-right: 138px;
-    width: calc(100% - 168px); /* 수정된 부분: 텍스트의 최대 너비 설정 */
-    max-height: 68px; /* 수정된 부분: 텍스트의 최대 높이 설정 */
-    overflow: hidden; /* 텍스트 넘치는 부분은 숨기기 */
-    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
+    width: calc(100% - 168px);
+    /* 수정된 부분: 텍스트의 최대 너비 설정 */
+    max-height: 68px;
+    /* 수정된 부분: 텍스트의 최대 높이 설정 */
+    overflow: hidden;
+    /* 텍스트 넘치는 부분은 숨기기 */
+    text-overflow: ellipsis;
+    /* 넘치면 생략 부호(...) 표시 */
 }
 
 .munanDropdownImg {
@@ -338,8 +350,13 @@ button {
 #customContentInput {
     background: var(--2, #E3E9F6);
     border: none;
-    width: 140px;
+    width: 80%;
     height: 34px;
+    font-size: 24px;
+}
+
+.registerImg {
+    cursor: pointer;
 }
 
 #customContentInput::placeholder {
@@ -365,8 +382,64 @@ button {
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
     font-size: 1.5rem;
-    cursor: pointer; 
+    cursor: pointer;
     font-weight: 700;
+}
+
+/* pop up */
+.sendPopUp {
+    width: 80%;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--unnamed, #F2F6FF);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+}
+
+.sendPopUpContent {
+    color: var(--unnamed, #17181A);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 166.667% */
+    position: absolute;
+    top: 5%;
+}
+
+.sendConfirmBox {
+    display: inline-flex;
+    padding: 4px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 0;
+}
+
+.sendConfirmBox .sendConfirmButton {
+    color: var(--unnamed, #F2F6FF);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 200% */
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: var(--unnamed, #FF003A);
 }
 
 /*잠깐! 오늘 하루, 무난했나요?*/
@@ -385,7 +458,7 @@ button {
 
 .today-question {
     color: var(--unnamed, #FF003A);
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     font-weight: 700;
     margin-top: 20px;
 }
@@ -404,7 +477,7 @@ button {
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
     font-size: 24px;
-    cursor: pointer; 
+    cursor: pointer;
     font-weight: 700;
 }
 
@@ -412,16 +485,22 @@ button {
 .feel-icon {
     display: flex;
     align-items: center;
-    gap: 10px; /* 이미지 사이의 간격 조정 */
+    gap: 10px;
+    /* 이미지 사이의 간격 조정 */
     margin-top: 20px;
-    overflow-x: auto; /* 가로 스크롤 생성 */
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    overflow-x: auto;
+    /* 가로 스크롤 생성 */
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
 }
 
 .expressionImg {
-    width: auto; /* 이미지 너비 설정 */
-    height: auto; /* 이미지 높이 설정 */
-    flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
+    width: auto;
+    /* 이미지 너비 설정 */
+    height: auto;
+    /* 이미지 높이 설정 */
+    flex-shrink: 0;
+    /* 이미지가 줄어들지 않도록 설정 */
 }
 
 /*간단하게 표시하는 나의 건강한 일상*/
@@ -452,20 +531,22 @@ button {
 
 .eat-drug-contents #eat-info {
     color: #000;
-    font-size:  1.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin:0;
+    margin: 0;
 }
 
-.eat-info-box{ 
+.eat-info-box {
     margin-top: 16px;
     margin-left: 19px;
     flex-grow: 1;
-    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
+    white-space: nowrap;
+    /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis;
+    /* 넘치면 생략 부호(...) 표시 */
 }
 
-.eat-drug-btn  {
+.eat-drug-btn {
     height: 50px;
     flex-shrink: 0;
     border-radius: 30px;
@@ -490,27 +571,29 @@ button {
     gap: 20px;
 }
 
-.user-drug-list button{
+.user-drug-list button {
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
 
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
 }
 
-.user-drug-list #detail-drug{
+.user-drug-list #detail-drug {
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
-    margin: 5px; /* 버튼 주위 여백 */
+    margin: 5px;
+    /* 버튼 주위 여백 */
 }
 
 /*운동하기*/
-.excer-box{ 
+.excer-box {
     width: 100%;
     height: 80px;
     flex-shrink: 0;
@@ -526,17 +609,19 @@ button {
 
 .excer-contents #excer-info {
     color: #000;
-    font-size:  1.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin:0;
+    margin: 0;
 }
 
-.excer-info-box{ 
+.excer-info-box {
     margin-top: 16px;
     margin-left: 19px;
     flex-grow: 1;
-    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-    text-overflow: ellipsis; /* 넘치면 생략 부호(...) 표시 */
+    white-space: nowrap;
+    /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis;
+    /* 넘치면 생략 부호(...) 표시 */
 }
 
 .excer-btn {
@@ -564,40 +649,69 @@ button {
     gap: 20px;
 }
 
-.user-excer-list button{
+.user-excer-list button {
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
 
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
 }
 
-.user-excer-list #detail-excer{
+.user-excer-list #detail-excer {
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
-    margin: 5px; /* 버튼 주위 여백 */
+    margin: 5px;
+    /* 버튼 주위 여백 */
 }
 
-.user-excer-list button{
+.user-excer-list button {
     border-radius: 30px;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
     font-size: 20px;
     font-weight: 400;
 
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
 }
 
 a {
     text-decoration: none;
-    color: inherit; 
+    color: inherit;
 }
 
 a:hover {
     color: inherit;
+}
+
+.image-container {
+    display: inline-block;
+    /* 이미지 컨테이너를 인라인 블록으로 표시 */
+}
+
+.excer-btn,
+.eat-drug-btn {
+    padding: 0;
+    /* 버튼 내부의 여백 제거 */
+    border: none;
+    /* 버튼 테두리 제거 */
+    background: none;
+    /* 배경 제거 */
+}
+
+#default-image,
+#new-image,
+#new-image2 {
+    display: block;
+    /* 이미지를 블록 요소로 표시 */
+    width: 100%;
+    /* 이미지의 너비를 100%로 설정 */
+    height: auto;
+    /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
 }

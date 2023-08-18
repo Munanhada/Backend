@@ -1,3 +1,10 @@
+/* * {
+    box-sizing: border-box;
+} */
+header, footer {
+    box-sizing: border-box;
+}
+
 body {
     width: 100vw;
     /* margin: 114px 50vw 187px 50vw; */
@@ -15,6 +22,10 @@ body {
 }
 .subFrame{
     padding:5%;
+}
+
+.logoImgBox a {
+    text-decoration: none;
 }
 
 .accountbox > div{
