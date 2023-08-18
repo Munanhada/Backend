@@ -171,7 +171,6 @@
                   </button>
                   </div>
                 </div>
-             
               </div>
 
               <div class="user-excer-list">
@@ -342,7 +341,7 @@ var csrfToken = getCookie('csrftoken');
     // 초기 버튼 상태 설정
     if (isExerciseTaken) {
         takeExerciseButton.classList.add('taken');
-        $(takeExerciseButton).find('img').attr({'src': '/static/image/Group2461_yes.svg', 'id':'new-image'});
+        $(takeExerciseButton).find('img').attr({'src': '/static/image/Group2461_yes2.svg', 'id':'new-image2'});
     } else {
         takeExerciseButton.classList.remove('taken');
         $(takeExerciseButton).find('img').attr({'src': '/static/image/Group2461_no.svg', 'id':'default-image'});
@@ -357,8 +356,8 @@ var csrfToken = getCookie('csrftoken');
         var image = $(this).find('img');
         if (isExerciseTaken) {
           image.attr({
-            'src': '/static/image/Group2461_yes.svg',
-            'id': 'new-image' 
+            'src': '/static/image/Group2461_yes2.svg',
+            'id': 'new-image2' 
           });
         } else {
             image.attr({
@@ -453,8 +452,12 @@ var csrfToken = getCookie('csrftoken');
                     if (button) {
                         button.classList.toggle('taken', status);
                         const image = button.querySelector('img');
-                        if (image) {
+                        if (image.id == 'new-image') {
                             const imageUrl = status ? '/static/image/Group2461_yes.svg' : '/static/image/Group2461_no.svg';
+                            image.setAttribute('src', imageUrl);
+                        }
+                        else if (image.id == 'new-image2') {
+                            const imageUrl = status ? '/static/image/Group2461_yes2.svg' : '/static/image/Group2461_no.svg';
                             image.setAttribute('src', imageUrl);
                         }
                     }

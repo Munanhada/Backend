@@ -152,7 +152,49 @@ def send_connection_request(request):
 # 계정 추가 연결
 @login_required
 def add_connection_request(request):
-    return render(request, 'accounts/addAccountConnection.html')
+    if request.method =='POST':
+        from_user = request.user
+        response_data = {
+            'success': False, 
+            'error_message': None,
+        }
+
+        print("request다", request)
+        
+        for i in range(1, 4):  # number_of_fields는 필드 개수
+            to_user = request.POST.get(f'to_user{i}')
+            relationship1 = request.POST.get(f'relationship1_{i}')
+            relationship2 = request.POST.get(f'relationship2_{i}')
+            print(to_user,relationship1, relationship2)
+
+            if relationship1 is None and relationship2 is None:
+                continue  # to_user, relationship1, relationship2 값이 모두 없으면 다음 필드로 넘어감
+
+            try:
+                to_user_instance = get_user_model().objects.get(user_id=to_user)
+            except get_user_model().DoesNotExist:
+                # 사용자를 찾을 수 없는 경우에 대한 처리
+                response_data['error_message'] = '연결 계정을 다시 한번 확인해주세요.'
+                return JsonResponse(response_data)
+            else:
+                existing_connection = ConnectionRequest.objects.filter(
+                    Q(from_user=from_user, to_user=to_user_instance) | Q(from_user=to_user_instance, to_user=from_user)
+                )
+                if existing_connection.exists():
+                    response_data['error_message'] = '이미 상대방이나 ' + from_user.name + '님이 연결 신청을 하셨습니다.'
+                    return JsonResponse(response_data)
+        
+                ConnectionRequest.objects.create(
+                    from_user=from_user,
+                    to_user=to_user_instance,
+                    relationship1=relationship1,
+                    relationship2=relationship2,
+                )
+        response_data['success'] = True
+        print(response_data)
+        return JsonResponse(response_data)
+    else:
+        return render(request, 'accounts/addAccountConnection.html')
     
     
 # 사용자 추가 정보 입력(생년월일, 성별)
