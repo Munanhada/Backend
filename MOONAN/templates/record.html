@@ -28,23 +28,23 @@
             <div class="selectFaceBox">
                 <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
                 <div class="selectFaceImgBox">
-                    <div class="Face goodBox" {% if today_records.expression == "최고예요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('goodBox')">
+                    <div class="Face goodBox" {% if today_records.first.expression == "best" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('goodBox')">
                         <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
                         <p class="goodText">최고예요</p>
                     </div>
-                    <div class="Face okayBox" {% if today_records.expression == "무난해요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('okayBox')">
+                    <div class="Face okayBox" {% if today_records.first.expression == "munan" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('okayBox')">
                         <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
                         <p class="okayText">무난해요</p>
                     </div>
-                    <div class="Face sosoBox" {% if today_records.expression == "그럭저럭" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('sosoBox')">
+                    <div class="Face sosoBox" {% if today_records.first.expression == "soso" %} style="border: 3px solid var(--unnamed, #FF003A);" data-expression="sosoBox" {% endif %} onclick="showReasonBox('sosoBox')">
                         <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
                         <p class="sosoText">그럭저럭</p>
                     </div>
-                    <div class="Face badBox" {% if today_records.expression == "안좋아요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('badBox')">
+                    <div class="Face badBox" {% if today_records.first.expression == "notgood" %} style="border: 3px solid var(--unnamed, #FF003A);" data-expression="badBox" {% endif %} onclick="showReasonBox('badBox')">
                         <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
                         <p class="badText">안좋아요</p>
                     </div>
-                    <div class="Face worseBox" {% if today_records.expression == "나빠요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('worseBox')">
+                    <div class="Face worseBox" {% if today_records.first.expression == "bad" %} style="border: 3px solid var(--unnamed, #FF003A);" data-expression="worseBox" {% endif %} onclick="showReasonBox('worseBox')">
                         <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
                         <p class="worseText">나빠요</p>
                     </div>
@@ -56,7 +56,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/meal.png" alt="식사 이미지" class="reasonMenuImg" id="mealImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="eating">식사</p>
+                                <p class="reasonMenuText {% if today_records.first.eating %} selected {% endif %}" id="eating" {% if today_records.first.eating %}style="color: rgb(255, 0, 58);" {% endif %}>
+                                    {% if today_records.first.eating %}
+                                        {{ today_records.first.eating }}
+                                    {% else %}
+                                        식사
+                                    {% endif %}
+                                </p>                                
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -71,7 +77,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/health.svg" alt="건강 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="health">건강</p>
+                                <p class="reasonMenuText {% if today_records.first.health %} selected {% endif %}" id="health" {% if today_records.first.health %}style="color: rgb(255, 0, 58);" {% endif %}>
+                                    {% if today_records.first.health %}
+                                        {{ today_records.first.health }}
+                                    {% else %}
+                                        건강
+                                    {% endif %}
+                                </p>  
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -86,7 +98,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/sleep.svg" alt="수면 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="sleep">수면</p>
+                                <p class="reasonMenuText {% if today_records.first.sleep %} selected {% endif %}" id="sleep" {% if today_records.first.sleep %}style="color: rgb(255, 0, 58);" {% endif %}>
+                                    {% if today_records.first.sleep %}
+                                        {{ today_records.first.sleep }}
+                                    {% else %}
+                                        수면
+                                    {% endif %}
+                                </p>  
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -101,7 +119,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/기분.svg" alt="기분 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="mood">기분</p>
+                                <p class="reasonMenuText {% if today_records.first.mood %} selected {% endif %}" id="mood" {% if today_records.first.mood %}style="color: rgb(255, 0, 58);" {% endif %}>
+                                    {% if today_records.first.mood %}
+                                        {{ today_records.first.mood }}
+                                    {% else %}
+                                        기분
+                                    {% endif %}
+                                </p>  
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -116,7 +140,13 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/accident.svg" alt="사고 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="accident">사고</p>
+                                <p class="reasonMenuText {% if today_records.first.accident %} selected {% endif %}" id="accident" {% if today_records.first.accident %}style="color: rgb(255, 0, 58);" {% endif %}>
+                                    {% if today_records.first.accident %}
+                                        {{ today_records.first.accident }}
+                                    {% else %}
+                                        사고
+                                    {% endif %}
+                                </p>  
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
@@ -131,12 +161,22 @@
                         <div class="reasonOptionBox">
                             <img src="/static/image/직접 입력.svg" alt="직집입력 이미지" class="reasonMenuImg">
                             <div class="reasonMenuBox">
-                                <p class="reasonMenuText" id="titleDirectText">직접 입력</p>
+                                <p class="reasonMenuText" id="titleDirectText">
+                                    {% if today_records.first.customContent %}
+                                        {{ today_records.first.customContent }}
+                                    {% else %}
+                                        직접 입력
+                                    {% endif %}
+                                </p>
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
-                                    <textarea name="customConent" id="directText" cols="30" rows="10"
-                                        placeholder="이유를 직접 적어주세요."></textarea>
+                                    <textarea name="customContent" id="directText" cols="30" rows="10"
+                                        placeholder="이유를 직접 적어주세요.">
+                                        {% if today_records.first.customContent %}
+                                            {{ today_records.first.customContent }}
+                                        {% endif %}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +185,9 @@
                     <div class="emotionBox">
                         <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
                         <div class="emotionTextBox">
-                            <textarea name="happyorsad" id="directText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
+                            <textarea name="happyorsad" id="directText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요.">
+                                {{today_records.first.happyorsad}}
+                            </textarea>
                             <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg"
                                 onclick="mikeImgAlert()">
                         </div>
@@ -239,10 +281,19 @@
                     return $(this).css('border') === '3px solid rgb(255, 0, 58)';
                 }).find('.expressionImg').attr('id');
 
+                var reasonMenuTextElements = document.querySelectorAll('.reasonMenuText.selected');
+
+                reasonMenuTextElements.forEach(function(reasonMenuTextElement) {
+                    const selectedCategory = reasonMenuTextElement.getAttribute('id');
+                    const selectedText = reasonMenuTextElement.textContent.trim(); // 문자열 앞뒤의 공백과 줄바꿈 제거
+                    selectedData[selectedCategory] = selectedText;
+                });
+
                 // customConent 값 가지고옴
-                var customContentText = document.querySelector('#directText[name="customConent"]').value;
+                var customContentText = document.querySelector('#directText[name="customContent"]').value;
                 selectedData["customContent"] = customContentText
                 
+
                 // 선택된 데이터를 JSON 형식으로 변환
                 const jsonData = JSON.stringify(selectedData);
                 console.log(jsonData)
@@ -268,6 +319,7 @@
                 });
             });
         });
+
     </script>
     
 </body>

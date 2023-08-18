@@ -13,9 +13,10 @@ def record_view(request):
     today = timezone.now().date()
     user = request.user  # 로그인한 사용자
 
-    today_records = Record.objects.filter(Q(created_date=today) & Q(user=user))
-
-    
+    today_records = Record.objects.filter(created_date=today, user=user)
+    for record in today_records:
+        print(record.customContent)
+            
     # 무난하지 않았던 이유 카테고리 속 각각의 내용 불러오기
     context = {
         'eating_choices': Record.EATING_CHOICES, 
