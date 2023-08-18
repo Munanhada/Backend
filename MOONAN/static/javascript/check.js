@@ -22,10 +22,13 @@ function checkId() {
                     // user_id가 이미 존재할 경우
                     checkImg.src = "/static/image/Group 1991.svg";
                     checkText.style.color = "";
+                    checkText.textContent = "아이디가 중복됩니다."
+                    checkImg.src = "/static/image/Group 2046.svg"
                 } else {
                     // user_id가 중복되지 않는 경우
                     checkImg.src = "/static/image/redcheck.svg";
                     checkText.style.color = "#FF003A";
+                    checkText.textContent = "사용 가능한 아이디입니다."
                 }
             },
             error : function(error) { // AJAX 요청이 실패한 경우 처리
