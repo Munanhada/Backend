@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문안하다 답변하기</title>
+    <title>문안하다 기록하기</title>
     <link rel="stylesheet" href="/static/css/mainFrame.css">
     <link rel="stylesheet" href="/static/css/home-record.css">
     <link rel="stylesheet" href="/static/css/base.css">
@@ -28,23 +28,23 @@
             <div class="selectFaceBox">
                 <p class="selectFaceText">오늘 하루를 표정으로 표현해주세요.</p>
                 <div class="selectFaceImgBox">
-                    <div class="Face goodBox" onclick="showReasonBox('goodBox')">
+                    <div class="Face goodBox" {% if today_records.expression == "최고예요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('goodBox')">
                         <img src="/static/image/good.svg" alt="최고 이미지" class="expressionImg" id="best">
                         <p class="goodText">최고예요</p>
                     </div>
-                    <div class="Face okayBox" onclick="showReasonBox('okayBox')">
+                    <div class="Face okayBox" {% if today_records.expression == "무난해요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('okayBox')">
                         <img src="/static/image/okay.svg" alt="무난한 이미지" class="expressionImg" id="munan">
                         <p class="okayText">무난해요</p>
                     </div>
-                    <div class="Face sosoBox" onclick="showReasonBox('sosoBox')">
+                    <div class="Face sosoBox" {% if today_records.expression == "그럭저럭" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('sosoBox')">
                         <img src="/static/image/soso.svg" alt="그럭저럭 이미지" class="expressionImg" id="soso">
                         <p class="sosoText">그럭저럭</p>
                     </div>
-                    <div class="Face badBox" onclick="showReasonBox('badBox')">
+                    <div class="Face badBox" {% if today_records.expression == "안좋아요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('badBox')">
                         <img src="/static/image/bad.svg" alt="안좋아요 이미지" class="expressionImg" id="notgood">
                         <p class="badText">안좋아요</p>
                     </div>
-                    <div class="Face worseBox" onclick="showReasonBox('worseBox')">
+                    <div class="Face worseBox" {% if today_records.expression == "나빠요" %} style="border: 3px solid var(--unnamed, #FF003A);" {% endif %} onclick="showReasonBox('worseBox')">
                         <img src="/static/image/worse.svg" alt="나빠요 이미지" class="expressionImg" id="bad">
                         <p class="worseText">나빠요</p>
                     </div>
@@ -135,7 +135,7 @@
                                 <img src="/static/image/blackdropdown.svg" alt="드랍다운 이미지" class="reasonDropdownImg"
                                     onclick="showdropdown(this)">
                                 <div class="reasonMenu">
-                                    <textarea name="" id="directText" cols="30" rows="10"
+                                    <textarea name="customConent" id="directText" cols="30" rows="10"
                                         placeholder="이유를 직접 적어주세요."></textarea>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                     <div class="emotionBox">
                         <p class="emotionText">기뻤거나 슬펐던 일이 있었다면 들려주세요.</p>
                         <div class="emotionTextBox">
-                            <textarea name="happyorsad" id="receiveEmotionText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
+                            <textarea name="happyorsad" id="directText" cols="30" rows="10" placeholder="직접 입력하거나 버튼을 눌러 들려주고 싶은 이야기를 말해주세요."></textarea>
                             <img src="/static/image/Mike Img.svg" alt="마이크 이미지" class="mikeImg"
                                 onclick="mikeImgAlert()">
                         </div>
@@ -234,19 +234,23 @@
                     return $(this).css('border') === '3px solid rgb(255, 0, 58)';
                 }).find('.expressionImg').attr('id');
 
-                const directReason = $('#directText').val();
-
+                // customConent 값 가지고옴
+                var customContentText = document.querySelector('#directText[name="customConent"]').value;
+                selectedData["customContent"] = customContentText
+                
                 // 선택된 데이터를 JSON 형식으로 변환
                 const jsonData = JSON.stringify(selectedData);
-                console.log('직접 쓴 이유:', directReason);
-                
+                console.log(jsonData)
+                var happyorsadData = document.querySelector('#directText[name="happyorsad"]').value;
+                console.log(happyorsadData)
+
                 $.ajax({
                     type: 'POST',
                     url: '/home/record/submit_data/',  
                     data: {
                         expression: expression,
                         selectedData: jsonData,
-                        customReason: directReason,
+                        happyorsad: happyorsadData,
                         csrfmiddlewaretoken: csrfToken
                     },
                     dataType: 'json',
