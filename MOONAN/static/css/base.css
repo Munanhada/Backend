@@ -39,7 +39,7 @@
     background: none;
     cursor: pointer;
 }
-/*footer*/
+
 .main-footer {
     bottom: 0%;
     width: 100%;
@@ -55,7 +55,6 @@
 .footer-box {
     display: flex;
     justify-content: space-between; /* 버튼들을 가로로 동일한 간격으로 정렬 */
-    padding: 5%;
 }
 .footer-box button{
     background-color: transparent;
@@ -92,4 +91,3 @@
     line-height: 16px;
     letter-spacing: -0.5px;
 }
-

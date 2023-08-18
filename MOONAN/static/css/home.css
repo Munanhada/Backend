@@ -1,4 +1,4 @@
-/*전체 Frame 시작*/
+/*전체 Frame 시작!*/
 * {
     box-sizing: border-box;
 }
@@ -232,6 +232,7 @@ button {
     top: 50%;
     left: -50%;
 }
+
 
 /*클릭 한번으로 보내는 오늘의 문안인사*/
 .click-munan {
@@ -583,27 +584,5 @@ a {
 
 a:hover {
     color: inherit;
-}
-
-/*임시 영역 표시용*/
-
-.who_message {
-    background-color: cornflowerblue;
-}
-
-.subFrame {
-    background-color: pink;
-}
-
-
-.main-box {
-    background-color: lightsalmon;
-}
-
-.select-user-btn.selected {
-    border: 4px solid #FF003A;
-    border-radius: 20px;
-    box-sizing: border-box;
-    display: inline-block;
 }
 /*main 끝*/
