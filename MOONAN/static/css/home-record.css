@@ -68,7 +68,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 1100px) {
     .Face>p {
         font-size: 20px;
     }
