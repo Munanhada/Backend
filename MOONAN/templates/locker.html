@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locker</title>
+    <title>보관함</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/locker.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 </head>
@@ -15,12 +15,20 @@
             <div class="logoImgBox">
                 <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
                 <img src="{% static 'image/headerfooter/munanhadalogo.png'%}" alt="로고 이미지" class="logoImg1"/>
+                <button class="logout">로그아웃</button>
             </div>
         </header>
         <div class="subFrame">
             <p class="selecttarget">문안기록을 확인할 대상을 선택해주세요.</p>
             
             <div id="connected-accounts">
+                <div class="accountbox" id="defaultId" data-id="{{ user.id }}" data-name="나"> 
+                    <div class="accountimagebox" style="border: 2px solid red;" >
+                        <img src="{% static 'image/expression/munan.png' %}" alt="이미지 설명">
+                    </div>
+                    <div>{{ user.name }}</div>
+                    <div>(나)</div>
+                </div>
                 {% for account in connected_users %}
                     <div class="accountbox" data-id="{{ account.other_user.id }}" data-name="{{account.other_user.name}}"> 
                         <div class="accountimagebox">
@@ -29,18 +37,16 @@
                         <div>{{ account.other_user.name }}</div>
                         <div>({{ account.relationship }})</div>
                     </div>
-                {% empty %}
-                    <div>연결된 계정이 없습니다.</div>
                 {% endfor %}
             </div>
 
             <hr>
             <div>
-                <p id="selected-username"></p>
-                <div class="emptyment">
+                <p id="selected-username">나의 문안기록이에요.</p>
+                {% comment %} <div class="emptyment">
                     <p>문안기록이 없어요.<br>먼저 문안인사를 건네보세요!</p>
                     <img src="{%static 'image/lockerempty.png'%}" alt="이미지 설명">
-                </div>
+                </div> {% endcomment %}
 
                 <div class="recordtotalbox">
                     <div class="calendarbox">
@@ -123,7 +129,7 @@
 <script src="/static/javascript/locker.js"></script> <!-- 필요한 커스텀 자바스크립트 파일을 추가합니다 -->
 
 <script>
-    let accountId;
+    let accountId = document.getElementById('defaultId').getAttribute('data-id');
     let selectedUserName;
 
 
@@ -152,13 +158,20 @@
         // 2. 누구의 문안기록인지
         accountId = event.currentTarget.getAttribute('data-id');
         const accountName = event.currentTarget.getAttribute('data-name');
-        document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요."; // 수정된 부분
+        if (accountName == "나"){
+            document.getElementById('selected-username').textContent = "나의 문안기록이에요."; // 수정된 부분
+
+        }else{
+            document.getElementById('selected-username').textContent = accountName + "님과의 문안기록이에요."; // 수정된 부분
+        }
         
+        /*
         const emptyment = document.querySelector('.emptyment');
         const calendarbox = document.querySelector('.calendarbox');
 
         emptyment.style.display = 'none'; // emptyment 숨기기
         calendarbox.style.display = 'block'; // calendar 보이기
+        */
 
         // 3. 초기에 날짜 option에 현재 달의 날짜 표시
         const currentDate = new Date();
@@ -360,10 +373,6 @@
                 
             }
 
-
-            
-            
-            // 여기서 필요한 데이터를 사용하여 업데이트하는 로직을 추가할 수 있습니다.
         } else {
             // 데이터가 없을 경우 처리할 내용
             recordbox.style.display = 'none'; 
@@ -429,6 +438,13 @@
                 }); 
             }
         });
+        const monthSelectElement = document.querySelector('#monthSelect');
+        console.log(monthSelectElement);
+        monthSelectElement.style.display = 'block';
+
+        const defulatDate = new Date();
+        monthSelect.value = `${currentYear}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}`;
+        updateCalendar(defulatDate);
         
     });
 

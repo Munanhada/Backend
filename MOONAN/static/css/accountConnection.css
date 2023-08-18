@@ -17,6 +17,10 @@ header>p {
     padding-top: 1vh;
 }
 
+.connectIdBox {
+    width: 100%;
+}
+
 .connectBox {
     display: flex;
     flex-direction: row;
@@ -52,7 +56,11 @@ header>p {
 
 .connectBox .famIdField, .connectBox .famIdField2 {
     width: 40%;
+    height: 60px;
     text-align: center;
+    border-radius: 4px;
+    background: var(--unnamed, #F2F6FF);
+    border: none;
 }
 
 .connectBox .famIdField::placeholder, .connectBox .famIdField2::placeholder {
@@ -86,7 +94,7 @@ header>p {
     margin: 0;
 }
 .hello, .hello2{
-    width: 30%;
+    width: 28%;
     height: 60px;
     flex-shrink: 0;
     border-radius: 4px;
@@ -109,7 +117,7 @@ header>p {
     background-position: right center;
     background-repeat: no-repeat;
     padding-right: 5%; /* 아이콘 간격 조정 */
-    margin-right: 2%;
+    /* margin-right: 2%; */
 }
 
 .hello > option, .hello2>option{
@@ -347,6 +355,7 @@ header>p {
     border: none;
     background: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 450px) {
@@ -369,9 +378,4 @@ header>p {
     background: rgba(23, 24, 26, 0.20);
     backdrop-filter: blur(4px);
     z-index: 1;
-}
-
-/* select 글씨 색 */
-.hello:focus, .hello2:focus {
-    color: #17181A;
 }

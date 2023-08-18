@@ -39,7 +39,7 @@ class ConnectionAdmin(admin.ModelAdmin):
     
 @admin.register(ConnectionRequest)
 class ConnectionRequestAdmin(admin.ModelAdmin):
-    list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted')
+    list_display = ('from_user', 'to_user', 'relationship1', 'relationship2', 'is_accepted', 'timestamp')
     list_filter = ('is_accepted',)
 
 
