@@ -4,6 +4,10 @@
     line-height: normal;
 }
 
+.subFrame{ 
+    padding: 5%;
+}
+
 /*진행바*/
 .step-bar {
     width: 100%;
@@ -11,6 +15,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-top: 80px;
 }
 
 .step-bar img.progress-circle {

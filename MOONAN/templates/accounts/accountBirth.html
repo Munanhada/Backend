@@ -10,91 +10,94 @@
   </head>
 
   <body>
-    <div class="mainFrame">
-      <form method="POST">
-        {% csrf_token %}
-        <div class="step-bar">
-          <progress id="progress" value="25" min="0" max="100"></progress>
-          <div class="icon-wrapper">
-            <img src="/static/image/Shape.svg" class="progress-drop" alt="progressDrop" />
-            <p id="drop-text">1</p>
+    <div class="mainFrame-2">
+      <div class="subFrame">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="step-bar">
+            <progress id="progress" value="25" min="0" max="100"></progress>
+            <div class="icon-wrapper">
+              <img src="/static/image/Shape.svg" class="progress-drop" alt="progressDrop" />
+              <p id="drop-text">1</p>
+            </div>
+            <img src="/static/image/Group 2059.svg" class="progress-circle" alt="progressCircle" />
           </div>
-          <img src="/static/image/Group 2059.svg" class="progress-circle" alt="progressCircle" />
-        </div>
-        <div class="birth-info-box">
-          <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 생일을 알려주세요.</span>
-          <p class="gray-text">만 나이를 기준으로 정보가 제공됩니다.</p>
-        </div>
-        <div class="user-birth-box">
+          <div class="birth-info-box">
+            <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 생일을 알려주세요.</span>
+            <p class="gray-text">만 나이를 기준으로 정보가 제공됩니다.</p>
+          </div>
+          <div class="user-birth-box">
+              <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+              <select id="birthYear" name="birthYear" required>
+                <option value="birthYear">2023년</option>
+              </select>
             <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-            <select id="birthYear" name="birthYear" required>
-              <option value="birthYear">2023년</option>
+            <select id="birthMonth" name="birthMonth" required>
+              <option value="01">1월</option>
+              <option value="02">2월</option>
+              <option value="03">3월</option>
+              <option value="04">4월</option>
+              <option value="05">5월</option>
+              <option value="06">6월</option>
+              <option value="07">7월</option>
+              <option value="08">8월</option>
+              <option value="09">9월</option>
+              <option value="10">10월</option>
+              <option value="11">11월</option>
+              <option value="12">12월</option>
             </select>
-          <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-          <select id="birthMonth" name="birthMonth" required>
-            <option value="01">1월</option>
-            <option value="02">2월</option>
-            <option value="03">3월</option>
-            <option value="04">4월</option>
-            <option value="05">5월</option>
-            <option value="06">6월</option>
-            <option value="07">7월</option>
-            <option value="08">8월</option>
-            <option value="09">9월</option>
-            <option value="10">10월</option>
-            <option value="11">11월</option>
-            <option value="12">12월</option>
-          </select>
-          <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-          <select id="birthDay" name="birthDay" required>
-            <option value="1">1일</option>
-            <option value="2">2일</option>
-            <option value="3">3일</option>
-            <option value="4">4일</option>
-            <option value="5">5일</option>
-            <option value="6">6일</option>
-            <option value="7">7일</option>
-            <option value="8">8일</option>
-            <option value="9">9일</option>
-            <option value="10">10일</option>
-            <option value="11">11일</option>
-            <option value="12">12일</option>
-            <option value="13">13일</option>
-            <option value="14">14일</option>
-            <option value="15">15일</option>
-            <option value="16">16일</option>
-            <option value="17">17일</option>
-            <option value="18">18일</option>
-            <option value="19">19일</option>
-            <option value="20">20일</option>
-            <option value="21">21일</option>
-            <option value="22">22일</option>
-            <option value="23">23일</option>
-            <option value="24">24일</option>
-            <option value="25">25일</option>
-            <option value="26">26일</option>
-            <option value="27">27일</option>
-            <option value="28">28일</option>
-            <option value="29">29일</option>
-            <option value="30">30일</option>
-            <option value="31">31일</option>
-          </select>
-          <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
-        </div>
-        <div class="gender-info-box">
-          <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 성별을 알려주세요.</span>
-        </div>
-        <div class="user-gender-box">
-          <input type="radio" id="male" name="gender" value="male" required />
-          <label for="male"><span>남성</span></label>
-          <input type="radio" id="female" name="gender" value="female" required />
-          <label for="female"><span>여성</span></label>
-        </div>
-        <div class="step-box">
-          <button class="before-step"><a href="{% url 'accounts:connection' %}">이전 단계</a></button>
-          <button type="submit" class="next-step">다음 단계</button>
-        </div>
-      </form>
+            <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+            <select id="birthDay" name="birthDay" required>
+              <option value="1">1일</option>
+              <option value="2">2일</option>
+              <option value="3">3일</option>
+              <option value="4">4일</option>
+              <option value="5">5일</option>
+              <option value="6">6일</option>
+              <option value="7">7일</option>
+              <option value="8">8일</option>
+              <option value="9">9일</option>
+              <option value="10">10일</option>
+              <option value="11">11일</option>
+              <option value="12">12일</option>
+              <option value="13">13일</option>
+              <option value="14">14일</option>
+              <option value="15">15일</option>
+              <option value="16">16일</option>
+              <option value="17">17일</option>
+              <option value="18">18일</option>
+              <option value="19">19일</option>
+              <option value="20">20일</option>
+              <option value="21">21일</option>
+              <option value="22">22일</option>
+              <option value="23">23일</option>
+              <option value="24">24일</option>
+              <option value="25">25일</option>
+              <option value="26">26일</option>
+              <option value="27">27일</option>
+              <option value="28">28일</option>
+              <option value="29">29일</option>
+              <option value="30">30일</option>
+              <option value="31">31일</option>
+            </select>
+            <span><img src="/static/image/Line 1057.svg" alt="바 이미지" /></span>
+          </div>
+          <div class="gender-info-box">
+            <span class="black-text"><span class="red-text">{{ user.name }}</span>님의 성별을 알려주세요.</span>
+          </div>
+          <div class="user-gender-box">
+            <input type="radio" id="male" name="gender" value="male" required />
+            <label for="male"><span>남성</span></label>
+            <input type="radio" id="female" name="gender" value="female" required />
+            <label for="female"><span>여성</span></label>
+          </div>
+          <div class="step-box">
+            <button class="before-step"><a href="{% url 'accounts:connection' %}">이전 단계</a></button>
+            <button type="submit" class="next-step">다음 단계</button>
+          </div>
+        </form>
+      </div>
+      
     </div>
 
     <script src="/static/javascript/accountBirth.js"></script>
