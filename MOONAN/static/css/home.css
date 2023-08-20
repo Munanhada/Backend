@@ -30,7 +30,7 @@ button {
 .who_message,
 .today_munan,
 .daily_health {
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
 .munan_message,
@@ -57,54 +57,54 @@ button {
 .title_content {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 6rem;
     /* 원하는 margin-right 값으로 조정 */
 }
 
 .munan_title #today_message {
     color: var(--unnamed, #FF003A);
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     margin: 0;
-    margin-right: 96px;
+    margin-right: 6rem;
     /* p와 button 간격을 주기 위해 추가 */
 }
 
 .munan_title #message_count {
-    width: 55px;
-    height: 34px;
+    width: 3.43rem;
+    height: 2.12rem;
     display: inline-flex;
-    padding: 5px 16px;
+    padding: 0.3125rem 1rem;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-radius: 20px;
+    gap: 0.625rm;
+    border-radius: 1.25rem;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     border: none;
 }
 
 /*real 메세지 박스*/
 .munan_contents {
-    height: 132px;
+    height: 8.25rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
-    margin-top: 20px;
+    margin-top: 1.25rem;
     display: flex;
-    padding-top: 20px;
+    padding-top: 1.25rem;
     align-items: flex-start;
 }
 
 .user-icon {
-    margin-left: 20px;
+    margin-left: 1.25rem;
     align-self: flex-start;
 }
 
 .user-text {
-    margin-left: 20px;
+    margin-left: 0.88rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -117,7 +117,7 @@ button {
 
 .user-info #user-name {
     color: var(--unnamed, #17181A);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
 }
@@ -126,38 +126,38 @@ button {
     color: var(--1, #959AA4);
     font-size: 1rem;
     font-weight: 400;
-    margin-left: 14px;
-    margin-top: 10px;
+    margin-left: 0.88rem;
+    margin-top: 1.88rem;
     margin-bottom: 0;
     margin-right: 0;
 }
 
 .user-message {
     color: var(--unnamed, #17181A);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 400;
-    line-height: 30px;
-    margin-top: 8px;
-    width: 208px;
-    max-height: 60px;
+    line-height: 1.875rem;
+    margin-top: 0.5rem;
+    width: 13rem;
+    max-height: 3.75rem;
     overflow: hidden;
 }
 
 .call-button {
     margin-left: auto;
     align-self: flex-end;
-    margin-right: 20px;
-    margin-bottom: 52px;
+    margin-right: 1.25rem;
+    margin-bottom: 3.25rem;
 }
 
 .call-button button {
-    width: 8vw;
-    height: 60px;
+    width: 6.25rem;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 40px;
+    border-radius: 2.5rem;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     white-space: nowrap;
     /* 텍스트가 줄 바꿈되지 않도록 설정 */
@@ -172,13 +172,13 @@ button {
 /*누구에게 문안인사를 해볼까요?*/
 .who_message #today_message {
     color: var(--unnamed, #FF003A);
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     margin: 0;
 }
 
 .user-account-icon {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -207,7 +207,7 @@ button {
     border: none;
     padding: 0;
     position: relative;
-    height: 100px;
+    height: 6.25rem;
 }
 
 .account button img {
@@ -216,25 +216,25 @@ button {
 }
 
 .account button.selected {
-    border: 2px solid red;
-    border-radius: 20px;
+    border: 0.2rem solid red;
+    border-radius: 0.8rem;
 
     width: 100%;
-    height: 100px;
+    height: 6.25rem;
 }
 
 .account p {
     color: var(--unnamed, #17181A);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-top: 8px;
+    margin-top: 0.5rem;
     width: max-content;
     margin: 0;
 }
 
 .account #plus {
     color: var(--1, #959AA4);
-    margin-top: 8px;
+    margin-top: 0.5rem;
 }
 
 .overlap-button {
@@ -244,9 +244,9 @@ button {
 
 .user-account-icon p {
     color: var(--unnamed, #17181A);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-top: 8px;
+    margin-top: 0.5rem;
 }
 
 #overlap-button img:nth-child(2) {
@@ -259,7 +259,7 @@ button {
 
 /*클릭 한번으로 보내는 오늘의 문안인사*/
 .click-munan {
-    margin-top: 31px;
+    margin-top: 1.94rem;
     display: flex;
     flex-direction: column;
 }
@@ -273,14 +273,14 @@ button {
 
 .munan-list {
     width: 100%;
-    height: 132px;
+    height: 8.25rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .munan-list-text {
@@ -289,8 +289,8 @@ button {
     color: var(--unnamed, #17181A);
     font-size: 1.5rem;
     font-weight: 400;
-    line-height: 34px;
-    margin-right: 138px;
+    line-height: 2.125rem;
+    margin-right: 2.5rem;
     width: calc(100% - 168px);
     /* 수정된 부분: 텍스트의 최대 너비 설정 */
     max-height: 68px;
@@ -302,8 +302,8 @@ button {
 }
 
 .munanDropdownImg {
-    width: 14.82px;
-    height: 24px;
+    width: 0.92rem;
+    height: 1.5rem;
     flex-shrink: 0;
     fill: var(--unnamed, #17181A);
     position: absolute;
@@ -324,13 +324,13 @@ button {
 
 .munan-menu-list-detail {
     list-style: none;
-    margin: 25px 0;
+    margin: 2.5rem 0;
 }
 
 .munan-menu-list-detail li {
-    margin-top: 40px;
+    margin-top: 2.5rem;
     color: var(--unnamed, #17181A);
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
     transition: color 0.3s;
     cursor: pointer;
@@ -351,8 +351,8 @@ button {
     background: var(--2, #E3E9F6);
     border: none;
     width: 80%;
-    height: 34px;
-    font-size: 24px;
+    height: 2.12rem;
+    font-size: 1.5rem;
 }
 
 .registerImg {
@@ -361,9 +361,9 @@ button {
 
 #customContentInput::placeholder {
     color: var(--1, #959AA4);
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
-    line-height: 34px;
+    line-height: 2.125rem;
 }
 
 /*전송하기 버튼*/
@@ -374,11 +374,11 @@ button {
 }
 
 .sand-box button {
-    margin-top: 60px;
-    width: 25vw;
-    height: 60px;
+    margin-top: 3.75rem;
+    width: 26.25rem;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
     font-size: 1.5rem;
@@ -388,10 +388,10 @@ button {
 
 /* pop up */
 .sendPopUp {
-    width: 80%;
-    height: 200px;
+    width: 26.25rem;
+    height: 15rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 3.125rem;
     background: var(--unnamed, #F2F6FF);
     display: flex;
     flex-direction: column;
@@ -407,10 +407,10 @@ button {
     color: var(--unnamed, #17181A);
     text-align: center;
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 40px;
+    line-height: 2.5rem;
     /* 166.667% */
     position: absolute;
     top: 5%;
@@ -418,10 +418,10 @@ button {
 
 .sendConfirmBox {
     display: inline-flex;
-    padding: 4px 40px;
+    padding: 0.25rem 2.5rem;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0.625rem;
     position: absolute;
     bottom: 0;
 }
@@ -430,24 +430,26 @@ button {
     color: var(--unnamed, #F2F6FF);
     text-align: center;
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 40px;
+    line-height: 2.5rem;
     /* 200% */
     border: none;
     background: none;
     cursor: pointer;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     background: var(--unnamed, #FF003A);
+    width: 7.15rem;
+    height: 3rem;
 }
 
 /*잠깐! 오늘 하루, 무난했나요?*/
 .today_munan {
     width: 100%;
-    height: 377px;
+    height: 23rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -458,25 +460,25 @@ button {
 
 .today-question {
     color: var(--unnamed, #FF003A);
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .check-myday {
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .check-myday button {
     background: none;
     border: none;
-    width: 25vw;
-    height: 60px;
+    width: 26.25rem;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--unnamed, #FF003A);
     color: var(--unnamed, #F2F6FF);
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
     font-weight: 700;
 }
@@ -485,9 +487,9 @@ button {
 .feel-icon {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1rem;
     /* 이미지 사이의 간격 조정 */
-    margin-top: 20px;
+    margin-top: 2rem;
     overflow-x: auto;
     /* 가로 스크롤 생성 */
     white-space: nowrap;
@@ -505,23 +507,23 @@ button {
 
 /*간단하게 표시하는 나의 건강한 일상*/
 .daily_health {
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
 .daily_health p {
     color: var(--unnamed, #FF003A);
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     margin: 0;
 }
 
 .eat-drug-box {
     width: 100%;
-    height: 80px;
+    height: 5rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .eat-drug-contents {
@@ -537,8 +539,8 @@ button {
 }
 
 .eat-info-box {
-    margin-top: 16px;
-    margin-left: 19px;
+    margin-top: 1.25rem;
+    margin-left: 1.25rem;
     flex-grow: 1;
     white-space: nowrap;
     /* 텍스트 줄 바꿈 방지 */
@@ -547,15 +549,15 @@ button {
 }
 
 .eat-drug-btn {
-    height: 50px;
+    height: 3.125rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--1, #959AA4);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15px;
-    margin-right: 5%;
+    margin-top: 0.94rem;
+    margin-right: 1.25rem;
 }
 
 .eat-drug-btn #text-not-yet {
@@ -565,17 +567,17 @@ button {
 }
 
 .user-drug-list {
-    margin-top: 30px;
+    margin-top: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .user-drug-list button {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
 
     white-space: nowrap;
@@ -583,23 +585,23 @@ button {
 }
 
 .user-drug-list #detail-drug {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
-    margin: 5px;
+    margin: 1.25rem;
     /* 버튼 주위 여백 */
 }
 
 /*운동하기*/
 .excer-box {
     width: 100%;
-    height: 80px;
+    height: 5rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .excer-contents {
@@ -615,8 +617,8 @@ button {
 }
 
 .excer-info-box {
-    margin-top: 16px;
-    margin-left: 19px;
+    margin-top: 1.25rem;
+    margin-left: 1.25rem;
     flex-grow: 1;
     white-space: nowrap;
     /* 텍스트 줄 바꿈 방지 */
@@ -625,15 +627,15 @@ button {
 }
 
 .excer-btn {
-    height: 50px;
+    height: 3.125rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--1, #959AA4);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15px;
-    margin-right: 5%;
+    margin-top: 0.94rem;
+    margin-right: 1.25rem;
 }
 
 .excer-btn #text-not-yet {
@@ -643,17 +645,17 @@ button {
 }
 
 .user-excer-list {
-    margin-top: 30px;
+    margin-top: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .user-excer-list button {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
 
     white-space: nowrap;
@@ -661,24 +663,13 @@ button {
 }
 
 .user-excer-list #detail-excer {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--2, #E3E9F6);
     color: var(--unnamed, #17181A);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
-    margin: 5px;
+    margin: 1.25rem;
     /* 버튼 주위 여백 */
-}
-
-.user-excer-list button {
-    border-radius: 30px;
-    background: var(--2, #E3E9F6);
-    color: var(--unnamed, #17181A);
-    font-size: 20px;
-    font-weight: 400;
-
-    white-space: nowrap;
-    /* 줄 바꿈 방지 */
 }
 
 a {

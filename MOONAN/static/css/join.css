@@ -21,7 +21,7 @@ body {
 .mainFrame h1 {
     color: var(--unnamed, #FF003A);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -36,7 +36,7 @@ header {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 1.25rem;
     position: relative;
 }
 
@@ -49,7 +49,7 @@ header {
     color: var(--unnamed, #17181A);
     /* 메인 제목 볼드 16 */
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -61,12 +61,12 @@ header {
 .checkTextPasswordRepeat {
     display: inline-block;
     margin: 0;
-    margin-left: 8px;
+    margin-left: 0.5rem;
     position: absolute;
-    bottom: 5px;
+    bottom: 0.25rem;
     color: var(--1, #959AA4);
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -74,25 +74,25 @@ header {
 
 .join input {
     width: 100%;
-    height: 60px;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     background: var(--unnamed, #F2F6FF);
     border: none;
     margin: 0;
-    margin-top: 4px;
-    margin-bottom: 7px;
-    font-size: 20px;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
 }
 
 .join input::placeholder {
     color: var(--1, #959AA4);
-    font-size: 15px;
+    font-size: 1.25rem;
 }
 
 .join .checkImg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
     /* margin-top: 7px; */
 }
@@ -106,64 +106,64 @@ header {
     position: absolute;
     right: 5%;
     bottom: 45%;
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
 }
 
 .buttonBox {
-    margin-top: 150px;
+    margin-top: 11.06rem;
     text-align: center;
 }
 
 .joinButton {
     width: 30vw;
-    height: 60px;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--unnamed, #FF003A);
     border: none;
     color: var(--unnamed, #F2F6FF);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     cursor: pointer;
 }
 
-@media (max-width: 450px) {
+/* @media (max-width: 450px) {
 
     .join .checkTextId,
     .checkTextPassword,
     .checkTextPasswordRepeat {
-        font-size: 13px;
+        font-size: 0.54rem;
     }
 
     .joinButton {
-        font-size: 16px;
+        font-size: 0.67rem;
     }
 }
 
 @media (max-width: 450px) {
     .join .mainText {
-        font-size: 13px;
+        font-size: 0.54rem;
     }
-}
+} */
 
 .forAlreadyUser {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-top: 40px;
+    gap: 0.5rem;
+    margin-top: 1.67rem;
 }
 
 .forAlreadyUser .question {
     color: var(--1, #959AA4);
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -172,7 +172,7 @@ header {
 .forAlreadyUser .goToLogin {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

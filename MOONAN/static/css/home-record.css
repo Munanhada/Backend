@@ -9,20 +9,20 @@
 .recordText {
     color: var(--unnamed, #FF003A);
     font-family: Pretendard;
-    font-size: 36px;
+    font-size: 2.25rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 50px;
+    line-height: 3.125rem;
     /* 138.889% */
 }
 
 .recordSubText {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 34px;
+    line-height: 2.125rem;
     padding-top: 1vh;
 }
 
@@ -41,25 +41,25 @@
 .reasonText {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 32px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 50px;
+    line-height: 3.125rem;
     /* 156.25% */
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
 .selectFaceImgBox {
     display: flex;
     gap: 3%;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .Face {
     width: 8vw;
-    height: 220px;
+    height: 13.75rem;
     flex-shrink: 0;
-    border-radius: 100px;
+    border-radius: 6.25rem;
     background: var(--unnamed, #F2F6FF);
     display: flex;
     flex-direction: column;
@@ -68,29 +68,29 @@
     cursor: pointer;
 }
 
-@media (max-width: 1100px) {
+/* @media (max-width: 1100px) {
     .Face>p {
         font-size: 20px;
     }
-}
+} */
 
 .Face>img {
-    width: 68.688px;
-    height: 94.199px;
+    width: 4.293rem;
+    height: 5.88rem;
     flex-shrink: 0;
 }
 
 .Face>p {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
 
 .emotionBox {
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
 .emotionTextBox {
@@ -140,20 +140,20 @@
 
 /* 입력 완료 버튼 */
 .inputCompletedBox {
-    margin-top: 80px;
+    margin-top: 6.25rem;
     text-align: center;
 }
 
 .inputCompletedButton {
-    width: 30vw;
-    height: 60px;
+    width: 26.25rem;
+    height: 3.75rem;
     flex-shrink: 0;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: var(--unnamed, #FF003A);
     border: none;
     color: var(--unnamed, #F2F6FF);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -165,27 +165,27 @@
 .selectReasonBox {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 1.25rem;
 }
 
 /* 드롭다운 */
 .reasonOptionBox {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 1rem;
 }
 
 .reasonMenuImg {
-    width: 6vw;
-    height: 80px;
+    width: 5.25rem;
+    height: 5rem;
     flex-shrink: 0;
 }
 
 .reasonMenuBox {
-    width: 85%;
-    height: 80px;
+    width: 80%;
+    height: 5rem;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: var(--unnamed, #F2F6FF);
     display: flex;
     align-items: center;
@@ -195,7 +195,7 @@
 .reasonMenuText {
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -204,8 +204,8 @@
 }
 
 .reasonDropdownImg {
-    width: 14.82px;
-    height: 24px;
+    width: 0.92rem;
+    height: 1.5rem;
     flex-shrink: 0;
     fill: var(--unnamed, #17181A);
     position: absolute;
@@ -217,7 +217,7 @@
     width: 100%;
     position: absolute;
     top: 100%;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: var(--2, #E3E9F6);
     border-top: 1px solid var(--unnamed, #F2F6FF);
     z-index: 1;
@@ -226,14 +226,14 @@
 
 .reasonMenuOption {
     list-style: none;
-    margin: 25px 0;
+    margin: 1.56rem 0;
 }
 
 .reasonMenuOption li {
-    margin-top: 40px;
+    margin-top: 1.6rem;
     color: var(--unnamed, #17181A);
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -242,17 +242,17 @@
 
 #directText {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: var(--2, #E3E9F6);
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: 1.5rem;
     position: relative;
 }
 
 #directText::placeholder {
     color: var(--1, #959AA4);
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -264,9 +264,9 @@
 /* 팝업 박스 */
 .savePopUp {
     width: 80%;
-    height: 200px;
+    height: 15rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--unnamed, #F2F6FF);
     display: flex;
     flex-direction: column;
@@ -282,19 +282,19 @@
     color: var(--unnamed, #17181A);
     text-align: center;
     font-family: Pretendard;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 40px;
+    line-height: 2.5rem;
     /* 166.667% */
 }
 
 .saveConfirmBox {
-    padding: 4px 40px;
+    padding: 0.25rem 2.5rem;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-radius: 50px;
+    gap: 0.625rem;
+    border-radius: 3.125rem;
     background: var(--unnamed, #FF003A);
     cursor: pointer;
 }
@@ -303,10 +303,10 @@
     color: var(--unnamed, #F2F6FF);
     text-align: center;
     font-family: Pretendard;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 40px;
+    line-height: 2.5rem;
     /* 200% */
     border: none;
     background: none;
